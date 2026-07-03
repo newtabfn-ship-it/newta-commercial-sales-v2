@@ -74,27 +74,26 @@ export default async function EquipmentDetails({
 
       <Navbar />
 
-      {/* Hero */}
-      <section className="bg-[#0B2F24] text-white pt-28 pb-12">
-        <div className="max-w-7xl mx-auto px-6">
+     {/* Hero */}
+<section className="bg-[#0B2F24] text-white pt-40 pb-16">
+  <div className="max-w-7xl mx-auto px-6">
 
-          <span className="inline-block rounded-full bg-[#D4AF37] px-5 py-2 font-bold text-[#0B2F24]">
-            {item.status}
-          </span>
+    <span className="inline-block rounded-full bg-[#D4AF37] px-5 py-2 font-bold text-[#0B2F24]">
+      {item.status}
+    </span>
 
-          <h1 className="mt-6 text-5xl md:text-6xl font-bold">
-            {item.title}
-          </h1>
+    <h1 className="mt-8 text-4xl md:text-5xl font-extrabold leading-tight">
+      {item.title}
+    </h1>
 
-         <p className="mt-4 max-w-4xl text-xl text-gray-300">
-  Commercial vehicles, trucks, bakkies, machinery, plant,
-  industrial equipment, spares and business assets available
-  through NEWTA Commercial Sales across South Africa.
-</p>
+    <p className="mt-6 max-w-4xl text-lg md:text-xl text-gray-300 leading-8">
+      Commercial vehicles, trucks, bakkies, machinery, plant,
+      industrial equipment, spares and business assets available
+      through NEWTA Commercial Sales across South Africa.
+    </p>
 
-        </div>
-      </section>
-
+  </div>
+</section>
       {/* Main Content */}
       <section className="max-w-7xl mx-auto px-6 py-16">
 
