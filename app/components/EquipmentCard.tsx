@@ -24,17 +24,23 @@ export default function EquipmentCard({
 
       <div className="relative">
 
+ <div
+  className={`absolute top-4 right-4 rounded-full px-4 py-1 text-xs font-bold uppercase text-white shadow-lg ${
+    status === "Available"
+      ? "bg-green-600"
+      : "bg-red-600"
+  }`}
+>
+  {status}
+</div>
+
         <img
           src={image}
           alt={title}
           className="h-64 w-full object-cover"
         />
 
-        <div className="absolute left-4 top-4 rounded-full bg-[#D4AF37] px-4 py-1 text-sm font-bold text-white">
-          {status}
-        </div>
-
-      </div>
+              </div>
 
       <div className="p-6">
 

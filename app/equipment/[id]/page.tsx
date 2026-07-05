@@ -75,21 +75,27 @@ export default async function EquipmentDetails({
       <Navbar />
 
      {/* Hero */}
-<section className="bg-[#0B2F24] text-white pt-40 pb-16">
+<section className="bg-[#0B2F24] text-white pt-52 pb-20">
   <div className="max-w-7xl mx-auto px-6">
 
-    <span className="inline-block rounded-full bg-[#D4AF37] px-5 py-2 font-bold text-[#0B2F24]">
-      {item.status}
+    <span className="inline-block rounded-full bg-[#D4AF37] px-5 py-2 text-sm font-bold uppercase tracking-wider text-[#0B2F24]">
+      Private Treaty Sales
     </span>
 
+    <span className="inline-flex items-center rounded-full bg-[#D4AF37] px-5 py-2 text-sm font-bold uppercase tracking-wider text-[#0B2F24] shadow-lg">
+  AVAILABLE
+</span>
+
     <h1 className="mt-8 text-4xl md:text-5xl font-extrabold leading-tight">
-      {item.title}
+      Commercial Vehicles, Machinery & Equipment for Sale
     </h1>
 
-    <p className="mt-6 max-w-4xl text-lg md:text-xl text-gray-300 leading-8">
-      Commercial vehicles, trucks, bakkies, machinery, plant,
-      industrial equipment, spares and business assets available
-      through NEWTA Commercial Sales across South Africa.
+    <p className="mt-6 max-w-4xl text-lg md:text-xl leading-8 text-gray-300">
+      Browse commercial vehicles, trucks, bakkies, trailers,
+      construction machinery, agricultural equipment, plant,
+      industrial assets, mining equipment, spares and more
+      available through NEWTA Commercial Sales.
+      Private Treaty Sales across South Africa.
     </p>
 
   </div>

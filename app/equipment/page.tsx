@@ -33,19 +33,25 @@ export default function EquipmentPage() {
     <>
       <Navbar />
 
-      <section className="bg-[#0B2F24] text-white py-20">
+      <section className="bg-[#0B2F24] text-white pt-44 pb-20">
         <div className="max-w-7xl mx-auto px-6">
-         <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">
-  Commercial Vehicles, Machinery & Equipment for Sale
-</h1>
 
-<p className="mt-5 max-w-4xl text-lg md:text-xl leading-8 text-gray-200">
-  Browse commercial vehicles, trucks, bakkies, trailers,
-  construction machinery, agricultural equipment, plant,
-  industrial assets, mining equipment, spares and more
-  available through NEWTA Commercial Sales.
-  Private Treaty Sales across South Africa.
-</p>
+          <span className="inline-block rounded-full bg-[#D4AF37] px-5 py-2 text-sm font-bold uppercase tracking-wider text-[#0B2F24]">
+            Private Treaty Sales
+          </span>
+
+          <h1 className="mt-8 text-4xl md:text-5xl font-extrabold leading-tight">
+            Commercial Vehicles, Machinery & Equipment for Sale
+          </h1>
+
+          <p className="mt-6 max-w-4xl text-lg md:text-xl leading-8 text-gray-300">
+            Browse commercial vehicles, trucks, bakkies, trailers,
+            construction machinery, agricultural equipment, plant,
+            industrial assets, mining equipment, spares and more
+            available through NEWTA Commercial Sales.
+            Private Treaty Sales across South Africa.
+          </p>
+
         </div>
       </section>
 
