@@ -26,14 +26,14 @@ export default function EquipmentCard({
 
  <div
   className={`absolute top-4 right-4 rounded-full px-4 py-1 text-xs font-bold uppercase text-white shadow-lg ${
-    status === "Available"
+    status.toLowerCase() === "available"
       ? "bg-green-600"
       : "bg-red-600"
   }`}
 >
-  {status}
+  {status.toLowerCase() === "available" ? "AVAILABLE" : "SOLD"}
 </div>
-
+ 
         <img
           src={image}
           alt={title}
