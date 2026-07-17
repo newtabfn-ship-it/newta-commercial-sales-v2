@@ -10,7 +10,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/equipment",
   },
-
   openGraph: {
     title:
       "Commercial Vehicles & Machinery for Sale | NEWTA Commercial Sales",
@@ -26,16 +25,33 @@ export const metadata: Metadata = {
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import EquipmentCard from "../components/EquipmentCard";
-import { equipment } from "../data/equipment";
 
-export default function EquipmentPage() {
+import connectDB from "@/lib/mongodb";
+import Equipment from "@/models/Equipment";
+
+import EnquiryButton from "../../components/EnquiryButton";
+
+export default async function EquipmentPage() {
+  await connectDB();
+
+  console.log("Connected to MongoDB");
+
+  const count = await Equipment.countDocuments();
+  console.log("Equipment count:", count);
+
+  const equipment = await Equipment.find()
+    .sort({ createdAt: -1 })
+    .lean();
+    console.log("Equipment loaded:", equipment.length);
+
+  console.log("Equipment loaded");
+
   return (
     <>
       <Navbar />
 
       <section className="bg-[#0B2F24] text-white pt-44 pb-20">
         <div className="max-w-7xl mx-auto px-6">
-
           <span className="inline-block rounded-full bg-[#D4AF37] px-5 py-2 text-sm font-bold uppercase tracking-wider text-[#0B2F24]">
             Private Treaty Sales
           </span>
@@ -51,50 +67,50 @@ export default function EquipmentPage() {
             available through NEWTA Commercial Sales.
             Private Treaty Sales across South Africa.
           </p>
-
         </div>
       </section>
 
       <section className="max-w-7xl mx-auto px-6 py-20">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-
-          {equipment.map((item) => (
+          {equipment.map((item: any) => (
             <EquipmentCard
-              key={item.id}
-              id={item.id}
-              image={item.images[0]}
+              key={item._id.toString()}
+              id={item._id.toString()}
+              image={
+                item.images?.length
+                  ? item.images.find((img: any) => img.cover)?.url ??
+                    item.images[0].url
+                  : "/placeholder-equipment.jpg"
+              }
               title={item.title}
               year={item.year}
               status={item.status}
-              price={item.price}
-              hours={item.hours}
-              location={item.location}
+              price={`${item.currency ?? "ZAR"} ${item.price}`}
+              hours={item.kmHours}
+              location={item.province}
             />
           ))}
-
         </div>
       </section>
-      <section className="mt-20 rounded-2xl bg-gray-50 p-10">
 
-<h2 className="text-3xl font-bold text-[#0B2F24]">
-Commercial Assets Available Across South Africa
-</h2>
+      <section className="mt-20 rounded-2xl bg-gray-50 p-10 max-w-7xl mx-auto">
+        <h2 className="text-3xl font-bold text-[#0B2F24]">
+          Commercial Assets Available Across South Africa
+        </h2>
 
-<p className="mt-5 leading-8 text-gray-700">
-
-NEWTA Commercial Sales specialises in the sale of commercial
-vehicles, trucks, bakkies, trailers, construction equipment,
-earthmoving machinery, agricultural machinery, industrial
-equipment, mining equipment, generators, forklifts,
-attachments, spares and business assets.
-
-Whether you are expanding your fleet or looking for quality
-used equipment, NEWTA provides transparent Private Treaty
-Sales with nationwide delivery throughout South Africa.
-
-</p>
-
-</section>
+        <p className="mt-5 leading-8 text-gray-700">
+          NEWTA Commercial Sales specialises in the sale of commercial
+          vehicles, trucks, bakkies, trailers, construction equipment,
+          earthmoving machinery, agricultural machinery, industrial
+          equipment, mining equipment, generators, forklifts,
+          attachments, spares and business assets.
+          <br />
+          <br />
+          Whether you are expanding your fleet or looking for quality
+          used equipment, NEWTA provides transparent Private Treaty
+          Sales with nationwide delivery throughout South Africa.
+        </p>
+      </section>
 
       <Footer />
     </>

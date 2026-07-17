@@ -3,8 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
+type GalleryImage = {
+  url: string;
+  publicId: string;
+  cover?: boolean;
+};
+
 type EquipmentGalleryProps = {
-  images: string[];
+  images: GalleryImage[];
   title: string;
 };
 
@@ -14,8 +20,9 @@ export default function EquipmentGallery({
 }: EquipmentGalleryProps) {
   const [selected, setSelected] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
-
-  const filmstripRef = useRef<HTMLDivElement>(null);
+  
+const filmstripRef = useRef<HTMLDivElement>(null);
+const fullscreenFilmstripRef = useRef<HTMLDivElement>(null);
 
   const previousImage = () =>
     setSelected((prev) => (prev - 1 + images.length) % images.length);
@@ -36,6 +43,14 @@ export default function EquipmentGallery({
       behavior: "smooth",
     });
   };
+
+  useEffect(() => {
+  const coverIndex = images.findIndex((image) => image.cover);
+
+  if (coverIndex >= 0) {
+    setSelected(coverIndex);
+  }
+}, [images]);
 
   useEffect(() => {
     if (!filmstripRef.current) return;
@@ -86,7 +101,7 @@ export default function EquipmentGallery({
   }}
 >
        <Image
-  src={images[selected]}
+  src={images[selected]?.url || "/placeholder-equipment.jpg"}
   alt={title}
   width={1600}
   height={1000}
@@ -143,7 +158,7 @@ export default function EquipmentGallery({
             }`}
           >
             <Image
-              src={image}
+              src={image.url}
               alt={`${title} ${index + 1}`}
               width={170}
               height={110}
@@ -175,15 +190,15 @@ export default function EquipmentGallery({
 
 </div>
 
-     {/* ================= LIGHTBOX ================= */}
+    {/* ================= LIGHTBOX ================= */}
 
 {isOpen && (
-  <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-sm">
+  <div className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md animate-in fade-in duration-300">
 
     {/* Close */}
     <button
       onClick={() => setIsOpen(false)}
-      className="absolute right-8 top-8 rounded-full bg-white/10 p-3 text-3xl text-white backdrop-blur-md transition-all duration-300 hover:bg-[#D4AF37] hover:text-[#0B2F24]"
+      className="absolute right-8 top-8 z-50 rounded-full bg-white/10 p-3 text-3xl text-white backdrop-blur-md transition hover:bg-[#D4AF37] hover:text-[#0B2F24]"
     >
       ✕
     </button>
@@ -191,51 +206,86 @@ export default function EquipmentGallery({
     {/* Previous */}
     <button
       onClick={previousImage}
-      className="absolute left-8 rounded-full bg-white/10 p-4 text-5xl text-white backdrop-blur-md transition-all duration-300 hover:bg-[#D4AF37] hover:text-[#0B2F24]"
+      className="absolute left-6 top-1/2 z-50 -translate-y-1/2 rounded-full bg-white/10 p-5 text-5xl text-white backdrop-blur-md transition hover:bg-[#D4AF37] hover:text-[#0B2F24]"
     >
       ‹
     </button>
 
-    {/* Image Panel */}
-    <div className="flex flex-col items-center">
-
-      <div className="overflow-hidden rounded-2xl border-4 border-[#D4AF37] bg-[#111] shadow-2xl">
-        <Image
-          src={images[selected]}
-          alt={title}
-          width={1800}
-          height={1200}
-          className="max-h-[78vh] w-auto max-w-[88vw] object-contain"
-        />
-      </div>
-
-      {/* Title */}
-      <h3 className="mt-5 text-xl font-bold text-white">
-        {title}
-      </h3>
-
-      {/* Counter */}
-      <div className="mt-3 rounded-full bg-white/10 px-5 py-2 text-sm text-white backdrop-blur-md">
-        Image {selected + 1} of {images.length}
-      </div>
-
-      {/* Keyboard Help */}
-      <div className="mt-4 text-sm text-gray-400">
-        ← Previous &nbsp;&nbsp; • &nbsp;&nbsp; → Next &nbsp;&nbsp; • &nbsp;&nbsp; Esc Close
-      </div>
-
-    </div>
-
     {/* Next */}
     <button
       onClick={nextImage}
-      className="absolute right-8 rounded-full bg-white/10 p-4 text-5xl text-white backdrop-blur-md transition-all duration-300 hover:bg-[#D4AF37] hover:text-[#0B2F24]"
+      className="absolute right-6 top-1/2 z-50 -translate-y-1/2 rounded-full bg-white/10 p-5 text-5xl text-white backdrop-blur-md transition hover:bg-[#D4AF37] hover:text-[#0B2F24]"
     >
       ›
     </button>
 
+    {/* Centered Content */}
+    <div className="flex min-h-screen flex-col items-center justify-center px-8 py-10">
+
+      {/* Image */}
+      <div
+        className="overflow-hidden rounded-2xl border-4 border-[#D4AF37] bg-[#111] shadow-2xl"
+        style={{
+          boxShadow:
+            "0 0 40px rgba(212,175,55,.25), 0 20px 60px rgba(0,0,0,.5)",
+        }}
+      >
+        <Image
+          src={images[selected]?.url || "/placeholder-equipment.jpg"}
+          alt={title}
+          width={1800}
+          height={1200}
+          priority
+          className="max-h-[70vh] max-w-[88vw] w-auto object-contain"
+        />
+      </div>
+
+      {/* Title */}
+      <h2 className="mt-6 text-center text-2xl md:text-4xl font-bold text-white">
+        {title}
+      </h2>
+
+      {/* Counter */}
+      <div className="mt-3 rounded-full bg-white/10 px-6 py-2 text-white backdrop-blur-md">
+        Image {selected + 1} of {images.length}
+      </div>
+
+      {/* Keyboard Help */}
+      <p className="mt-4 text-sm text-gray-400">
+        ← Previous &nbsp; • &nbsp; → Next &nbsp; • &nbsp; Esc Close
+      </p>
+
+      {/* Thumbnails */}
+      <div
+        ref={fullscreenFilmstripRef}
+        className="mt-8 flex max-w-[92vw] gap-3 overflow-x-auto pb-2 scrollbar-hide"
+      >
+        {images.map((image, index) => (
+          <button
+            key={image.publicId || `${index}-${image.url}`}
+            onClick={() => setSelected(index)}
+            className={`overflow-hidden rounded-xl border-2 transition ${
+              selected === index
+                ? "border-[#D4AF37]"
+                : "border-transparent opacity-70 hover:opacity-100"
+            }`}
+          >
+            <Image
+              src={image.url}
+              alt={`${title} ${index + 1}`}
+              width={110}
+              height={75}
+              className="h-16 w-24 object-cover"
+            />
+          </button>
+        ))}
+      </div>
+
+    </div>
+
   </div>
- )}
+)}
+
     </>
   );
 }

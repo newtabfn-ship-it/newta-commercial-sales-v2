@@ -7,10 +7,12 @@ import EquipmentSummary from "../../components/EquipmentSummary";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
-import { equipment } from "../../data/equipment";
+import connectDB from "@/lib/mongodb";
+import Equipment from "@/models/Equipment";
 
 import { generateEquipmentMetadata } from "./metadata";
 import { generateStructuredData } from "./structuredData";
+import EnquiryButton from "../../components/EnquiryButton";
 
 export async function generateMetadata({
   params,
@@ -31,8 +33,9 @@ export default async function EquipmentDetails({
 }) {
   const { id } = await params;
 
-  const item = equipment.find((eq) => eq.id === id);
+ await connectDB();
 
+const item = await Equipment.findById(id).lean();
   if (!item) {
     return (
       <>
@@ -82,13 +85,22 @@ export default async function EquipmentDetails({
       Private Treaty Sales
     </span>
 
-    <span className="inline-flex items-center rounded-full bg-[#D4AF37] px-5 py-2 text-sm font-bold uppercase tracking-wider text-[#0B2F24] shadow-lg">
-  AVAILABLE
+    <span
+  className={`inline-flex items-center rounded-full px-5 py-2 text-sm font-bold uppercase tracking-wider shadow-lg ${
+    item.status === "Available"
+      ? "bg-green-600 text-white"
+      : "bg-red-600 text-white"
+  }`}
+>
+  {item.status}
 </span>
 
     <h1 className="mt-8 text-4xl md:text-5xl font-extrabold leading-tight">
-      Commercial Vehicles, Machinery & Equipment for Sale
-    </h1>
+  {item.title}
+</h1>
+<p className="mt-4 text-xl text-gray-300">
+  {item.referenceNumber}
+</p>
 
     <p className="mt-6 max-w-4xl text-lg md:text-xl leading-8 text-gray-300">
       Browse commercial vehicles, trucks, bakkies, trailers,
@@ -109,9 +121,12 @@ export default async function EquipmentDetails({
           <div className="lg:col-span-2">
 
             <EquipmentGallery
-              images={item.images}
-              title={item.title}
-            />
+  images={item.images.map((image: any) => ({
+    url: image.url,
+    cover: image.cover,
+  }))}
+  title={item.title}
+/>
 
             <EquipmentDescription
               description={item.description}
@@ -121,33 +136,50 @@ export default async function EquipmentDetails({
               manufacturer={item.manufacturer}
               model={item.model}
               year={item.year}
-              hours={item.hours}
-              engine={item.engine}
-              power={item.power}
-              operatingWeight={item.operatingWeight}
-              bucket={item.bucket}
-              fuel={item.fuel}
-              drive={item.drive}
+              hours={item.kmHours}
+              engine={item.specifications?.engine}
+              power=""
+              operatingWeight=""
+              bucket={item.specifications?.capacityBucket}
+              fuel={item.specifications?.fuelType}
+              drive={item.specifications?.transmission}
               serialNumber={item.serialNumber}
-            />
+/>
 
           </div>
 
-          {/* RIGHT COLUMN */}
+                  {/* RIGHT COLUMN */}
           <div>
 
             <EquipmentSummary
+              equipmentId={item._id.toString()}
               status={item.status}
-              price={item.price}
-              hours={item.hours}
+              price={`${item.currency} ${item.price}`}
+              hours={item.kmHours}
               year={item.year}
               manufacturer={item.manufacturer}
-              location={item.location}
+              location={item.province}
             />
 
-          </div>
+            <div className="mt-8 rounded-2xl border bg-[#FAF8F2] p-6 shadow">
+              <h3 className="text-2xl font-bold text-[#0B2F24]">
+                Interested in this asset?
+              </h3>
 
-        </div>
+              <p className="mt-3 text-gray-600">
+                Contact NEWTA Commercial Sales for pricing,
+                availability and further information.
+              </p>
+
+              <EnquiryButton
+                equipmentId={item._id.toString()}
+                equipmentTitle={item.title}
+              />
+            </div>
+
+          </div> {/* End RIGHT COLUMN */}
+
+        </div> {/* End GRID */}
 
       </section>
 

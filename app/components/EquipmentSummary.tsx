@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 type EquipmentSummaryProps = {
+  equipmentId: string;
   status: string;
   price: string;
   hours: string;
@@ -10,6 +11,7 @@ type EquipmentSummaryProps = {
 };
 
 export default function EquipmentSummary({
+  equipmentId,
   status,
   price,
   hours,
@@ -81,12 +83,12 @@ export default function EquipmentSummary({
       {/* Buttons */}
       <div className="space-y-2 p-5">
 
-        <Link
-          href="/contact"
-          className="block rounded-lg bg-[#D4AF37] py-2.5 text-center text-sm font-bold text-[#0B2F24] transition hover:bg-[#C89B2C]"
-        >
-          Enquire About Equipment
-        </Link>
+      <Link
+  href={`/contact?id=${equipmentId}`}
+  className="block rounded-lg bg-[#D4AF37] py-2.5 text-center text-sm font-bold text-[#0B2F24] transition hover:bg-[#C89B2C]"
+>
+  Enquire About Equipment
+</Link>
 
         <a
           href="tel:+27610156516"

@@ -64,10 +64,7 @@ export default function Navbar() {
                 Equipment
               </Link>
 
-              <Link href="/sold" className="transition-all duration-300 hover:text-[#D4AF37]">
-                Sold
-              </Link>
-
+              
               <Link href="/contact" className="transition-all duration-300 hover:text-[#D4AF37]">
                 Contact
               </Link>
