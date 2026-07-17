@@ -53,34 +53,3 @@ export async function POST(request: Request) {
   }
 }
 
-export async function PUT(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
-  try {
-    await connectDB();
-
-    const { id } = await params;
-
-    const body = await request.json();
-
-    const updated = await Equipment.findByIdAndUpdate(
-      id,
-      body,
-      {
-        new: true,
-        runValidators: true,
-      }
-    );
-
-    return NextResponse.json(updated);
-
-  } catch (error) {
-    console.error(error);
-
-    return NextResponse.json(
-      { error: "Failed to update equipment." },
-      { status: 500 }
-    );
-  }
-}

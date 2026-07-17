@@ -29,8 +29,7 @@ import EquipmentCard from "../components/EquipmentCard";
 import connectDB from "@/lib/mongodb";
 import Equipment from "@/models/Equipment";
 
-import EnquiryButton from "../../components/EnquiryButton";
-
+import EnquiryButton from "@/app/components/EnquiryButton";
 export default async function EquipmentPage() {
   await connectDB();
 
