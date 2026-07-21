@@ -1,24 +1,24 @@
 export default function WhyChoose() {
   const items = [
   {
+    title: "Trusted Experience",
     icon: "🤝",
-    title: "Private Treaty Sales",
-    text: "Professional negotiated sales connecting serious buyers and sellers through a transparent, personalised process.",
+    text: "More than 14 years of professional experience helping buyers and sellers achieve successful commercial asset sales.",
   },
   {
-    icon: "💻",
-    title: "Online Auctions",
-    text: "Professional online auctions providing nationwide exposure, competitive bidding and efficient asset disposal.",
-  },
-  {
+    title: "Nationwide Exposure",
     icon: "🇿🇦",
-    title: "Nationwide Coverage",
-    text: "Based in Bloemfontein and proudly serving buyers and sellers throughout every province in South Africa.",
+    text: "Marketing commercial assets across South Africa to reach serious buyers wherever they are.",
   },
   {
-    icon: "👤",
+    title: "Professional Marketing",
+    icon: "📸",
+    text: "High-quality photography, detailed listings and targeted marketing designed to maximise asset value.",
+  },
+  {
     title: "Personal Service",
-    text: "Deal directly with an experienced commercial sales specialist from your first enquiry through to the successful completion of your sale.",
+    icon: "👤",
+    text: "Work directly with an experienced commercial sales specialist from your first enquiry through to completion.",
   },
 ];
 
@@ -26,13 +26,13 @@ export default function WhyChoose() {
     <section className="py-20 bg-gray-100">
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="text-4xl font-bold text-center mb-4">
-          Why Choose NEWTA?
-        </h2>
+  Why Choose NEWTA?
+</h2>
 
-        <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-          Professional service, trusted experience and quality commercial
-          equipment.
-        </p>
+<p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+  Honest advice, professional marketing and nationwide exposure for commercial
+  vehicles, machinery, plant, industrial assets and business equipment.
+</p>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
          {items.map((item) => (

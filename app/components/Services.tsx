@@ -18,13 +18,7 @@ export default function Services() {
     description:
       "Complete asset disposal solutions for businesses, liquidators, financial institutions and estate sales.",
   },
-  {
-    title: "Fleet Rollovers",
-    icon: "🚛",
-    description:
-      "Helping companies replace commercial vehicles and equipment through structured fleet rollover programmes.",
-  },
-  {
+   {
     title: "Asset Marketing",
     icon: "📸",
     description:
@@ -36,12 +30,7 @@ export default function Services() {
     description:
       "From the first enquiry to the final handover, NEWTA provides personal assistance throughout every transaction.",
   },
-  {
-    title: "Nationwide Coverage",
-    icon: "🇿🇦",
-    description:
-      "Based in Bloemfontein and proudly serving buyers and sellers across every province in South Africa.",
-  },
+  
 ];
   return (
     <section className="bg-[#F8F8F8] py-24">
@@ -61,7 +50,7 @@ export default function Services() {
 </p>
         </div>
 
-        <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-16 grid gap-8 md:grid-cols-2 xl:grid-cols-5">
 
           {services.map((service) => (
             <div
