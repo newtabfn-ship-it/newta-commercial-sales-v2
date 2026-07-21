@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
+import { cloudinaryImage } from "@/lib/cloudinaryImage";
 
 type UploadedImage = {
   url: string;
@@ -102,7 +104,7 @@ export default function ImageUploader({
       <label
         className="
           flex
-          h-56
+          h-64
           w-full
           cursor-pointer
           flex-col
@@ -147,13 +149,17 @@ export default function ImageUploader({
               {images.map((image, index) => (
                 <div
                   key={`${image.publicId}-${index}`}
-                  className="overflow-hidden rounded-xl border bg-white shadow"
+                 className="overflow-hidden rounded-2xl border bg-white shadow-lg transition hover:shadow-xl"
                 >
-                  <img
-                    src={image.url}
-                    alt={`Image ${index + 1}`}
-                    className="h-40 w-full object-cover"
-                  />
+                 <div className="relative h-40 w-full">
+  <Image
+    src={cloudinaryImage(image.url, 500)}
+    alt={`Image ${index + 1}`}
+    fill
+    sizes="(max-width:768px)50vw, 33vw"
+    className="object-cover"
+  />
+</div>
 
                   <div className="space-y-2 p-3">
                     <button
@@ -161,7 +167,7 @@ export default function ImageUploader({
                       onClick={() => setCoverImage(index)}
                       className={`w-full rounded py-2 text-sm font-semibold ${coverImage === index
                           ? "bg-[#D4AF37] text-[#0B2F24]"
-                          : "bg-blue-600 text-white hover:bg-blue-700"
+                          : "bg-[#0B2F24] text-white hover:bg-blue-700"
                         }`}
                     >
                       {coverImage === index
@@ -190,7 +196,7 @@ export default function ImageUploader({
                     <button
                       type="button"
                       onClick={() => removeImage(index)}
-                      className="w-full rounded bg-red-600 py-2 text-white hover:bg-red-700"
+                     className="w-full rounded-xl bg-red-600 py-2 font-semibold text-white transition hover:bg-red-700"
                     >
                       Delete Image
                     </button>

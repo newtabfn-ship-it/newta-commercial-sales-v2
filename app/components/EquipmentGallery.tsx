@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { cloudinaryImage } from "@/lib/cloudinaryImage";
 
 type GalleryImage = {
   url: string;
@@ -101,12 +102,16 @@ const fullscreenFilmstripRef = useRef<HTMLDivElement>(null);
   }}
 >
        <Image
-  src={images[selected]?.url || "/placeholder-equipment.jpg"}
+  src={
+  images[selected]
+    ? cloudinaryImage(images[selected].url, 1600)
+    : "/placeholder-equipment.jpg"
+ }
   alt={title}
   width={1600}
   height={1000}
   priority
-  onClick={() => setIsOpen(true)}
+  sizes="100vw"
   className="w-full h-[300px] lg:h-[340px] object-cover cursor-zoom-in transition-all duration-700 hover:scale-[1.01]"
 />
 <div className="absolute left-6 top-6">
@@ -158,12 +163,13 @@ const fullscreenFilmstripRef = useRef<HTMLDivElement>(null);
             }`}
           >
             <Image
-              src={image.url}
-              alt={`${title} ${index + 1}`}
-              width={170}
-              height={110}
-              className="h-24 w-40 object-cover transition-transform duration-500 hover:scale-105"
-            />
+  src={cloudinaryImage(image.url, 250)}
+  alt={`${title} ${index + 1}`}
+  width={170}
+  height={110}
+  sizes="170px"
+  className="h-24 w-40 object-cover transition-transform duration-500 hover:scale-105"
+/>
           </div>
 
           {/* Gold Active Indicator */}
@@ -231,13 +237,18 @@ const fullscreenFilmstripRef = useRef<HTMLDivElement>(null);
         }}
       >
         <Image
-          src={images[selected]?.url || "/placeholder-equipment.jpg"}
-          alt={title}
-          width={1800}
-          height={1200}
-          priority
-          className="max-h-[70vh] max-w-[88vw] w-auto object-contain"
-        />
+          src={
+  images[selected]
+    ? cloudinaryImage(images[selected].url, 1800)
+    : "/placeholder-equipment.jpg"
+ }
+  alt={title}
+  width={1800}
+  height={1200}
+  priority
+  sizes="90vw"
+  className="max-h-[70vh] max-w-[88vw] w-auto object-contain"
+/>
       </div>
 
       {/* Title */}
@@ -271,12 +282,13 @@ const fullscreenFilmstripRef = useRef<HTMLDivElement>(null);
             }`}
           >
             <Image
-              src={image.url}
-              alt={`${title} ${index + 1}`}
-              width={110}
-              height={75}
-              className="h-16 w-24 object-cover"
-            />
+  src={cloudinaryImage(image.url, 250)}
+  alt={`${title} ${index + 1}`}
+  width={110}
+  height={75}
+  sizes="110px"
+  className="h-16 w-24 object-cover"
+/>
           </button>
         ))}
       </div>

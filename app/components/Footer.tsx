@@ -1,79 +1,93 @@
+import Image from "next/image";
+import Link from "next/link";
+
 export default function Footer() {
   return (
-    <footer className="bg-zinc-900 text-white py-16">
-      <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-10">
+    <footer className="bg-[#071B14] text-white">
 
-        <div>
-          <h2 className="text-3xl font-bold text-[#D4AF37]">
-            NEWTA
-          </h2>
+      <div className="mx-auto max-w-6xl px-6 py-20">
 
-          <p className="text-gray-400 mt-2">
-            Commercial Sales
-          </p>
+        <div className="grid items-center gap-16 lg:grid-cols-[220px_1fr_220px]">
 
-          <p className="text-gray-500 mt-6">
-            South Africa's trusted marketplace for quality construction,
-            mining, agricultural and commercial equipment.
-          </p>
+          {/* Logo */}
+          <div className="flex justify-center lg:justify-start">
+            <Image
+              src="/newta-logo.png"
+              alt="NEWTA Commercial Sales"
+              width={150}
+              height={150}
+              className="object-contain"
+            />
+          </div>
+
+          {/* Commitment */}
+          <div className="text-center lg:text-left">
+
+            <p className="text-sm font-bold uppercase tracking-[6px] text-[#D4AF37]">
+              Our Commitment
+            </p>
+
+            <h2 className="mt-4 text-3xl font-black text-white">
+              Built on Trust.
+              <br />
+              Driven by Results.
+            </h2>
+
+            <p className="mt-8 text-lg leading-9 text-gray-300">
+              At <strong>NEWTA Commercial Sales</strong>, we believe that every
+              asset has value and every client deserves honest, professional
+              service.
+            </p>
+
+            <p className="mt-6 text-lg leading-9 text-gray-300">
+              Whether you're buying a single machine, selling an entire fleet,
+              or looking for the right sales solution, we're committed to making
+              the process straightforward, transparent and successful.
+            </p>
+
+            <p className="mt-6 text-xl font-semibold italic text-[#D4AF37]">
+              Because every sale is more than a transaction—it&apos;s a new beginning.
+            </p>
+
+          </div>
+
+          {/* Call To Action */}
+          <div className="flex flex-col items-center gap-5">
+
+            <Link
+              href="/contact"
+              className="w-full rounded-xl bg-[#D4AF37] px-6 py-4 text-center font-bold text-[#0B2F24] shadow-lg transition hover:bg-[#C89B2C]"
+            >
+              Contact Us
+            </Link>
+
+            <a
+              href="tel:+27610156516"
+              className="w-full rounded-xl border border-white/20 px-6 py-4 text-center font-semibold transition hover:bg-white hover:text-[#0B2F24]"
+            >
+              📞 Call NEWTA
+            </a>
+
+          </div>
+
         </div>
 
-        <div>
-          <h3 className="font-bold mb-4">
-            Quick Links
-          </h3>
-
-          <ul className="space-y-2 text-gray-400">
-            <li>Home</li>
-            <li>Equipment</li>
-            <li>Sold</li>
-            <li>About</li>
-            <li>Contact</li>
-          </ul>
-        </div>
-
-        <div>
-          <h3 className="font-bold mb-4">
-            Categories
-          </h3>
-
-          <ul className="space-y-2 text-gray-400">
-            <li>Excavators</li>
-            <li>Loaders</li>
-            <li>Dozers</li>
-            <li>Trucks</li>
-            <li>Mining Equipment</li>
-          </ul>
-        </div>
-
-        <div>
-         <div>
-  <h3 className="font-bold mb-4">
-    Contact
-  </h3>
-
-  <p className="text-gray-400">
-    NEWTA Commercial Sales
-  </p>
-
-  <p className="text-gray-400 mt-2">
-    South Africa
-  </p>
-
-  <p className="text-gray-400 mt-2">
-    newtabfn@gmail.com
-  </p>
-
-  <p className="text-gray-400 mt-2">
-    +27 61 015 6516
-  </p>
-</div>
       </div>
 
-</div>
-      <div className="border-t border-zinc-700 mt-12 pt-8 text-center text-gray-500">
-        © 2011 NEWTA Commercial Sales. All Rights Reserved.
+      <div className="border-t border-white/10">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-6 py-6 text-center text-sm text-gray-500 md:flex-row">
+
+          <p>
+            © 2011 NEWTA Commercial Sales. All Rights Reserved.
+          </p>
+
+          <p>
+            Bloemfontein • Free State • South Africa
+          </p>
+
+        </div>
       </div>
+
     </footer>
   );
 }

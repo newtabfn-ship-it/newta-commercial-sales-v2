@@ -14,6 +14,8 @@ import { generateEquipmentMetadata } from "./metadata";
 import { generateStructuredData } from "./structuredData";
 import EnquiryButton from "../../components/EnquiryButton";
 
+import MobileActionBar from "../../components/MobileActionBar";
+
 export async function generateMetadata({
   params,
 }: {
@@ -102,6 +104,51 @@ const item = await Equipment.findById(id).lean();
   {item.referenceNumber}
 </p>
 
+{/* PRICE */}
+<h2 className="mt-6 text-5xl font-black text-[#D4AF37]">
+  {item.currency} {item.price}
+</h2>
+
+<div className="mt-8 flex flex-wrap gap-4">
+
+  <div className="rounded-xl bg-white/10 px-5 py-4 backdrop-blur-md">
+    <p className="text-xs uppercase tracking-wider text-gray-300">
+      Year
+    </p>
+    <p className="mt-1 text-xl font-bold">
+      {item.year}
+    </p>
+  </div>
+
+  <div className="rounded-xl bg-white/10 px-5 py-4 backdrop-blur-md">
+    <p className="text-xs uppercase tracking-wider text-gray-300">
+      Hours
+    </p>
+    <p className="mt-1 text-xl font-bold">
+      {item.kmHours}
+    </p>
+  </div>
+
+  <div className="rounded-xl bg-white/10 px-5 py-4 backdrop-blur-md">
+    <p className="text-xs uppercase tracking-wider text-gray-300">
+      Manufacturer
+    </p>
+    <p className="mt-1 text-xl font-bold">
+      {item.manufacturer}
+    </p>
+  </div>
+
+  <div className="rounded-xl bg-white/10 px-5 py-4 backdrop-blur-md">
+    <p className="text-xs uppercase tracking-wider text-gray-300">
+      Location
+    </p>
+    <p className="mt-1 text-xl font-bold">
+      {item.province}
+    </p>
+  </div>
+
+</div>
+
     <p className="mt-6 max-w-4xl text-lg md:text-xl leading-8 text-gray-300">
       Browse commercial vehicles, trucks, bakkies, trailers,
       construction machinery, agricultural equipment, plant,
@@ -113,7 +160,7 @@ const item = await Equipment.findById(id).lean();
   </div>
 </section>
       {/* Main Content */}
-      <section className="max-w-7xl mx-auto px-6 py-16">
+      <section className="max-w-7xl mx-auto px-6 py-20">
 
         <div className="grid lg:grid-cols-3 gap-12">
 
@@ -149,7 +196,7 @@ const item = await Equipment.findById(id).lean();
           </div>
 
                   {/* RIGHT COLUMN */}
-          <div>
+          <div className="lg:sticky lg:top-36 self-start">
 
             <EquipmentSummary
               equipmentId={item._id.toString()}
@@ -181,9 +228,13 @@ const item = await Equipment.findById(id).lean();
 
         </div> {/* End GRID */}
 
-      </section>
+     </section>
 
-      <Footer />
+<MobileActionBar
+  equipmentId={item._id.toString()}
+/>
+
+<Footer />
     </>
   );
 }

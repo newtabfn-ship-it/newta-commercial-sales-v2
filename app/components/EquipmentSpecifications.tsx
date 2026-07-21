@@ -43,11 +43,11 @@ export default function EquipmentSpecifications({
     <section className="mt-6 overflow-hidden rounded-2xl border-2 border-[#D4AF37] bg-white shadow-lg">
 
       {/* Header */}
-      <div className="bg-[#0B2F24] px-5 py-3">
+      <div className="bg-[#0B2F24] px-6 py-4">
         <div className="flex items-center gap-3">
           <span className="text-xl">⚙️</span>
 
-          <h2 className="text-lg font-bold text-white">
+          <h2 className="text-xl font-bold text-white">
             Technical Specifications
           </h2>
         </div>
@@ -55,24 +55,24 @@ export default function EquipmentSpecifications({
 
       {/* Specification Table */}
       <div>
+        {specifications
+          .filter(([, value]) => value && value.trim() !== "")
+          .map(([label, value], index) => (
+            <div
+              key={label}
+              className={`grid grid-cols-1 md:grid-cols-[180px_1fr] gap-1 md:gap-0 items-start md:items-center px-6 py-4 ${
+                index % 2 === 0 ? "bg-white" : "bg-gray-50"
+              }`}
+            >
+              <span className="text-xs font-semibold uppercase tracking-wider text-gray-500">
+                {label}
+              </span>
 
-        {specifications.map(([label, value], index) => (
-          <div
-            key={label}
-            className={`grid grid-cols-[180px_1fr] items-center px-5 py-3 ${
-              index % 2 === 0 ? "bg-white" : "bg-gray-50"
-            }`}
-          >
-            <span className="text-sm font-medium text-gray-500">
-              {label}
-            </span>
-
-            <span className="text-right text-sm font-semibold text-[#0B2F24]">
-              {value || "-"}
-            </span>
-          </div>
-        ))}
-
+              <span className="text-left text-base font-bold text-[#0B2F24] md:text-right">
+                {value}
+              </span>
+            </div>
+          ))}
       </div>
 
     </section>

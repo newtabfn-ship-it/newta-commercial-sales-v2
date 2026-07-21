@@ -1,22 +1,26 @@
 export default function WhyChoose() {
   const items = [
-    {
-      title: "Trusted Private Treaty Sales",
-      text: "Over a decade of experience connecting serious buyers and sellers.",
-    },
-    {
-      title: "Quality Equipment",
-      text: "Every listing is carefully selected before being advertised.",
-    },
-    {
-      title: "Nationwide Coverage",
-      text: "Buying and selling equipment throughout South Africa.",
-    },
-    {
-      title: "Personal Service",
-      text: "Deal directly with an experienced equipment specialist from start to finish.",
-    },
-  ];
+  {
+    icon: "🤝",
+    title: "Private Treaty Sales",
+    text: "Professional negotiated sales connecting serious buyers and sellers through a transparent, personalised process.",
+  },
+  {
+    icon: "💻",
+    title: "Online Auctions",
+    text: "Professional online auctions providing nationwide exposure, competitive bidding and efficient asset disposal.",
+  },
+  {
+    icon: "🇿🇦",
+    title: "Nationwide Coverage",
+    text: "Based in Bloemfontein and proudly serving buyers and sellers throughout every province in South Africa.",
+  },
+  {
+    icon: "👤",
+    title: "Personal Service",
+    text: "Deal directly with an experienced commercial sales specialist from your first enquiry through to the successful completion of your sale.",
+  },
+];
 
   return (
     <section className="py-20 bg-gray-100">
@@ -31,15 +35,24 @@ export default function WhyChoose() {
         </p>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {items.map((item) => (
-            <div
-              key={item.title}
-              className="bg-white rounded-xl shadow p-8 text-center"
-            >
-              <h3 className="font-bold text-xl mb-4">{item.title}</h3>
-              <p className="text-gray-600">{item.text}</p>
-            </div>
-          ))}
+         {items.map((item) => (
+  <div
+    key={item.title}
+    className="rounded-2xl bg-white p-8 text-center shadow-lg transition duration-300 hover:-translate-y-2 hover:shadow-2xl"
+  >
+    <div className="mb-5 text-5xl">
+      {item.icon}
+    </div>
+
+    <h3 className="text-2xl font-bold text-[#0B2F24]">
+      {item.title}
+    </h3>
+
+    <p className="mt-4 leading-7 text-gray-600">
+      {item.text}
+    </p>
+  </div>
+))}
         </div>
       </div>
     </section>

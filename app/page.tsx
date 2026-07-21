@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import WhyChoose from "./components/WhyChoose";
-import About from "./components/About";
+import WhatWeSell from "./components/WhatWeSell";
 import Services from "./components/Services";
 import CallToAction from "./components/CallToAction";
 import Contact from "./components/Contact";
@@ -39,7 +39,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <WhyChoose />
-      <About />
+      <WhatWeSell />
       <Services />
       <CallToAction />
       <Contact />

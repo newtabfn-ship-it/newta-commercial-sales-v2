@@ -1,3 +1,4 @@
+import Image from "next/image";
 export default function About() {
   return (
     <section className="bg-white py-24">
@@ -63,13 +64,17 @@ export default function About() {
         </div>
 
         {/* Right Side */}
-        <div className="rounded-3xl overflow-hidden shadow-2xl transition duration-500 hover:scale-[1.02]">
-          <img
-            src="/about.jpg"
-            alt="NEWTA Commercial Sales"
-            className="w-full h-[600px] object-cover"
-          />
-        </div>
+        <div className="overflow-hidden rounded-3xl shadow-2xl transition duration-500 hover:scale-[1.02]">
+  <Image
+    src="/about.jpg"
+    alt="NEWTA Commercial Sales"
+    width={800}
+    height={600}
+    priority={false}
+    sizes="(max-width: 768px) 100vw, 50vw"
+    className="h-[450px] md:h-[600px] w-full object-cover"
+  />
+</div>
 
       </div>
     </section>
