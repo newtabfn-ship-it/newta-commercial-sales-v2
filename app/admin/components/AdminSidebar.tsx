@@ -1,4 +1,6 @@
+"use client";
 import Link from "next/link";
+import { signOut } from "next-auth/react";
 
 export default function AdminSidebar() {
   return (
@@ -43,16 +45,23 @@ export default function AdminSidebar() {
           href="/admin/settings"
           className="block rounded-lg px-4 py-3 transition hover:bg-[#D4AF37] hover:text-[#0B2F24]"
         >
-          ⚙️ Settings
+          ⚙️ Account Settings
         </Link>
 
       </nav>
 
       <div className="border-t border-[#D4AF37]/30 p-6">
 
-        <button className="w-full rounded-lg bg-[#D4AF37] py-3 font-bold text-[#0B2F24]">
-          Logout
-        </button>
+        <button
+  onClick={() =>
+    signOut({
+      callbackUrl: "/admin/login",
+    })
+  }
+  className="w-full rounded-lg bg-[#D4AF37] py-3 font-bold text-[#0B2F24] transition hover:bg-[#C89B2C]"
+>
+  Logout
+</button>
 
       </div>
 

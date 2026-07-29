@@ -2,12 +2,11 @@
 
 import { useEffect, useState } from "react";
 
-import AdminLayout from "../components/AdminLayout";
-import PageTitle from "../components/PageTitle";
+import PageTitle from "../../components/PageTitle";
 
-import EquipmentToolbar from "../components/equipment/EquipmentToolbar";
-import EquipmentTable from "../components/equipment/EquipmentTable";
-import EquipmentDrawer from "../components/equipment/EquipmentDrawer";
+import EquipmentToolbar from "../../components/equipment/EquipmentToolbar";
+import EquipmentTable from "../../components/equipment/EquipmentTable";
+import EquipmentDrawer from "../../components/equipment/EquipmentDrawer";
 
 export default function EquipmentPage() {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -75,10 +74,23 @@ export default function EquipmentPage() {
 }
 
   return (
-    <AdminLayout
-      title="Equipment Management"
-      subtitle="Manage all NEWTA Commercial Sales equipment."
-    >
+  <>
+    <div className="mb-10 flex items-center justify-between">
+      <div>
+        <h1 className="text-4xl font-black text-[#0B2F24]">
+          Equipment Management
+        </h1>
+
+        <p className="mt-2 text-gray-600">
+          Manage all NEWTA Commercial Sales equipment.
+        </p>
+      </div>
+
+      <div className="rounded-full bg-[#D4AF37] px-6 py-3 font-bold text-[#0B2F24]">
+        Administrator
+      </div>
+    </div>
+
       <PageTitle
         title="Equipment Management"
         description="Search, edit and manage your equipment listings."
@@ -133,6 +145,6 @@ export default function EquipmentPage() {
   equipmentId={selectedEquipmentId}
   isEditing={isEditing}
 />
-    </AdminLayout>
+    </>
   );
 }

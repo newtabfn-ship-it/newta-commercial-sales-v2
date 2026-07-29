@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
+import Providers from "./providers";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://newtacommercialsales.com"),
@@ -102,8 +103,10 @@ export default function RootLayout({
   return (
     <html lang="en-ZA">
       <body>
-        {children}
-      </body>
+  <Providers>
+    {children}
+  </Providers>
+</body>
 
       <GoogleAnalytics gaId="G-R1NQRK458K" />
     </html>

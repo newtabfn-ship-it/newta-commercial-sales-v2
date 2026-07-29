@@ -24,12 +24,16 @@ export default function EquipmentDescription({
       {/* Body */}
       <div className="px-6 py-6">
 
-        <p className="whitespace-pre-line text-base leading-8 text-gray-700">
-          <p className="mb-5 text-sm font-semibold uppercase tracking-wider text-[#D4AF37]">
-  Asset Information
-</p>
-         {description?.trim() || "No description has been provided for this asset."}
-        </p>
+       <div className="whitespace-pre-line text-base leading-8 text-gray-700">
+  <p className="mb-5 text-sm font-semibold uppercase tracking-wider text-[#D4AF37]">
+    Asset Information
+  </p>
+
+  <p>
+    {description?.trim() ||
+      "No description has been provided for this asset."}
+  </p>
+</div>
 
       </div>
 

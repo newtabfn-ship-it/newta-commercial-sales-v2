@@ -2,10 +2,9 @@
 
 import { useEffect, useState } from "react";
 
-import AdminLayout from "../components/AdminLayout";
-import PageTitle from "../components/PageTitle";
+import PageTitle from "../../components/PageTitle";
 
-import EnquiryDrawer from "../components/enquiries/EnquiryDrawer";
+import EnquiryDrawer from "../../components/enquiries/EnquiryDrawer";
 
 
 type Enquiry = {
@@ -85,11 +84,24 @@ async function deleteEnquiry(id: string) {
   }
 }
 
-  return (
-    <AdminLayout
-      title="Enquiries"
-      subtitle="Manage customer enquiries."
-    >
+ return (
+  <>
+    <div className="mb-10 flex items-center justify-between">
+      <div>
+        <h1 className="text-4xl font-black text-[#0B2F24]">
+          Equipment Management
+        </h1>
+
+        <p className="mt-2 text-gray-600">
+          Manage all NEWTA Commercial Sales equipment.
+        </p>
+      </div>
+
+      <div className="rounded-full bg-[#D4AF37] px-6 py-3 font-bold text-[#0B2F24]">
+        Administrator
+      </div>
+    </div>
+
       <PageTitle
         title="Enquiries"
         description="View and manage customer enquiries."
@@ -185,6 +197,6 @@ async function deleteEnquiry(id: string) {
   onMarkAsRead={markAsRead}
   onDelete={deleteEnquiry}
 />
-    </AdminLayout>
+    </>
   );
 }
