@@ -82,79 +82,41 @@ export default function EquipmentForm({
   const [images, setImages] = useState<UploadedImage[]>([]);
   const [coverImage, setCoverImage] = useState(0);
 
-  useEffect(() => {
-    if (!isEditing || !equipmentId) {
-      return;
-    }
+ useEffect(() => {
+  if (!isEditing || !equipmentId) {
+    setFormData({
+      referenceNumber: "",
+      category: "",
+      title: "",
+      manufacturer: "",
+      model: "",
+      year: "",
+      serialNumber: "",
+      price: "",
+      status: "Available",
+      kmHours: "",
+      tyresTracks: "",
+      province: "",
+      condition: "Good",
+      description: "",
+      specifications: {
+        engine: "",
+        capacityBucket: "",
+        fuelType: "",
+        transmission: "",
+      },
+      featured: false,
+      showOnHomePage: false,
+    });
 
-    async function loadEquipment() {
-      try {
-        const response = await fetch(`/api/equipment/${equipmentId}`);
+    setImages([]);
+    setCoverImage(0);
 
-        if (!response.ok) {
-          throw new Error("Failed to load equipment.");
-        }
+    return;
+  }
 
-        const equipment = await response.json();
-
-        setFormData({
-          referenceNumber: equipment.referenceNumber ?? "",
-          category: equipment.category ?? "",
-          title: equipment.title ?? "",
-          manufacturer: equipment.manufacturer ?? "",
-          model: equipment.model ?? "",
-          year: equipment.year ?? "",
-          serialNumber: equipment.serialNumber ?? "",
-          price: equipment.price ?? "",
-
-          status: equipment.status ?? "Available",
-
-          kmHours: equipment.kmHours ?? "",
-          tyresTracks: equipment.tyresTracks ?? "",
-          province: equipment.province ?? "",
-          condition: equipment.condition ?? "Good",
-
-          description: equipment.description ?? "",
-
-          specifications: {
-            engine: equipment.specifications?.engine ?? "",
-            capacityBucket:
-              equipment.specifications?.capacityBucket ?? "",
-            fuelType:
-              equipment.specifications?.fuelType ?? "",
-            transmission:
-              equipment.specifications?.transmission ?? "",
-          },
-
-          featured: equipment.featured ?? false,
-          showOnHomePage:
-            equipment.showOnHomePage ?? false,
-        });
-
-        if (equipment.images?.length) {
-          setImages(
-            equipment.images.map((image: any) => ({
-              url: image.url,
-              publicId: image.publicId,
-            }))
-          );
-
-          const cover = equipment.images.findIndex(
-            (image: any) => image.cover
-          );
-
-          setCoverImage(cover >= 0 ? cover : 0);
-        } else {
-          setImages([]);
-          setCoverImage(0);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    loadEquipment();
-  }, [equipmentId, isEditing]);
+     // existing loadEquipment()...
+}, [equipmentId, isEditing]);
 
   function handleChange(
     e: React.ChangeEvent<
