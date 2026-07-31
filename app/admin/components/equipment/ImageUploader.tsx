@@ -195,7 +195,11 @@ export default function ImageUploader({
 
                     <button
                       type="button"
-                      onClick={() => removeImage(index)}
+                      onClick={() => {
+  if (confirm("Delete this image?")) {
+    removeImage(index);
+  }
+}}
                      className="w-full rounded-xl bg-red-600 py-2 font-semibold text-white transition hover:bg-red-700"
                     >
                       Delete Image

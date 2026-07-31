@@ -71,7 +71,7 @@ export async function PATCH(
 
     const { status } = await request.json();
 
-    const equipment = await Equipment.findById(id);
+   const equipment = await Equipment.findById(id);
 
     if (!equipment) {
       return NextResponse.json(

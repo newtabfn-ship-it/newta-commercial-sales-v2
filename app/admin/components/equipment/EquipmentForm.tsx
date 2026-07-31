@@ -44,177 +44,239 @@ type FormData = {
   showOnHomePage: boolean;
 };
 
+const EMPTY_FORM: FormData = {
+  referenceNumber: "",
+  category: "",
+  title: "",
+  manufacturer: "",
+  model: "",
+  year: "",
+  serialNumber: "",
+  price: "",
+
+  status: "Available",
+
+  kmHours: "",
+  tyresTracks: "",
+  province: "",
+  condition: "Good",
+
+  description: "",
+
+  specifications: {
+    engine: "",
+    capacityBucket: "",
+    fuelType: "",
+    transmission: "",
+  },
+
+  featured: false,
+  showOnHomePage: false,
+};
+
 export default function EquipmentForm({
   onSuccess,
   equipmentId,
   isEditing,
 }: EquipmentFormProps) {
-  const [formData, setFormData] = useState<FormData>({
-    referenceNumber: "",
-    category: "",
-    title: "",
-    manufacturer: "",
-    model: "",
-    year: "",
-    serialNumber: "",
-    price: "",
-
-    status: "Available",
-
-    kmHours: "",
-    tyresTracks: "",
-    province: "",
-    condition: "Good",
-
-    description: "",
-
-    specifications: {
-      engine: "",
-      capacityBucket: "",
-      fuelType: "",
-      transmission: "",
-    },
-
-    featured: false,
-    showOnHomePage: false,
-  });
+  const [formData, setFormData] = useState<FormData>(EMPTY_FORM);
+ 
 
   const [images, setImages] = useState<UploadedImage[]>([]);
   const [coverImage, setCoverImage] = useState(0);
+  const [loading, setLoading] = useState(false);
+
+  async function loadEquipment() {
+    setLoading(true);
+  if (!equipmentId) return;
+
+  try {
+    const response = await fetch(`/api/equipment/${equipmentId}`);
+
+    if (!response.ok) {
+      throw new Error("Failed to load equipment.");
+      setLoading(false);
+    }
+
+const equipment = await response.json();
+
+const loadedImages = equipment.images ?? [];
+
+const newFormData: FormData = {
+  referenceNumber: equipment.referenceNumber ?? "",
+  category: equipment.category ?? "",
+  title: equipment.title ?? "",
+  manufacturer: equipment.manufacturer ?? "",
+  model: equipment.model ?? "",
+  year: equipment.year ?? "",
+  serialNumber: equipment.serialNumber ?? "",
+  price: equipment.price ?? "",
+
+  status: equipment.status ?? "Available",
+
+  kmHours: equipment.kmHours ?? "",
+  tyresTracks: equipment.tyresTracks ?? "",
+  province: equipment.province ?? "",
+  condition: equipment.condition ?? "Good",
+
+  description: equipment.description ?? "",
+
+  specifications: {
+    engine: equipment.specifications?.engine ?? "",
+    capacityBucket: equipment.specifications?.capacityBucket ?? "",
+    fuelType: equipment.specifications?.fuelType ?? "",
+    transmission: equipment.specifications?.transmission ?? "",
+  },
+
+  featured: equipment.featured ?? false,
+  showOnHomePage: equipment.showOnHomePage ?? false,
+};
+
+setFormData(newFormData);
+
+setImages(loadedImages);
+
+const coverIndex = loadedImages.findIndex(
+  (image: any) => image.cover
+);
+
+setCoverImage(coverIndex >= 0 ? coverIndex : 0);
+
+  } catch (error) {
+    console.error(error);
+    alert("Failed to load equipment.");
+    setLoading(false);
+  }
+}
 
  useEffect(() => {
-  if (!isEditing || !equipmentId) {
-    setFormData({
-      referenceNumber: "",
-      category: "",
-      title: "",
-      manufacturer: "",
-      model: "",
-      year: "",
-      serialNumber: "",
-      price: "",
-      status: "Available",
-      kmHours: "",
-      tyresTracks: "",
-      province: "",
-      condition: "Good",
-      description: "",
-      specifications: {
-        engine: "",
-        capacityBucket: "",
-        fuelType: "",
-        transmission: "",
-      },
-      featured: false,
-      showOnHomePage: false,
-    });
-
+  if (isEditing && equipmentId) {
+    loadEquipment();
+  } else {
+    setFormData(EMPTY_FORM);
     setImages([]);
     setCoverImage(0);
+  }
+}, [equipmentId, isEditing]);
 
+
+    function handleChange(
+  e: React.ChangeEvent<
+    HTMLInputElement |
+    HTMLSelectElement |
+    HTMLTextAreaElement
+  >
+) {
+  const { name, value, type } = e.target;
+
+  setFormData((previous) => ({
+    ...previous,
+    [name]:
+      type === "checkbox"
+        ? (e.target as HTMLInputElement).checked
+        : value,
+  }));
+}
+
+   function handleSpecificationChange(
+  e: React.ChangeEvent<HTMLInputElement>
+) {
+  const { name, value } = e.target;
+
+  setFormData((previous) => ({
+    ...previous,
+    specifications: {
+      ...previous.specifications,
+      [name]: value,
+    },
+  }));
+}
+
+async function handleSubmit(
+  e: React.FormEvent<HTMLFormElement>
+) {
+  e.preventDefault();
+
+  if (!formData.referenceNumber.trim()) {
+    alert("Please enter a Reference Number.");
     return;
   }
 
-     // existing loadEquipment()...
-}, [equipmentId, isEditing]);
-
-  function handleChange(
-    e: React.ChangeEvent<
-      HTMLInputElement |
-      HTMLSelectElement |
-      HTMLTextAreaElement
-    >
-  ) {
-    const { name, value, type } = e.target;
-
-    setFormData((previous) => ({
-      ...previous,
-      [name]:
-        type === "checkbox"
-          ? (e.target as HTMLInputElement).checked
-          : value,
-    }));
+  if (!formData.category.trim()) {
+    alert("Please select an Asset Category.");
+    return;
   }
 
-  async function handleSubmit(
-    e: React.FormEvent<HTMLFormElement>
-  ) {
-    e.preventDefault();
-
-    if (!formData.referenceNumber.trim()) {
-      alert("Please enter a Reference Number.");
-      return;
-    }
-
-    if (!formData.category.trim()) {
-      alert("Please select a Category.");
-      return;
-    }
-
-    if (!formData.title.trim()) {
-      alert("Please enter a Title.");
-      return;
-    }
-
-    if (!formData.price.trim()) {
-      alert("Please enter a Price.");
-      return;
-    }
-
-    const equipmentToSave = {
-      ...formData,
-
-      images: images.map((image, index) => ({
-        url: image.url,
-        publicId: image.publicId,
-        cover: index === coverImage,
-      })),
-    };
-
-    try {
-      const response = await fetch(
-  isEditing && equipmentId
-    ? `/api/equipment/${equipmentId}`
-    : "/api/equipment",
-  {
-    method:
-      isEditing && equipmentId
-        ? "PUT"
-        : "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(equipmentToSave),
+  if (!formData.title.trim()) {
+    alert("Please enter a Title.");
+    return;
   }
-);
 
-      if (!response.ok) {
-  const error = await response.text();
+  if (!formData.price.trim()) {
+    alert("Please enter a Price.");
+    return;
+  }
+  
+  const equipmentToSave = {
+    ...formData,
+    images: images.map((image, index) => ({
+      ...image,
+      cover: index === coverImage,
+    })),
+  };
 
-  console.error("API Error:", error);
+  const url =
+    isEditing && equipmentId
+      ? `/api/equipment/${equipmentId}`
+      : "/api/equipment";
 
-  throw new Error(error);
+  const method =
+    isEditing && equipmentId ? "PUT" : "POST";
+
+  try {
+    const response = await fetch(url, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(equipmentToSave),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        result.error ?? "Unable to save equipment."
+      );
+    }
+
+    alert(
+      isEditing
+        ? "Equipment updated successfully!"
+        : "Equipment created successfully!"
+    );
+
+    onSuccess();
+  } catch (error) {
+    console.error(error);
+
+    alert(
+      error instanceof Error
+        ? error.message
+        : "Unable to save equipment."
+    );
+  }
 }
 
-      await response.json();
-
-      alert(
-        isEditing
-          ? "Equipment updated successfully!"
-          : "Equipment saved successfully!"
-      );
-
-      onSuccess();
-    } catch (error) {
-      console.error(error);
-
-      alert(
-        isEditing
-          ? "Unable to update equipment."
-          : "Unable to save equipment."
-      );
-    }
-  }
+if (loading) {
+  return (
+    <div className="flex items-center justify-center py-16">
+      <p className="text-lg font-semibold text-gray-500">
+        Loading equipment...
+      </p>
+    </div>
+  );
+}
 
  return (
   <form
@@ -227,7 +289,7 @@ export default function EquipmentForm({
     <section>
 
       <h3 className="mb-4 text-xl font-bold text-[#0B2F24]">
-        Basic Information
+        Basic Information 
       </h3>
 
       <div className="grid gap-4">
@@ -335,14 +397,16 @@ export default function EquipmentForm({
 
         <div className="grid grid-cols-2 gap-4">
 
-          <input
-            type="text"
-            name="price"
-            value={formData.price}
-            onChange={handleChange}
-            placeholder="Price"
-            className="rounded-lg border p-3"
-          />
+         <input
+  type="text"
+  name="price"
+  min="0"
+  step="1"
+  value={formData.price}
+  onChange={handleChange}
+  placeholder="Price"
+  className="rounded-lg border p-3"
+/>
 
           <select
             name="status"
@@ -443,32 +507,40 @@ export default function EquipmentForm({
       <div className="grid gap-4">
 
         <input
-          type="text"
-          name="engine"
-          placeholder="Engine"
-          className="rounded-lg border p-3"
-        />
+  type="text"
+  name="engine"
+  value={formData.specifications.engine}
+  onChange={handleSpecificationChange}
+  placeholder="Engine"
+  className="rounded-lg border p-3"
+/>
 
         <input
           type="text"
           name="capacityBucket"
+          value={formData.specifications.capacityBucket}
+          onChange={handleSpecificationChange}
           placeholder="Capacity / Bucket"
           className="rounded-lg border p-3"
-        />
+          />
 
         <input
           type="text"
           name="fuelType"
+          value={formData.specifications.fuelType}
+          onChange={handleSpecificationChange}
           placeholder="Fuel Type"
           className="rounded-lg border p-3"
-        />
+          />
 
         <input
           type="text"
           name="transmission"
+          value={formData.specifications.transmission}
+          onChange={handleSpecificationChange}
           placeholder="Transmission"
           className="rounded-lg border p-3"
-        />
+          />
 
       </div>
 

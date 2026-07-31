@@ -6,10 +6,10 @@ export async function GET() {
   try {
     await connectDB();
 
-    const equipment = await Equipment.find().sort({
-      createdAt: -1,
-    });
-
+    const equipment = await Equipment.find()
+  .sort({ createdAt: -1 })
+  .lean();
+  
     return NextResponse.json(equipment);
   } catch (error) {
     console.error(error);
