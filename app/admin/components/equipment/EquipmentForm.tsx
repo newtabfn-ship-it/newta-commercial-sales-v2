@@ -86,65 +86,69 @@ export default function EquipmentForm({
   const [coverImage, setCoverImage] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  async function loadEquipment() {
-    setLoading(true);
-  if (!equipmentId) return;
+async function loadEquipment() {
+  if (!equipmentId) {
+    setLoading(false);
+    return;
+  }
 
   try {
+    setLoading(true);
+
     const response = await fetch(`/api/equipment/${equipmentId}`);
 
     if (!response.ok) {
       throw new Error("Failed to load equipment.");
-      setLoading(false);
     }
 
-const equipment = await response.json();
+    const equipment = await response.json();
 
-const loadedImages = equipment.images ?? [];
+    const loadedImages = equipment.images ?? [];
 
-const newFormData: FormData = {
-  referenceNumber: equipment.referenceNumber ?? "",
-  category: equipment.category ?? "",
-  title: equipment.title ?? "",
-  manufacturer: equipment.manufacturer ?? "",
-  model: equipment.model ?? "",
-  year: equipment.year ?? "",
-  serialNumber: equipment.serialNumber ?? "",
-  price: equipment.price ?? "",
+    const newFormData: FormData = {
+      referenceNumber: equipment.referenceNumber ?? "",
+      category: equipment.category ?? "",
+      title: equipment.title ?? "",
+      manufacturer: equipment.manufacturer ?? "",
+      model: equipment.model ?? "",
+      year: equipment.year ?? "",
+      serialNumber: equipment.serialNumber ?? "",
+      price: equipment.price ?? "",
+      status: equipment.status ?? "Available",
+      kmHours: equipment.kmHours ?? "",
+      tyresTracks: equipment.tyresTracks ?? "",
+      province: equipment.province ?? "",
+      condition: equipment.condition ?? "Good",
+      description: equipment.description ?? "",
 
-  status: equipment.status ?? "Available",
+      specifications: {
+        engine: equipment.specifications?.engine ?? "",
+        capacityBucket:
+          equipment.specifications?.capacityBucket ?? "",
+        fuelType:
+          equipment.specifications?.fuelType ?? "",
+        transmission:
+          equipment.specifications?.transmission ?? "",
+      },
 
-  kmHours: equipment.kmHours ?? "",
-  tyresTracks: equipment.tyresTracks ?? "",
-  province: equipment.province ?? "",
-  condition: equipment.condition ?? "Good",
+      featured: equipment.featured ?? false,
+      showOnHomePage:
+        equipment.showOnHomePage ?? false,
+    };
 
-  description: equipment.description ?? "",
+    setFormData(newFormData);
+    setImages(loadedImages);
 
-  specifications: {
-    engine: equipment.specifications?.engine ?? "",
-    capacityBucket: equipment.specifications?.capacityBucket ?? "",
-    fuelType: equipment.specifications?.fuelType ?? "",
-    transmission: equipment.specifications?.transmission ?? "",
-  },
+    const coverIndex = loadedImages.findIndex(
+      (image: any) => image.cover
+    );
 
-  featured: equipment.featured ?? false,
-  showOnHomePage: equipment.showOnHomePage ?? false,
-};
-
-setFormData(newFormData);
-
-setImages(loadedImages);
-
-const coverIndex = loadedImages.findIndex(
-  (image: any) => image.cover
-);
-
-setCoverImage(coverIndex >= 0 ? coverIndex : 0);
+    setCoverImage(coverIndex >= 0 ? coverIndex : 0);
 
   } catch (error) {
     console.error(error);
     alert("Failed to load equipment.");
+  } finally {
     setLoading(false);
   }
 }
