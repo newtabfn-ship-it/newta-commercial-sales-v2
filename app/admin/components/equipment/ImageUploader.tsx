@@ -1,5 +1,6 @@
 "use client";
 
+import imageCompression from "browser-image-compression";
 import React from "react";
 import Image from "next/image";
 import { cloudinaryImage } from "@/lib/cloudinaryImage";
@@ -22,29 +23,37 @@ export default function ImageUploader({
   coverImage,
   setCoverImage,
 }: ImageUploaderProps) {
-  async function handleFiles(files: FileList | null) {
-    if (!files) return;
+async function handleFiles(files: FileList | null) {
+  if (!files) return;
 
-    const uploadedImages: UploadedImage[] = [];
+  const uploadedImages: UploadedImage[] = [];
 
-    for (const file of Array.from(files)) {
+  for (const file of Array.from(files)) {
+    try {
+      // Compress image before uploading
+      const compressedFile = await imageCompression(file, {
+        maxSizeMB: 1.8,
+        maxWidthOrHeight: 2200,
+        useWebWorker: true,
+      });
+
       const formData = new FormData();
-      formData.append("file", file);
+      formData.append("file", compressedFile);
 
       const response = await fetch("/api/upload", {
         method: "POST",
         body: formData,
       });
 
-   if (!response.ok) {
-  const error = await response.json();
+      if (!response.ok) {
+        const error = await response.text();
 
-  console.log(error);
+        console.error(error);
 
-  alert(JSON.stringify(error, null, 2));
+        alert(`Upload failed:\n${error}`);
 
-  continue;
-}
+        continue;
+      }
 
       const data = await response.json();
 
@@ -52,10 +61,14 @@ export default function ImageUploader({
         url: data.url,
         publicId: data.publicId,
       });
+    } catch (error) {
+      console.error(error);
+      alert("Unable to upload image.");
     }
-
-    setImages((previous) => [...previous, ...uploadedImages]);
   }
+
+  setImages((previous) => [...previous, ...uploadedImages]);
+}
 
   function removeImage(indexToRemove: number) {
     setImages((previousImages) =>
