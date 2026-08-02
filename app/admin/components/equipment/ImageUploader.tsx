@@ -36,10 +36,15 @@ export default function ImageUploader({
         body: formData,
       });
 
-      if (!response.ok) {
-        alert("Image upload failed.");
-        continue;
-      }
+   if (!response.ok) {
+  const error = await response.json();
+
+  console.log(error);
+
+  alert(JSON.stringify(error, null, 2));
+
+  continue;
+}
 
       const data = await response.json();
 
