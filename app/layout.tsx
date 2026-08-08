@@ -102,10 +102,29 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en-ZA">
-      <body>
-  <Providers>
-    {children}
-  </Providers>
+     <body>
+  <script
+    type="application/ld+json"
+    dangerouslySetInnerHTML={{
+      __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        name: "NEWTA Commercial Sales",
+        url: "https://newtacommercialsales.com",
+        logo: "https://newtacommercialsales.com/newta-logo.png",
+        telephone: "+27 61 015 6516",
+        email: "newtabfn@gmail.com",
+        areaServed: {
+          "@type": "Country",
+          name: "South Africa",
+        },
+      }),
+    }}
+  />
+
+  {children}
+
+  <GoogleAnalytics gaId="G-R1NQRK458K" />
 </body>
 
       <GoogleAnalytics gaId="G-R1NQRK458K" />
