@@ -3,6 +3,7 @@ import Link from "next/link";
 import { cloudinaryImage } from "@/lib/cloudinaryImage";
 type Props = {
   id: string;
+  slug: string;
   image: string;
   title: string;
   year: string;
@@ -13,6 +14,7 @@ type Props = {
 };
 export default function EquipmentCard({
   id,
+  slug,
   image,
   title,
   year,
@@ -71,7 +73,7 @@ export default function EquipmentCard({
   </p>
 
   <Link
-  href={`/equipment/${id}`}
+  href={`/equipment/${slug}`}
   className="mt-6 block w-full rounded-xl bg-[#D4AF37] py-3 text-center font-bold text-[#0B2F24] shadow-lg transition-all duration-300 hover:bg-[#C89B2C] hover:shadow-xl"
 >
   View Asset →

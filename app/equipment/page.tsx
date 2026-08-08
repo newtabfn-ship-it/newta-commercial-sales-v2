@@ -76,21 +76,22 @@ export default async function EquipmentPage() {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {equipment.map((item: any) => (
             <EquipmentCard
-              key={item._id.toString()}
-              id={item._id.toString()}
-              image={
-                item.images?.length
-                  ? item.images.find((img: any) => img.cover)?.url ??
-                    item.images[0].url
-                  : "/placeholder-equipment.jpg"
-              }
-              title={item.title}
-              year={item.year}
-              status={item.status}
-              price={`${item.currency ?? "ZAR"} ${item.price}`}
-              hours={item.kmHours}
-              location={item.province}
-            />
+  key={item._id.toString()}
+  id={item._id.toString()}
+  slug={item.slug}
+  image={
+    item.images?.length
+      ? item.images.find((img: any) => img.cover)?.url ??
+        item.images[0].url
+      : "/placeholder-equipment.jpg"
+  }
+  title={item.title}
+  year={item.year}
+  status={item.status}
+  price={`${item.currency ?? "ZAR"} ${item.price}`}
+  hours={item.kmHours}
+  location={item.province}
+/>
           ))}
         </div>
       </section>

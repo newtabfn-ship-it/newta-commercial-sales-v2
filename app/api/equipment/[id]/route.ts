@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
 import Equipment from "@/models/Equipment";
+import { slugify } from "@/lib/slugify";
 
 export async function GET(
   request: Request,
@@ -31,16 +32,22 @@ export async function PUT(
 
     const { id } = await params;
 
-    const body = await request.json();
+   const body = await request.json();
 
-    const updatedEquipment = await Equipment.findByIdAndUpdate(
-      id,
-      body,
-      {
-        new: true,
-        runValidators: true,
-      }
-    );
+if (body.title) {
+  body.slug = `${slugify(body.title)}-${slugify(
+    body.referenceNumber
+  )}`;
+}
+
+const updatedEquipment = await Equipment.findByIdAndUpdate(
+  id,
+  body,
+  {
+    new: true,
+    runValidators: true,
+  }
+);
 
     if (!updatedEquipment) {
       return NextResponse.json(

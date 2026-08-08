@@ -19,11 +19,11 @@ import MobileActionBar from "../../components/MobileActionBar";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }) {
-  const { id } = await params;
+  const { slug } = await params;
 
-  return generateEquipmentMetadata(id);
+  return generateEquipmentMetadata(slug);
 }
 
 
@@ -31,13 +31,13 @@ export async function generateMetadata({
 export default async function EquipmentDetails({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }) {
-  const { id } = await params;
+  const { slug } = await params;
 
  await connectDB();
 
-const item = await Equipment.findById(id).lean();
+const item = await Equipment.findOne({ slug }).lean();
   if (!item) {
     return (
       <>
@@ -66,7 +66,7 @@ const item = await Equipment.findById(id).lean();
     );
   }
 
-  const structuredData = generateStructuredData(id);
+  const structuredData = await generateStructuredData(slug);
 
   return (
     <>

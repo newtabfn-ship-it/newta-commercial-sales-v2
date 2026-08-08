@@ -3,10 +3,16 @@ import mongoose, { Schema, models, model } from "mongoose";
 const EquipmentSchema = new Schema(
   {
     referenceNumber: {
-      type: String,
-      required: true,
-      unique: true,
-    },
+  type: String,
+  required: true,
+  unique: true,
+},
+
+slug: {
+  type: String,
+  unique: true,
+  sparse: true,
+},
 
     category: {
       type: String,

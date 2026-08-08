@@ -32,10 +32,11 @@ async function handleFiles(files: FileList | null) {
     try {
       // Compress image before uploading
       const compressedFile = await imageCompression(file, {
-        maxSizeMB: 1.8,
-        maxWidthOrHeight: 2200,
-        useWebWorker: true,
-      });
+  maxSizeMB: 2,
+  maxWidthOrHeight: 2560,
+  initialQuality: 0.9,
+  useWebWorker: true,
+});
 
       const formData = new FormData();
       formData.append("file", compressedFile);
