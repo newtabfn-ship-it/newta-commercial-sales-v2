@@ -6,3 +6,22 @@ export function slugify(text: string) {
     .replace(/\s+/g, "-")
     .replace(/-+/g, "-");
 }
+
+export function createEquipmentSlug(
+  title: string,
+  referenceNumber: string
+) {
+  const titleSlug = slugify(title);
+  const referenceSlug = slugify(referenceNumber);
+
+  if (
+    referenceSlug &&
+    titleSlug.endsWith(`-${referenceSlug}`)
+  ) {
+    return titleSlug;
+  }
+
+  return referenceSlug
+    ? `${titleSlug}-${referenceSlug}`
+    : titleSlug;
+}

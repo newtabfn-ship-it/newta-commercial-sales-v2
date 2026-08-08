@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
 import Equipment from "@/models/Equipment";
-import { slugify } from "@/lib/slugify";
+import { createEquipmentSlug } from "@/lib/slugify";
 
 export async function GET(
   request: Request,
@@ -32,22 +32,24 @@ export async function PUT(
 
     const { id } = await params;
 
-   const body = await request.json();
+    const body = await request.json();
 
-if (body.title) {
-  body.slug = `${slugify(body.title)}-${slugify(
-    body.referenceNumber
-  )}`;
-}
+    if (body.title) {
+      body.slug = createEquipmentSlug(
+        body.title,
+        body.referenceNumber
+      );
+    }
 
-const updatedEquipment = await Equipment.findByIdAndUpdate(
-  id,
-  body,
-  {
-    new: true,
-    runValidators: true,
-  }
-);
+    const updatedEquipment =
+      await Equipment.findByIdAndUpdate(
+        id,
+        body,
+        {
+          new: true,
+          runValidators: true,
+        }
+      );
 
     if (!updatedEquipment) {
       return NextResponse.json(
@@ -78,7 +80,7 @@ export async function PATCH(
 
     const { status } = await request.json();
 
-   const equipment = await Equipment.findById(id);
+    const equipment = await Equipment.findById(id);
 
     if (!equipment) {
       return NextResponse.json(
@@ -114,7 +116,8 @@ export async function DELETE(
 
     const { id } = await params;
 
-    const equipment = await Equipment.findByIdAndDelete(id);
+    const equipment =
+      await Equipment.findByIdAndDelete(id);
 
     if (!equipment) {
       return NextResponse.json(

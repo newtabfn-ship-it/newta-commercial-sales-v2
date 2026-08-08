@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
 import Equipment from "@/models/Equipment";
-import { slugify } from "@/lib/slugify";
+import { createEquipmentSlug } from "@/lib/slugify";
 
 export async function GET() {
   try {
@@ -31,9 +31,10 @@ export async function POST(request: Request) {
 
     const body = await request.json();
 
-   const slug = `${slugify(body.title)}-${slugify(
+   const slug = createEquipmentSlug(
+  body.title,
   body.referenceNumber
-)}`;
+);
 
 const equipment = await Equipment.create({
   ...body,

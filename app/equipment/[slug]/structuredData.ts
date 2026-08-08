@@ -1,43 +1,62 @@
 import connectDB from "@/lib/mongodb";
 import Equipment from "@/models/Equipment";
 
-export async function generateStructuredData(
-  slug: string
-) {
+const SITE_URL = "https://newtacommercialsales.com";
+
+export async function generateStructuredData(slug: string) {
   await connectDB();
 
   const item = await Equipment.findOne({ slug }).lean();
 
-  if (!item) return null;
+  if (!item) {
+    return null;
+  }
 
-  const numericPrice =
-    item.price?.replace(/[^\d.]/g, "") || "";
+  const canonicalUrl = `${SITE_URL}/equipment/${item.slug}`;
 
-  return {
+  const images =
+    item.images?.map((image: any) => image.url).filter(Boolean) || [];
+
+  const numericPrice = item.price
+    ? item.price.replace(/[^\d.]/g, "")
+    : "";
+
+  const structuredData: Record<string, any> = {
     "@context": "https://schema.org",
     "@type": "Product",
 
     name: item.title,
 
-    image: item.images?.map(
-      (img: any) => img.url
-    ),
+    description:
+      item.description ||
+      `${item.title} for sale from NEWTA Commercial Sales in South Africa.`,
 
-    description: item.description,
+    image: images,
 
-    sku: item.serialNumber,
+    url: canonicalUrl,
 
-    brand: {
-      "@type": "Brand",
-      name: item.manufacturer,
-    },
+    sku: item.referenceNumber,
+
+    category:
+      item.category ||
+      "Commercial Vehicles, Machinery, Plant, Industrial Equipment & Business Assets",
+
+    brand: item.manufacturer
+      ? {
+          "@type": "Brand",
+          name: item.manufacturer,
+        }
+      : undefined,
+
+    manufacturer: item.manufacturer
+      ? {
+          "@type": "Organization",
+          name: item.manufacturer,
+        }
+      : undefined,
 
     offers: {
       "@type": "Offer",
-
-      ...(numericPrice && {
-        price: numericPrice,
-      }),
 
       priceCurrency: item.currency || "ZAR",
 
@@ -46,7 +65,21 @@ export async function generateStructuredData(
           ? "https://schema.org/InStock"
           : "https://schema.org/SoldOut",
 
-      url: `https://newtacommercialsales.com/equipment/${item.slug}`,
+      url: canonicalUrl,
+
+      seller: {
+        "@type": "Organization",
+        name: "NEWTA Commercial Sales",
+        url: SITE_URL,
+      },
     },
   };
+
+  // Only add a price when the listing has an actual numeric price.
+  // This prevents "POA" from being incorrectly sent to Google as a price.
+  if (numericPrice) {
+    structuredData.offers.price = numericPrice;
+  }
+
+  return structuredData;
 }
