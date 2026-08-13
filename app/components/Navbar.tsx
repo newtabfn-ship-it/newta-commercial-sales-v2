@@ -57,7 +57,7 @@ export default function Navbar() {
 
             </Link>
 
-           {/* Desktop Navigation */}
+          {/* Desktop Navigation */}
 <div className="hidden lg:flex items-center gap-12 text-white font-semibold tracking-wide">
 
   <Link href="/" className="transition hover:text-[#D4AF37]">
@@ -66,6 +66,13 @@ export default function Navbar() {
 
   <Link href="/equipment" className="transition hover:text-[#D4AF37]">
     Equipment
+  </Link>
+
+  <Link
+    href="/online-auctions-south-africa"
+    className="transition hover:text-[#D4AF37]"
+  >
+    Auctions
   </Link>
 
   <Link href="/contact" className="transition hover:text-[#D4AF37]">
@@ -121,33 +128,41 @@ export default function Navbar() {
       </div>
 
       {/* Navigation */}
-      <div className="flex flex-col p-6 text-xl">
+<div className="flex flex-col p-6 text-xl">
 
-        <Link
-          href="/"
-          onClick={() => setMobileOpen(false)}
-          className="border-b border-white/10 py-4 text-white hover:text-[#D4AF37]"
-        >
-          🏠 Home
-        </Link>
+  <Link
+    href="/"
+    onClick={() => setMobileOpen(false)}
+    className="border-b border-white/10 py-4 text-white hover:text-[#D4AF37]"
+  >
+    🏠 Home
+  </Link>
 
-        <Link
-          href="/equipment"
-          onClick={() => setMobileOpen(false)}
-          className="border-b border-white/10 py-4 text-white hover:text-[#D4AF37]"
-        >
-          🚜 Equipment
-        </Link>
+  <Link
+    href="/equipment"
+    onClick={() => setMobileOpen(false)}
+    className="border-b border-white/10 py-4 text-white hover:text-[#D4AF37]"
+  >
+    🚜 Equipment
+  </Link>
 
-        <Link
-          href="/contact"
-          onClick={() => setMobileOpen(false)}
-          className="border-b border-white/10 py-4 text-white hover:text-[#D4AF37]"
-        >
-          ✉️ Contact
-        </Link>
+  <Link
+    href="/online-auctions-south-africa"
+    onClick={() => setMobileOpen(false)}
+    className="border-b border-white/10 py-4 text-white hover:text-[#D4AF37]"
+  >
+    🔨 Auctions
+  </Link>
 
-      </div>
+  <Link
+    href="/contact"
+    onClick={() => setMobileOpen(false)}
+    className="border-b border-white/10 py-4 text-white hover:text-[#D4AF37]"
+  >
+    ✉️ Contact
+  </Link>
+
+</div>
 
       {/* Contact Buttons */}
       <div className="mt-8 space-y-4 px-6">

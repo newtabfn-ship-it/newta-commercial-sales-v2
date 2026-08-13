@@ -42,6 +42,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     },
 
+    {
+  url: "https://newtacommercialsales.com/online-auctions-south-africa",
+  lastModified: new Date(),
+  changeFrequency: "weekly",
+  priority: 0.9,
+},
+
     // Commercial Vehicles
     {
       url: "https://newtacommercialsales.com/equipment/trucks-for-sale-south-africa",
