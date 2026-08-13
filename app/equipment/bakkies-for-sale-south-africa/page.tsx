@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Bakkies / PickupsForSalePage() {
+export default async function BakkiesPickupsForSalePage() {
   await connectDB();
 
   const commercialVehicles = equipmentCategories.find(
