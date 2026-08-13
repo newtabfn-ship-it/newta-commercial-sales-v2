@@ -15,11 +15,16 @@ slug: {
 },
 
     category: {
-      type: String,
-      required: true,
-    },
+  type: String,
+  required: true,
+},
 
-    title: {
+subcategory: {
+  type: String,
+  default: "",
+},
+
+title: {
       type: String,
       required: true,
     },

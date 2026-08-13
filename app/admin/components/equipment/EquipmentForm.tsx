@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import ImageUploader from "./ImageUploader";
+import { equipmentCategories } from "@/app/data/categories";
 
 type EquipmentFormProps = {
   onSuccess: () => void;
@@ -17,6 +18,7 @@ type UploadedImage = {
 type FormData = {
   referenceNumber: string;
   category: string;
+  subcategory: string;
   title: string;
   manufacturer: string;
   model: string;
@@ -47,6 +49,7 @@ type FormData = {
 const EMPTY_FORM: FormData = {
   referenceNumber: "",
   category: "",
+  subcategory: "",
   title: "",
   manufacturer: "",
   model: "",
@@ -85,6 +88,9 @@ export default function EquipmentForm({
   const [images, setImages] = useState<UploadedImage[]>([]);
   const [coverImage, setCoverImage] = useState(0);
   const [loading, setLoading] = useState(false);
+  const selectedCategory = equipmentCategories.find(
+  (category) => category.name === formData.category
+);
 
 async function loadEquipment() {
   if (!equipmentId) {
@@ -108,6 +114,7 @@ async function loadEquipment() {
     const newFormData: FormData = {
       referenceNumber: equipment.referenceNumber ?? "",
       category: equipment.category ?? "",
+      subcategory: equipment.subcategory ?? "",
       title: equipment.title ?? "",
       manufacturer: equipment.manufacturer ?? "",
       model: equipment.model ?? "",
@@ -211,6 +218,11 @@ async function handleSubmit(
     return;
   }
 
+  if (!formData.subcategory.trim()) {
+  alert("Please select a Subcategory.");
+  return;
+}
+
   if (!formData.title.trim()) {
     alert("Please enter a Title.");
     return;
@@ -222,8 +234,10 @@ async function handleSubmit(
   }
   
   const equipmentToSave = {
-    ...formData,
-    images: images.map((image, index) => ({
+  ...formData,
+  category: formData.category,
+  subcategory: formData.subcategory,
+  images: images.map((image, index) => ({
       ...image,
       cover: index === coverImage,
     })),
@@ -288,145 +302,145 @@ if (loading) {
     onSubmit={handleSubmit}
     className="space-y-8"
   >
-    {/* Basic Information */}
+   {/* Basic Information */}
 
-    <section>
+<section>
+  <h3 className="mb-4 text-xl font-bold text-[#0B2F24]">
+    Basic Information
+  </h3>
 
-      <h3 className="mb-4 text-xl font-bold text-[#0B2F24]">
-        Basic Information 
-      </h3>
+  <div className="grid gap-4">
 
-      <div className="grid gap-4">
+    <input
+      type="text"
+      name="title"
+      value={formData.title}
+      onChange={handleChange}
+      required
+      placeholder="Title"
+      className="rounded-lg border p-3"
+    />
 
-        <input
-          type="text"
-          name="title"
-          value={formData.title}
-          onChange={handleChange}
-          required
-          placeholder="Title"
-          className="rounded-lg border p-3"
-        />
+    <input
+      type="text"
+      name="referenceNumber"
+      value={formData.referenceNumber}
+      onChange={handleChange}
+      required
+      placeholder="Reference Number"
+      className="rounded-lg border p-3"
+    />
 
-        <input
-          type="text"
-          name="referenceNumber"
-          value={formData.referenceNumber}
-          onChange={handleChange}
-          required
-          placeholder="Reference Number"
-          className="rounded-lg border p-3"
-        />
+  {/* Category & Subcategory */}
 
-        <select
-          name="category"
-          value={formData.category}
-          onChange={handleChange}
-          required
-          className="rounded-lg border p-3"
-        >
-          <option value="">Select Asset Category</option>
+<div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+  <select
+    name="category"
+    value={formData.category}
+    onChange={(e) => {
+      setFormData((previous) => ({
+        ...previous,
+        category: e.target.value,
+        subcategory: "",
+      }));
+    }}
+    required
+    className="rounded-lg border p-3"
+  >
+    <option value="">Select Main Category</option>
 
-          <optgroup label="Commercial Vehicles">
-            <option>Truck</option>
-            <option>Bakkie</option>
-            <option>Bus</option>
-            <option>Trailer</option>
-          </optgroup>
+    {equipmentCategories.map((category) => (
+      <option key={category.slug} value={category.name}>
+        {category.name}
+      </option>
+    ))}
+  </select>
 
-          <optgroup label="Machinery">
-            <option>Earthmoving Equipment</option>
-            <option>Agricultural Equipment</option>
-            <option>Mining Equipment</option>
-            <option>Plant Equipment</option>
-          </optgroup>
+  <select
+    name="subcategory"
+    value={formData.subcategory}
+    onChange={handleChange}
+    required
+    disabled={!selectedCategory}
+    className="rounded-lg border p-3 disabled:bg-gray-100 disabled:text-gray-400"
+  >
+    <option value="">Select Subcategory</option>
 
-          <optgroup label="Industrial">
-            <option>Forklift</option>
-            <option>Generator</option>
-            <option>Compressor</option>
-            <option>Workshop Equipment</option>
-          </optgroup>
+    {selectedCategory?.subcategories.map((subcategory) => (
+      <option key={subcategory.slug} value={subcategory.name}>
+        {subcategory.name}
+      </option>
+    ))}
+  </select>
+</div>
 
-          <optgroup label="Parts & Accessories">
-            <option>Attachments</option>
-            <option>Spares</option>
-            <option>Tyres</option>
-          </optgroup>
+    <input
+      type="text"
+      name="manufacturer"
+      value={formData.manufacturer}
+      onChange={handleChange}
+      placeholder="Manufacturer"
+      className="rounded-lg border p-3"
+    />
 
-          <optgroup label="Other">
-            <option>Miscellaneous</option>
-          </optgroup>
-        </select>
+    <input
+      type="text"
+      name="model"
+      value={formData.model}
+      onChange={handleChange}
+      placeholder="Model"
+      className="rounded-lg border p-3"
+    />
 
-        <input
-          type="text"
-          name="manufacturer"
-          value={formData.manufacturer}
-          onChange={handleChange}
-          placeholder="Manufacturer"
-          className="rounded-lg border p-3"
-        />
+    <div className="grid grid-cols-2 gap-4">
 
-        <input
-          type="text"
-          name="model"
-          value={formData.model}
-          onChange={handleChange}
-          placeholder="Model"
-          className="rounded-lg border p-3"
-        />
+      <input
+        type="text"
+        name="year"
+        value={formData.year}
+        onChange={handleChange}
+        placeholder="Year"
+        className="rounded-lg border p-3"
+      />
 
-        <div className="grid grid-cols-2 gap-4">
+      <input
+        type="text"
+        name="serialNumber"
+        value={formData.serialNumber}
+        onChange={handleChange}
+        placeholder="Serial / VIN"
+        className="rounded-lg border p-3"
+      />
 
-          <input
-            type="text"
-            name="year"
-            value={formData.year}
-            onChange={handleChange}
-            placeholder="Year"
-            className="rounded-lg border p-3"
-          />
+    </div>
 
-          <input
-            type="text"
-            name="serialNumber"
-            value={formData.serialNumber}
-            onChange={handleChange}
-            placeholder="Serial / VIN"
-            className="rounded-lg border p-3"
-          />
+    <div className="grid grid-cols-2 gap-4">
 
-        </div>
+      <input
+        type="number"
+        name="price"
+        min="0"
+        step="1"
+        value={formData.price}
+        onChange={handleChange}
+        placeholder="Price"
+        className="rounded-lg border p-3"
+      />
 
-        <div className="grid grid-cols-2 gap-4">
+      <select
+        name="status"
+        value={formData.status}
+        onChange={handleChange}
+        className="rounded-lg border p-3"
+      >
+        <option>Available</option>
+        <option>Sold</option>
+      </select>
 
-         <input
-  type="text"
-  name="price"
-  min="0"
-  step="1"
-  value={formData.price}
-  onChange={handleChange}
-  placeholder="Price"
-  className="rounded-lg border p-3"
-/>
+    </div>
 
-          <select
-            name="status"
-            value={formData.status}
-            onChange={handleChange}
-            className="rounded-lg border p-3"
-          >
-            <option>Available</option>
-            <option>Sold</option>
-          </select>
-
-        </div>
-
-      </div>
-
-    </section>
+  </div>
+</section>
 
     {/* Machine Information */}
 

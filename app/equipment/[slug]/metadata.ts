@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+
 import connectDB from "@/lib/mongodb";
 import Equipment from "@/models/Equipment";
 
@@ -14,8 +15,10 @@ export async function generateEquipmentMetadata(
   if (!item) {
     return {
       title: "Equipment Not Found | NEWTA Commercial Sales",
+
       description:
         "The commercial vehicle, machinery or asset you are looking for could not be found.",
+
       robots: {
         index: false,
         follow: true,
@@ -41,6 +44,10 @@ export async function generateEquipmentMetadata(
     : `${SITE_URL}/og-image.png`;
 
   const canonicalUrl = `${SITE_URL}/equipment/${item.slug}`;
+
+  // Available listings can be indexed.
+  // Sold listings remain visible on the website but are not indexed.
+  const isAvailable = item.status === "Available";
 
   return {
     title,
@@ -88,10 +95,11 @@ export async function generateEquipmentMetadata(
     },
 
     robots: {
-      index: true,
+      index: isAvailable,
       follow: true,
+
       googleBot: {
-        index: true,
+        index: isAvailable,
         follow: true,
         "max-image-preview": "large",
         "max-snippet": -1,

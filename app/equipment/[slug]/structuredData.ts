@@ -15,7 +15,15 @@ export async function generateStructuredData(slug: string) {
   const canonicalUrl = `${SITE_URL}/equipment/${item.slug}`;
 
   const images =
-    item.images?.map((image: any) => image.url).filter(Boolean) || [];
+  item.images
+    ?.map((image: any) => {
+      if (!image.url) return null;
+
+      return image.url.startsWith("http")
+        ? image.url
+        : `${SITE_URL}${image.url}`;
+    })
+    .filter(Boolean) || [];
 
   const numericPrice = item.price
     ? item.price.replace(/[^\d.]/g, "")
