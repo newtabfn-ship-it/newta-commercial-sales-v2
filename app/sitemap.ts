@@ -163,6 +163,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
     },
 
+    {
+  url: "https://newtacommercialsales.com/equipment/other-assets-for-sale-south-africa",
+  lastModified: new Date(),
+  changeFrequency: "weekly",
+  priority: 0.9,
+},
+
     // Individual AVAILABLE listings only
     ...equipmentPages,
   ];

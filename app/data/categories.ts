@@ -2,7 +2,8 @@ export type CategoryType =
   | "commercial-vehicles"
   | "plant-machinery"
   | "mining-equipment"
-  |  "drilling-rigs";
+  | "drilling-rigs"
+  | "other-assets";
 
 export interface EquipmentSubcategory {
   name: string;
@@ -128,6 +129,20 @@ export const equipmentCategories: EquipmentCategory[] = [
     type: "drilling-rigs",
     seoSlug: "drilling-rigs-for-sale-south-africa",
     subcategories: [],
+  },
+
+    {
+    name: "Other Assets",
+    slug: "other-assets",
+    type: "other-assets",
+    seoSlug: "other-assets-for-sale-south-africa",
+    subcategories: [
+      {
+        name: "Other Assets",
+        slug: "other-assets",
+        seoSlug: "other-assets-for-sale-south-africa",
+      },
+    ],
   },
 
 ];
