@@ -33,7 +33,7 @@ export const equipmentCategories: EquipmentCategory[] = [
   group: "trucks",
 },
 {
-  name: "Cement Mixer Trucks",
+  name: "Concrete Mixer Trucks",
   slug: "cement-mixer-trucks",
   seoSlug: "cement-mixer-trucks-for-sale-south-africa",
   group: "trucks",

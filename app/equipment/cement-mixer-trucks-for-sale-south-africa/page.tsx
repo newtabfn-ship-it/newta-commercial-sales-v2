@@ -12,10 +12,10 @@ import EquipmentCard from "../../components/EquipmentCard";
 
 export const metadata: Metadata = {
   title:
-    "Cement Mixer Trucks for Sale South Africa | NEWTA Commercial Sales",
+    "Concrete Mixer Trucks for Sale South Africa | NEWTA Commercial Sales",
 
   description:
-    "Browse cement mixer trucks for sale in South Africa through NEWTA Commercial Sales. View available concrete mixer trucks, specifications, images, pricing and enquiry information.",
+    "Browse concrete mixer trucks for sale in South Africa through NEWTA Commercial Sales. View available concrete mixer trucks, cement mixer trucks, specifications, images, pricing and enquiry information.",
 
   alternates: {
     canonical:
@@ -24,10 +24,10 @@ export const metadata: Metadata = {
 
   openGraph: {
     title:
-      "Cement Mixer Trucks for Sale South Africa | NEWTA Commercial Sales",
+      "Concrete Mixer Trucks for Sale South Africa | NEWTA Commercial Sales",
 
     description:
-      "Browse cement mixer trucks currently available through NEWTA Commercial Sales across South Africa.",
+      "Browse concrete mixer trucks currently available through NEWTA Commercial Sales across South Africa. Cement mixer trucks and concrete mixer trucks available for sale.",
 
     url:
       "https://newtacommercialsales.com/equipment/cement-mixer-trucks-for-sale-south-africa",
@@ -42,11 +42,11 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
 
-    title:
-      "Cement Mixer Trucks for Sale South Africa | NEWTA Commercial Sales",
+  title:
+      "Concrete Mixer Trucks for Sale South Africa | NEWTA Commercial Sales",
 
     description:
-      "Browse available cement mixer trucks through NEWTA Commercial Sales.",
+      "Browse available concrete mixer trucks and cement mixer trucks through NEWTA Commercial Sales.",
   },
 };
 
@@ -155,7 +155,7 @@ const equipment = await Equipment.find({
               <span className="mx-2">/</span>
 
               <span className="text-[#D4AF37]">
-                Cement Mixer Trucks
+                Concrete Mixer Trucks
               </span>
             </nav>
 
@@ -164,7 +164,7 @@ const equipment = await Equipment.find({
             </span>
 
             <h1 className="mt-6 max-w-5xl text-4xl font-extrabold leading-tight md:text-6xl">
-              Cement Mixer Trucks for Sale South Africa
+              Concrete Mixer Trucks for Sale South Africa
             </h1>
 
             <p className="mt-6 max-w-4xl text-lg leading-8 text-gray-200 md:text-xl">
@@ -185,22 +185,23 @@ const equipment = await Equipment.find({
           <div className="max-w-4xl">
 
             <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
-              Cement Mixer Trucks for Sale
+             Concrete Mixer Trucks for Sale
             </h2>
 
             <p className="mt-5 text-lg leading-8 text-gray-600">
-              NEWTA Commercial Sales offers commercial vehicles and
-              equipment through Private Treaty Sales. Our cement mixer
-              truck listings provide buyers with access to available
-              concrete mixing trucks, with photographs, specifications
-              and pricing information shown on each asset listing.
-            </p>
+  NEWTA Commercial Sales offers commercial vehicles and
+  equipment through Private Treaty Sales. Our concrete
+  mixer truck listings provide buyers with access to
+  available concrete mixer trucks and cement mixer trucks,
+  with photographs, specifications and pricing information
+  shown on each asset listing.
+</p>
 
-            <p className="mt-5 text-lg leading-8 text-gray-600">
-              Browse the current cement mixer trucks below and select
-              an asset to view its full details or submit an enquiry
-              directly to NEWTA Commercial Sales.
-            </p>
+           <p className="mt-5 text-lg leading-8 text-gray-600">
+  Browse the current concrete mixer trucks below and select
+  an asset to view its full details or submit an enquiry
+  directly to NEWTA Commercial Sales.
+</p>
 
           </div>
 
@@ -241,13 +242,13 @@ const equipment = await Equipment.find({
             <div className="mt-12 rounded-2xl border bg-white p-10 text-center shadow-sm">
 
               <h2 className="text-2xl font-bold text-[#0B2F24]">
-                No cement mixer trucks currently available
+                No concrete mixer trucks currently available
               </h2>
 
               <p className="mt-3 text-gray-600">
-                Please check back soon for new cement mixer truck
-                listings.
-              </p>
+  Please check back soon for new concrete mixer truck
+  listings.
+</p>
 
               <Link
                 href="/equipment/trucks-for-sale-south-africa"
@@ -276,11 +277,11 @@ const equipment = await Equipment.find({
                   View Specifications
                 </h3>
 
-                <p className="mt-3 text-gray-600">
-                  Review the available specifications, condition,
-                  photographs and other information provided for each
-                  cement mixer truck.
-                </p>
+               <p className="mt-3 text-gray-600">
+  Review the available specifications, condition,
+  photographs and other information provided for each
+  concrete mixer truck.
+</p>
 
               </div>
 
@@ -350,12 +351,12 @@ const equipment = await Equipment.find({
           <div className="mx-auto max-w-7xl px-6 py-16 text-center">
 
             <h2 className="text-3xl font-bold md:text-4xl">
-              Looking for a Cement Mixer Truck?
+              Looking for a Concrete Mixer Truck?
             </h2>
 
             <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-300">
               Contact NEWTA Commercial Sales if you are looking for
-              a particular cement mixer truck or want more information
+              a particular concrete mixer truck or want more information
               about an available asset.
             </p>
 
