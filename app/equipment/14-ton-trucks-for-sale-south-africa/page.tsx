@@ -9,27 +9,26 @@ import Footer from "../../components/Footer";
 import EquipmentCard from "../../components/EquipmentCard";
 import { equipmentCategories } from "@/app/data/categories";
 
+const pageUrl =
+  "https://newtacommercialsales.com/equipment/14-ton-trucks-for-sale-south-africa";
+
 export const metadata: Metadata = {
-  title:
-    "14 Ton Trucks for Sale South Africa | NEWTA Commercial Sales",
+  title: "14 Ton Trucks for Sale South Africa | NEWTA Commercial Sales",
 
   description:
-    "Browse 14 ton trucks for sale in South Africa through NEWTA Commercial Sales. View available 14 ton commercial trucks with specifications, photographs, pricing and enquiry information.",
+    "Browse 14 ton trucks for sale in South Africa through NEWTA Commercial Sales. View available commercial trucks including dropside, flatdeck and other 14 ton trucks offered through Private Treaty Sales.",
 
   alternates: {
-    canonical:
-      "https://newtacommercialsales.com/equipment/14-ton-trucks-for-sale-south-africa",
+    canonical: pageUrl,
   },
 
   openGraph: {
-    title:
-      "14 Ton Trucks for Sale South Africa | NEWTA Commercial Sales",
+    title: "14 Ton Trucks for Sale South Africa | NEWTA Commercial Sales",
 
     description:
-      "Browse 14 ton trucks currently available through NEWTA Commercial Sales across South Africa. View specifications, photographs, pricing and enquiry information.",
+      "Browse 14 ton trucks for sale in South Africa through NEWTA Commercial Sales.",
 
-    url:
-      "https://newtacommercialsales.com/equipment/14-ton-trucks-for-sale-south-africa",
+    url: pageUrl,
 
     type: "website",
 
@@ -41,15 +40,14 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
 
-    title:
-      "14 Ton Trucks for Sale South Africa | NEWTA Commercial Sales",
+    title: "14 Ton Trucks for Sale South Africa | NEWTA Commercial Sales",
 
     description:
-      "Browse available 14 ton trucks through NEWTA Commercial Sales across South Africa.",
+      "Browse 14 ton trucks for sale in South Africa through NEWTA Commercial Sales.",
   },
 };
 
-export default async function FourteenTonTrucksPage() {
+export default async function FourteenTonTrucksForSaleSouthAfrica() {
   await connectDB();
 
   const commercialVehicles = equipmentCategories.find(
@@ -61,15 +59,12 @@ export default async function FourteenTonTrucksPage() {
   );
 
   const equipment = await Equipment.find({
-    category: commercialVehicles?.name,
+    category: "Commercial Vehicles",
     subcategory: fourteenTonTrucks?.name,
     status: "Available",
   })
     .sort({ createdAt: -1 })
     .lean();
-
-  const pageUrl =
-    "https://newtacommercialsales.com/equipment/14-ton-trucks-for-sale-south-africa";
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -78,7 +73,7 @@ export default async function FourteenTonTrucksPage() {
     name: "14 Ton Trucks for Sale South Africa",
 
     description:
-      "14 ton trucks for sale through NEWTA Commercial Sales across South Africa.",
+      "14 ton commercial trucks for sale through NEWTA Commercial Sales.",
 
     url: pageUrl,
 
@@ -160,7 +155,6 @@ export default async function FourteenTonTrucksPage() {
               aria-label="Breadcrumb"
               className="mb-8 text-sm text-gray-300"
             >
-
               <Link
                 href="/"
                 className="hover:text-[#D4AF37]"
@@ -197,29 +191,29 @@ export default async function FourteenTonTrucksPage() {
               <span className="text-[#D4AF37]">
                 14 Ton Trucks
               </span>
-
             </nav>
 
             <span className="inline-block rounded-full bg-[#D4AF37] px-5 py-2 text-sm font-bold uppercase tracking-wider text-[#0B2F24]">
               Private Treaty Sales
             </span>
 
-            <h1 className="mt-6 max-w-5xl text-4xl font-extrabold leading-tight md:text-6xl">
+            <h1 className="mt-6 max-w-4xl text-4xl font-extrabold leading-tight md:text-6xl">
               14 Ton Trucks for Sale South Africa
             </h1>
 
             <p className="mt-6 max-w-4xl text-lg leading-8 text-gray-200 md:text-xl">
-              Browse 14 ton trucks currently available through
-              NEWTA Commercial Sales. View truck specifications,
-              photographs, pricing and enquiry information for
-              available 14 ton commercial trucks across South Africa.
+              Browse 14 ton trucks for sale in South Africa through
+              NEWTA Commercial Sales. Our listings can include
+              dropside trucks, flatdeck trucks and other commercial
+              trucks suitable for transport, deliveries, construction
+              and general business use.
             </p>
 
           </div>
 
         </section>
 
-        {/* INTRODUCTION */}
+        {/* LISTINGS */}
 
         <section className="mx-auto max-w-7xl px-6 py-16">
 
@@ -230,23 +224,13 @@ export default async function FourteenTonTrucksPage() {
             </h2>
 
             <p className="mt-5 text-lg leading-8 text-gray-600">
-              NEWTA Commercial Sales offers commercial vehicles
-              through Private Treaty Sales. Our 14 ton truck
-              listings provide buyers with access to available
-              commercial trucks with photographs, specifications,
-              pricing and enquiry information shown on each asset
-              listing.
-            </p>
-
-            <p className="mt-5 text-lg leading-8 text-gray-600">
-              Browse the current 14 ton trucks below and select an
-              asset to view its full details or submit an enquiry
-              directly to NEWTA Commercial Sales.
+              View current 14 ton truck listings available through
+              NEWTA Commercial Sales. Each listing provides available
+              specifications, photographs, pricing and enquiry
+              information.
             </p>
 
           </div>
-
-          {/* LISTINGS */}
 
           {equipment.length > 0 ? (
 
@@ -283,19 +267,21 @@ export default async function FourteenTonTrucksPage() {
             <div className="mt-12 rounded-2xl border bg-white p-10 text-center shadow-sm">
 
               <h2 className="text-2xl font-bold text-[#0B2F24]">
-                No 14 ton trucks currently available
+                No 14 Ton Trucks Currently Available
               </h2>
 
               <p className="mt-3 text-gray-600">
-                Please check back soon for new 14 ton truck
-                listings.
+                We do not currently have a 14 ton truck listed for
+                sale. Please check back soon or contact NEWTA
+                Commercial Sales if you are looking for a specific
+                truck.
               </p>
 
               <Link
-                href="/equipment/trucks-for-sale-south-africa"
+                href="/contact"
                 className="mt-6 inline-block rounded-xl bg-[#D4AF37] px-6 py-3 font-bold text-[#0B2F24]"
               >
-                View All Trucks
+                Contact NEWTA
               </Link>
 
             </div>
@@ -304,55 +290,66 @@ export default async function FourteenTonTrucksPage() {
 
         </section>
 
-        {/* BUYER INFORMATION */}
+        {/* TRUCK TYPES */}
 
         <section className="border-t bg-white">
 
           <div className="mx-auto max-w-7xl px-6 py-16">
 
-            <div className="grid gap-8 md:grid-cols-3">
+            <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
+              14 Ton Truck Types
+            </h2>
 
-              <div className="rounded-2xl border p-6 shadow-sm">
+            <p className="mt-4 max-w-4xl text-lg leading-8 text-gray-600">
+              Depending on availability, 14 ton trucks may be available
+              in different body configurations and specifications.
+              Browse the truck types below or view the wider NEWTA
+              commercial truck range.
+            </p>
 
+            <div className="mt-8 grid gap-6 md:grid-cols-3">
+
+              <Link
+                href="/equipment/dropside-trucks-for-sale-south-africa"
+                className="rounded-2xl border bg-[#FAF8F2] p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+              >
                 <h3 className="text-xl font-bold text-[#0B2F24]">
-                  14 Ton Commercial Trucks
+                  Dropside Trucks
                 </h3>
 
                 <p className="mt-3 text-gray-600">
-                  Browse available 14 ton commercial trucks suitable
-                  for a range of transport, delivery and business
-                  applications.
+                  View dropside trucks available through NEWTA
+                  Commercial Sales.
                 </p>
+              </Link>
 
-              </div>
-
-              <div className="rounded-2xl border p-6 shadow-sm">
-
+              <Link
+                href="/equipment/flatdeck-trucks-for-sale-south-africa"
+                className="rounded-2xl border bg-[#FAF8F2] p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+              >
                 <h3 className="text-xl font-bold text-[#0B2F24]">
-                  View Specifications
+                  Flatdeck Trucks
                 </h3>
 
                 <p className="mt-3 text-gray-600">
-                  Review the available specifications, condition,
-                  photographs and other information provided for
-                  each 14 ton truck.
+                  View flatdeck trucks available through NEWTA
+                  Commercial Sales.
                 </p>
+              </Link>
 
-              </div>
-
-              <div className="rounded-2xl border p-6 shadow-sm">
-
+              <Link
+                href="/equipment/trucks-for-sale-south-africa"
+                className="rounded-2xl border bg-[#FAF8F2] p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+              >
                 <h3 className="text-xl font-bold text-[#0B2F24]">
-                  Private Treaty Sales
+                  All Trucks
                 </h3>
 
                 <p className="mt-3 text-gray-600">
-                  Enquire directly with NEWTA Commercial Sales
-                  about an available 14 ton truck and receive
-                  further information about the asset.
+                  Browse the full range of commercial trucks offered
+                  through NEWTA Commercial Sales.
                 </p>
-
-              </div>
+              </Link>
 
             </div>
 
@@ -360,27 +357,119 @@ export default async function FourteenTonTrucksPage() {
 
         </section>
 
-        {/* RELATED TRUCKS */}
+        {/* WHAT ARE 14 TON TRUCKS */}
 
         <section className="bg-[#FAF8F2]">
 
           <div className="mx-auto max-w-7xl px-6 py-16">
 
-            <h2 className="text-3xl font-bold text-[#0B2F24]">
-              More Trucks for Sale
+            <div className="max-w-4xl">
+
+              <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
+                What Are 14 Ton Trucks?
+              </h2>
+
+                             <p className="mt-5 text-lg leading-8 text-gray-600">
+  14 ton trucks are heavy-duty commercial vehicles designed for
+  transporting larger and heavier loads than lighter delivery
+  trucks. They are commonly used for transporting building
+  materials, construction equipment, agricultural products,
+  machinery, containers, general freight and other commercial loads where
+  greater payload capacity is required.
+              </p>
+
+             <p className="mt-5 text-lg leading-8 text-gray-600">
+  Depending on the truck configuration, body type and vehicle
+  specification, 14 ton trucks can be used for a wide range of
+  commercial transport applications. Buyers should always check
+  the individual vehicle's specifications, permitted payload and
+  documentation before purchase.
+</p>
+
+            </div>
+
+          </div>
+
+        </section>
+
+        {/* COMMON USES */}
+
+        <section className="border-t bg-white">
+
+          <div className="mx-auto max-w-7xl px-6 py-16">
+
+            <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
+              Common Uses for 14 Ton Trucks
             </h2>
 
-            <p className="mt-4 max-w-3xl text-lg text-gray-600">
-              Looking for another size or type of commercial truck?
-              Browse the full NEWTA truck inventory.
+            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+
+             {[
+  "Building materials",
+  "Construction equipment",
+  "Agricultural products",
+  "Heavy general freight",
+  "Machinery and equipment",
+  "Industrial transport",
+  "Containers",
+].map((use) => (
+
+                <div
+                  key={use}
+                  className="rounded-xl border bg-[#FAF8F2] p-5"
+                >
+                  <p className="font-semibold text-[#0B2F24]">
+                    {use}
+                  </p>
+                </div>
+
+              ))}
+
+            </div>
+
+          </div>
+
+        </section>
+
+        {/* OTHER TONNAGE PAGES */}
+
+        <section className="border-t bg-[#FAF8F2]">
+
+          <div className="mx-auto max-w-7xl px-6 py-16">
+
+            <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
+              Other Truck Tonnages
+            </h2>
+
+            <p className="mt-4 max-w-4xl text-lg leading-8 text-gray-600">
+              Looking for a different truck size? Browse other truck
+              tonnage categories available through NEWTA Commercial
+              Sales.
             </p>
 
-            <Link
-              href="/equipment/trucks-for-sale-south-africa"
-              className="mt-6 inline-block rounded-xl bg-[#0B2F24] px-7 py-3 font-bold text-white transition hover:bg-green-900"
-            >
-              View Trucks for Sale →
-            </Link>
+            <div className="mt-8 flex flex-wrap gap-3">
+
+              {[
+                ["2 Ton Trucks", "/equipment/3-ton-trucks-for-sale-south-africa"],
+                ["3 Ton Trucks", "/equipment/4-ton-trucks-for-sale-south-africa"],
+                ["4 Ton Trucks", "/equipment/8-ton-trucks-for-sale-south-africa"],
+                ["8 Ton Trucks", "/equipment/10-ton-trucks-for-sale-south-africa"],
+                ["10 Ton Trucks", "/equipment/12-ton-trucks-for-sale-south-africa"],
+                ["12 Ton Trucks", "/equipment/14-ton-trucks-for-sale-south-africa"],
+                ["16 Ton Trucks", "/equipment/16-ton-trucks-for-sale-south-africa"],
+              ].map(([label, href]) => (
+
+                <Link
+                  key={href}
+                  href={href}
+                  className="rounded-xl border bg-white px-5 py-3 font-semibold text-[#0B2F24] transition hover:border-[#D4AF37] hover:bg-[#D4AF37]"
+                >
+                  {label}
+                </Link>
+
+              ))}
+
+            </div>
 
           </div>
 
@@ -397,9 +486,10 @@ export default async function FourteenTonTrucksPage() {
             </h2>
 
             <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-300">
-              Contact NEWTA Commercial Sales if you are looking
-              for a particular 14 ton truck or want more information
-              about an available asset.
+              If you are looking for a particular 14 ton truck, body
+              type or specification, contact NEWTA Commercial Sales.
+              We can assist with available commercial vehicles and
+              upcoming stock.
             </p>
 
             <Link
