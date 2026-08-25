@@ -57,6 +57,76 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
     },
 
+        {
+      url: "https://newtacommercialsales.com/equipment/dropside-trucks-for-sale-south-africa",
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+
+    {
+      url: "https://newtacommercialsales.com/equipment/flatdeck-trucks-for-sale-south-africa",
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+
+    {
+      url: "https://newtacommercialsales.com/equipment/2-ton-trucks-for-sale-south-africa",
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+
+    {
+      url: "https://newtacommercialsales.com/equipment/3-ton-trucks-for-sale-south-africa",
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+
+    {
+      url: "https://newtacommercialsales.com/equipment/4-ton-trucks-for-sale-south-africa",
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+
+    {
+      url: "https://newtacommercialsales.com/equipment/8-ton-trucks-for-sale-south-africa",
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+
+    {
+      url: "https://newtacommercialsales.com/equipment/10-ton-trucks-for-sale-south-africa",
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+
+    {
+      url: "https://newtacommercialsales.com/equipment/12-ton-trucks-for-sale-south-africa",
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+
+    {
+      url: "https://newtacommercialsales.com/equipment/14-ton-trucks-for-sale-south-africa",
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+
+    {
+      url: "https://newtacommercialsales.com/equipment/16-ton-trucks-for-sale-south-africa",
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+
     {
       url: "https://newtacommercialsales.com/equipment/cement-mixer-trucks-for-sale-south-africa",
       lastModified: new Date(),
