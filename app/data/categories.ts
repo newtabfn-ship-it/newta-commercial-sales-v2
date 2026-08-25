@@ -39,6 +39,12 @@ export const equipmentCategories: EquipmentCategory[] = [
   group: "trucks",
 },
 {
+  name: "Flatdeck Trucks",
+  slug: "flatdeck-trucks",
+  seoSlug: "flatdeck-trucks-for-sale-south-africa",
+  group: "trucks",
+},
+{
   name: "Concrete Mixer Trucks",
   slug: "cement-mixer-trucks",
   seoSlug: "cement-mixer-trucks-for-sale-south-africa",
