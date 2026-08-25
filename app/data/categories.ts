@@ -33,6 +33,12 @@ export const equipmentCategories: EquipmentCategory[] = [
   group: "trucks",
 },
 {
+  name: "Dropside Trucks",
+  slug: "dropside-trucks",
+  seoSlug: "dropside-trucks-for-sale-south-africa",
+  group: "trucks",
+},
+{
   name: "Concrete Mixer Trucks",
   slug: "cement-mixer-trucks",
   seoSlug: "cement-mixer-trucks-for-sale-south-africa",
