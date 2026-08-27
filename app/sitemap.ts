@@ -183,6 +183,62 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
     },
 
+    {
+  url: "https://newtacommercialsales.com/equipment/flatdeck-trailers-for-sale-south-africa",
+  lastModified: new Date(),
+  changeFrequency: "weekly",
+  priority: 0.9,
+},
+
+{
+  url: "https://newtacommercialsales.com/equipment/tautliner-trailers-for-sale-south-africa",
+  lastModified: new Date(),
+  changeFrequency: "weekly",
+  priority: 0.9,
+},
+
+{
+  url: "https://newtacommercialsales.com/equipment/side-tipper-trailers-for-sale-south-africa",
+  lastModified: new Date(),
+  changeFrequency: "weekly",
+  priority: 0.9,
+},
+
+{
+  url: "https://newtacommercialsales.com/equipment/backend-tipper-trailers-for-sale-south-africa",
+  lastModified: new Date(),
+  changeFrequency: "weekly",
+  priority: 0.9,
+},
+
+{
+  url: "https://newtacommercialsales.com/equipment/dropside-trailers-for-sale-south-africa",
+  lastModified: new Date(),
+  changeFrequency: "weekly",
+  priority: 0.9,
+},
+
+{
+  url: "https://newtacommercialsales.com/equipment/skeletal-trailers-for-sale-south-africa",
+  lastModified: new Date(),
+  changeFrequency: "weekly",
+  priority: 0.9,
+},
+
+{
+  url: "https://newtacommercialsales.com/equipment/lowbed-trailers-for-sale-south-africa",
+  lastModified: new Date(),
+  changeFrequency: "weekly",
+  priority: 0.9,
+},
+
+{
+  url: "https://newtacommercialsales.com/equipment/tanker-trailers-for-sale-south-africa",
+  lastModified: new Date(),
+  changeFrequency: "weekly",
+  priority: 0.9,
+},
+
     // Plant & Machinery
     {
       url: "https://newtacommercialsales.com/equipment/plant-machinery-for-sale-south-africa",
