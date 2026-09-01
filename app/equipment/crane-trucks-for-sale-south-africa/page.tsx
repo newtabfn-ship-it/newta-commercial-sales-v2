@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     "Crane Trucks for Sale South Africa | NEWTA Commercial Sales",
 
   description:
-    "Browse crane trucks for sale in South Africa through NEWTA Commercial Sales. View available truck-mounted cranes, specifications, images, pricing and enquiry information.",
+    "Browse crane trucks for sale in South Africa through NEWTA Commercial Sales. Find truck-mounted cranes, hydraulic crane trucks and commercial lifting vehicles for construction, industrial, material handling and transport applications.",
 
   alternates: {
     canonical:
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
       "Crane Trucks for Sale South Africa | NEWTA Commercial Sales",
 
     description:
-      "Browse crane trucks currently available through NEWTA Commercial Sales across South Africa.",
+      "Browse crane trucks currently available through NEWTA Commercial Sales across South Africa, including truck-mounted cranes and commercial lifting vehicles.",
 
     url:
       "https://newtacommercialsales.com/equipment/crane-trucks-for-sale-south-africa",
@@ -53,54 +53,91 @@ export default async function CraneTrucksPage() {
   await connectDB();
 
   const commercialVehicles = equipmentCategories.find(
-  (category) => category.slug === "commercial-vehicles"
-);
+    (category) => category.slug === "commercial-vehicles"
+  );
 
-const craneTrucks = commercialVehicles?.subcategories.find(
-  (subcategory) => subcategory.slug === "crane-trucks"
-);
+  const craneTrucks = commercialVehicles?.subcategories.find(
+    (subcategory) => subcategory.slug === "crane-trucks"
+  );
 
-const equipment = await Equipment.find({
-  category: commercialVehicles?.name,
-  subcategory: craneTrucks?.name,
-  status: "Available",
-})
-  .sort({ createdAt: -1 })
-  .lean();
+  const equipment = await Equipment.find({
+    category: commercialVehicles?.name,
+    subcategory: craneTrucks?.name,
+    status: "Available",
+  })
+    .sort({ createdAt: -1 })
+    .lean();
 
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "CollectionPage",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
 
-    name: "Crane Trucks for Sale South Africa",
+        name: "Crane Trucks for Sale South Africa",
 
-    description:
-      "Crane trucks for sale through NEWTA Commercial Sales.",
+        description:
+          "Crane trucks for sale in South Africa through NEWTA Commercial Sales, including truck-mounted cranes and hydraulic crane trucks used for construction, industrial work, material handling and commercial transport.",
 
-    url:
-      "https://newtacommercialsales.com/equipment/crane-trucks-for-sale-south-africa",
+        url:
+          "https://newtacommercialsales.com/equipment/crane-trucks-for-sale-south-africa",
 
-    isPartOf: {
-      "@type": "WebSite",
-      name: "NEWTA Commercial Sales",
-      url: "https://newtacommercialsales.com",
-    },
+        isPartOf: {
+          "@type": "WebSite",
+          name: "NEWTA Commercial Sales",
+          url: "https://newtacommercialsales.com",
+        },
 
-    mainEntity: {
-      "@type": "ItemList",
+        mainEntity: {
+          "@type": "ItemList",
 
-      numberOfItems: equipment.length,
+          numberOfItems: equipment.length,
 
-      itemListElement: equipment.map((item, index) => ({
-        "@type": "ListItem",
+          itemListElement: equipment.map((item, index) => ({
+            "@type": "ListItem",
 
-        position: index + 1,
+            position: index + 1,
 
-        name: item.title,
+            name: item.title,
 
-        url: `https://newtacommercialsales.com/equipment/${item.slug}`,
-      })),
-    },
+            url: `https://newtacommercialsales.com/equipment/${item.slug}`,
+          })),
+        },
+      },
+
+      {
+        "@type": "BreadcrumbList",
+
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: "https://newtacommercialsales.com",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Equipment",
+            item: "https://newtacommercialsales.com/equipment",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "Trucks for Sale South Africa",
+            item:
+              "https://newtacommercialsales.com/equipment/trucks-for-sale-south-africa",
+          },
+          {
+            "@type": "ListItem",
+            position: 4,
+            name: "Crane Trucks for Sale South Africa",
+            item:
+              "https://newtacommercialsales.com/equipment/crane-trucks-for-sale-south-africa",
+          },
+        ],
+      },
+    ],
   };
 
   return (
@@ -167,10 +204,11 @@ const equipment = await Equipment.find({
             </h1>
 
             <p className="mt-6 max-w-4xl text-lg leading-8 text-gray-200 md:text-xl">
-              Browse crane trucks currently available through NEWTA
-              Commercial Sales. View truck-mounted cranes, hydraulic
-              crane trucks and other commercial lifting vehicles with
-              photographs, specifications and enquiry information.
+              Browse crane trucks for sale across South Africa through
+              NEWTA Commercial Sales. Crane trucks combine commercial
+              transport with lifting capability and are used for
+              construction, industrial work, material handling,
+              machinery transport and other commercial applications.
             </p>
 
           </div>
@@ -184,25 +222,99 @@ const equipment = await Equipment.find({
           <div className="max-w-4xl">
 
             <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
-              Crane Trucks for Sale
+              Commercial Crane Trucks for Sale
             </h2>
 
             <p className="mt-5 text-lg leading-8 text-gray-600">
-              NEWTA Commercial Sales offers commercial vehicles,
-              machinery and industrial assets through Private Treaty
-              Sales. Browse our current crane truck inventory below
-              for available assets, photographs, specifications and
-              pricing information.
+              NEWTA Commercial Sales offers crane trucks through
+              Private Treaty Sales across South Africa. A crane truck
+              combines a commercial truck with a mounted lifting system,
+              allowing the vehicle to transport loads and provide
+              lifting capability at the worksite.
             </p>
 
             <p className="mt-5 text-lg leading-8 text-gray-600">
-              Select a crane truck to view its full listing and submit
-              an enquiry directly to NEWTA Commercial Sales.
+              Crane trucks can be used for construction materials,
+              machinery, equipment, industrial components, building
+              supplies, agricultural applications and general material
+              handling. The correct crane truck depends on the vehicle,
+              crane configuration, lifting capacity, load and intended
+              operating environment.
+            </p>
+
+            <p className="mt-5 text-lg leading-8 text-gray-600">
+              Browse the current NEWTA crane truck listings below to
+              view photographs, specifications, pricing, location and
+              enquiry information.
             </p>
 
           </div>
 
-          {/* LISTINGS */}
+        </section>
+
+        {/* APPLICATIONS */}
+
+        <section className="border-t bg-white">
+
+          <div className="mx-auto max-w-7xl px-6 py-16">
+
+            <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
+              Crane Truck Applications
+            </h2>
+
+            <p className="mt-4 max-w-4xl text-lg leading-8 text-gray-600">
+              Crane trucks are useful where materials, equipment or
+              machinery need to be transported and lifted. Applications
+              vary according to the truck, crane and lifting
+              configuration.
+            </p>
+
+            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+
+              {[
+                "Construction materials",
+                "Machinery transport",
+                "Equipment handling",
+                "Industrial transport",
+                "Building supplies",
+                "Material handling",
+                "Agricultural applications",
+                "Commercial deliveries",
+              ].map((use) => (
+                <div
+                  key={use}
+                  className="rounded-2xl border bg-[#FAF8F2] p-5"
+                >
+                  <p className="font-semibold text-[#0B2F24]">
+                    {use}
+                  </p>
+                </div>
+              ))}
+
+            </div>
+
+          </div>
+
+        </section>
+
+        {/* CURRENT LISTINGS */}
+
+        <section className="mx-auto max-w-7xl px-6 py-16">
+
+          <div className="max-w-4xl">
+
+            <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
+              Crane Trucks Currently for Sale
+            </h2>
+
+            <p className="mt-4 text-lg leading-8 text-gray-600">
+              View crane trucks currently available through NEWTA
+              Commercial Sales. Each listing includes available
+              photographs, specifications, pricing, location and
+              enquiry information.
+            </p>
+
+          </div>
 
           {equipment.length > 0 ? (
 
@@ -259,7 +371,7 @@ const equipment = await Equipment.find({
 
         </section>
 
-        {/* BUYER INFORMATION */}
+        {/* CRANE TRUCK INFORMATION */}
 
         <section className="border-t bg-white">
 
@@ -274,8 +386,9 @@ const equipment = await Equipment.find({
                 </h3>
 
                 <p className="mt-3 text-gray-600">
-                  Browse commercial trucks fitted with cranes and
-                  hydraulic lifting equipment.
+                  Truck-mounted cranes combine transport and lifting
+                  capability, making them useful for moving and handling
+                  equipment and materials.
                 </p>
 
               </div>
@@ -283,13 +396,13 @@ const equipment = await Equipment.find({
               <div className="rounded-2xl border p-6 shadow-sm">
 
                 <h3 className="text-xl font-bold text-[#0B2F24]">
-                  Private Treaty Sales
+                  Commercial Applications
                 </h3>
 
                 <p className="mt-3 text-gray-600">
-                  NEWTA Commercial Sales specialises in straightforward
-                  Private Treaty Sales of commercial vehicles,
-                  machinery and industrial assets.
+                  Crane trucks can be used across construction,
+                  industrial, agricultural and general commercial
+                  operations.
                 </p>
 
               </div>
@@ -319,21 +432,48 @@ const equipment = await Equipment.find({
 
           <div className="mx-auto max-w-7xl px-6 py-16">
 
-            <h2 className="text-3xl font-bold text-[#0B2F24]">
+            <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
               More Commercial Trucks
             </h2>
 
-            <p className="mt-4 max-w-3xl text-lg text-gray-600">
+            <p className="mt-4 max-w-4xl text-lg leading-8 text-gray-600">
               Looking for another type of commercial truck? Browse
-              the full NEWTA truck inventory.
+              the full NEWTA truck inventory, including truck tractors,
+              dropside trucks, flatdeck trucks and other commercial
+              trucks.
             </p>
 
-            <Link
-              href="/equipment/trucks-for-sale-south-africa"
-              className="mt-6 inline-block rounded-xl bg-[#0B2F24] px-7 py-3 font-bold text-white transition hover:bg-green-900"
-            >
-              View Trucks for Sale →
-            </Link>
+            <div className="mt-8 flex flex-wrap gap-4">
+
+              <Link
+                href="/equipment/trucks-for-sale-south-africa"
+                className="rounded-xl bg-[#0B2F24] px-6 py-3 font-bold text-white transition hover:bg-green-900"
+              >
+                Trucks for Sale
+              </Link>
+
+              <Link
+                href="/equipment/truck-tractors-for-sale-south-africa"
+                className="rounded-xl bg-[#0B2F24] px-6 py-3 font-bold text-white transition hover:bg-green-900"
+              >
+                Truck Tractors
+              </Link>
+
+              <Link
+                href="/equipment/flatdeck-trucks-for-sale-south-africa"
+                className="rounded-xl bg-[#0B2F24] px-6 py-3 font-bold text-white transition hover:bg-green-900"
+              >
+                Flatdeck Trucks
+              </Link>
+
+              <Link
+                href="/equipment/dropside-trucks-for-sale-south-africa"
+                className="rounded-xl bg-[#0B2F24] px-6 py-3 font-bold text-white transition hover:bg-green-900"
+              >
+                Dropside Trucks
+              </Link>
+
+            </div>
 
           </div>
 
@@ -349,10 +489,11 @@ const equipment = await Equipment.find({
               Looking for a Crane Truck?
             </h2>
 
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-300">
+            <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-gray-300">
               Contact NEWTA Commercial Sales if you are looking for
-              a particular crane truck or want more information about
-              an available asset.
+              a particular crane truck, truck-mounted crane or lifting
+              vehicle, or if you want more information about an
+              available asset.
             </p>
 
             <Link

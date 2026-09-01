@@ -156,7 +156,7 @@ const equipment = await Equipment.find({
 
             <p className="mt-6 max-w-4xl text-lg leading-8 text-gray-200 md:text-xl">
               Browse commercial trailers currently available through
-              NEWTA Commercial Sales. View side tipper trailers and
+              NEWTA Commercial Sales. View trailers and
               other commercial trailer assets with photographs,
               specifications, pricing and enquiry information.
             </p>

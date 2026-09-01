@@ -11,10 +11,10 @@ import EquipmentCard from "../../components/EquipmentCard";
 
 export const metadata: Metadata = {
   title:
-    "Mobile Crushers & Screening Equipment for Sale South Africa | NEWTA",
+    "Mobile Crushers & Screening Equipment for Sale South Africa | NEWTA Commercial Sales",
 
   description:
-    "Browse mobile crushers and screening equipment for sale in South Africa through NEWTA Commercial Sales. View Metso, Powerscreen and other crushing and screening equipment with specifications, images and pricing.",
+    "Browse mobile crushers and screening equipment for sale in South Africa through NEWTA Commercial Sales. View available crushing and screening plant, specifications, images, pricing and enquiry information.",
 
   alternates: {
     canonical:
@@ -23,10 +23,10 @@ export const metadata: Metadata = {
 
   openGraph: {
     title:
-      "Mobile Crushers & Screening Equipment for Sale South Africa | NEWTA",
+      "Mobile Crushers & Screening Equipment for Sale South Africa | NEWTA Commercial Sales",
 
     description:
-      "Browse mobile crushers and screening equipment currently available through NEWTA Commercial Sales.",
+      "Browse mobile crushers and screening equipment currently available through NEWTA Commercial Sales across South Africa.",
 
     url:
       "https://newtacommercialsales.com/equipment/mobile-crushers-screening-equipment-for-sale-south-africa",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
 
     title:
-      "Mobile Crushers & Screening Equipment for Sale South Africa | NEWTA",
+      "Mobile Crushers & Screening Equipment for Sale South Africa | NEWTA Commercial Sales",
 
     description:
       "Browse mobile crushers and screening equipment available through NEWTA Commercial Sales.",
@@ -53,27 +53,26 @@ export default async function MobileCrushersScreeningPage() {
   await connectDB();
 
   const plantMachinery = equipmentCategories.find(
-  (category) => category.slug === "plant-machinery"
-);
+    (category) => category.slug === "plant-machinery"
+  );
 
-const crushingScreening = plantMachinery?.subcategories.find(
-  (subcategory) => subcategory.slug === "crushing-screening"
-);
+  const crushingScreening = plantMachinery?.subcategories.find(
+    (subcategory) => subcategory.slug === "crushing-screening"
+  );
 
-const equipment = await Equipment.find({
-  category: plantMachinery?.name,
-  subcategory: crushingScreening?.name,
-  status: "Available",
-})
-  .sort({ createdAt: -1 })
-  .lean();
+  const equipment = await Equipment.find({
+    category: plantMachinery?.name,
+    subcategory: crushingScreening?.name,
+    status: "Available",
+  })
+    .sort({ createdAt: -1 })
+    .lean();
 
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
 
-    name:
-      "Mobile Crushers & Screening Equipment for Sale South Africa",
+    name: "Mobile Crushers & Screening Equipment for Sale South Africa",
 
     description:
       "Mobile crushers and screening equipment for sale through NEWTA Commercial Sales.",
@@ -127,6 +126,7 @@ const equipment = await Equipment.find({
               aria-label="Breadcrumb"
               className="mb-8 text-sm text-gray-300"
             >
+
               <Link
                 href="/"
                 className="hover:text-[#D4AF37]"
@@ -134,7 +134,9 @@ const equipment = await Equipment.find({
                 Home
               </Link>
 
-              <span className="mx-2">/</span>
+              <span className="mx-2">
+                /
+              </span>
 
               <Link
                 href="/equipment"
@@ -143,11 +145,25 @@ const equipment = await Equipment.find({
                 Equipment
               </Link>
 
-              <span className="mx-2">/</span>
+              <span className="mx-2">
+                /
+              </span>
+
+              <Link
+                href="/equipment/plant-machinery-for-sale-south-africa"
+                className="hover:text-[#D4AF37]"
+              >
+                Plant & Machinery
+              </Link>
+
+              <span className="mx-2">
+                /
+              </span>
 
               <span className="text-[#D4AF37]">
                 Mobile Crushers & Screening Equipment
               </span>
+
             </nav>
 
             <span className="inline-block rounded-full bg-[#D4AF37] px-5 py-2 text-sm font-bold uppercase tracking-wider text-[#0B2F24]">
@@ -159,11 +175,11 @@ const equipment = await Equipment.find({
             </h1>
 
             <p className="mt-6 max-w-4xl text-lg leading-8 text-gray-200 md:text-xl">
-              Browse mobile crushing and screening equipment currently
+              Browse mobile crushers and screening equipment currently
               available through NEWTA Commercial Sales. View available
-              equipment including Metso Lokotrack and Powerscreen assets,
-              with photographs, specifications, pricing and enquiry
-              information.
+              crushing and screening plant with photographs,
+              specifications, pricing and enquiry information for
+              equipment available across South Africa.
             </p>
 
           </div>
@@ -177,21 +193,28 @@ const equipment = await Equipment.find({
           <div className="max-w-4xl">
 
             <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
-              Mobile Crushing & Screening Equipment
+              Mobile Crushers & Screening Equipment for Sale
             </h2>
 
             <p className="mt-5 text-lg leading-8 text-gray-600">
-              NEWTA Commercial Sales offers commercial and industrial
-              assets through Private Treaty Sales. Our crushing and
-              screening equipment listings provide buyers with access
-              to available plant and machinery, together with
-              photographs, specifications and pricing information.
+              NEWTA Commercial Sales offers crushing and screening
+              equipment through Private Treaty Sales. Browse current
+              mobile crushers, screening plant and related equipment
+              available for sale across South Africa.
             </p>
 
             <p className="mt-5 text-lg leading-8 text-gray-600">
-              Browse the current equipment below and select an asset
-              to view its full details or enquire directly with NEWTA
-              Commercial Sales.
+              Crushing and screening equipment is used in quarrying,
+              aggregate production, mining, construction, recycling,
+              road building and material processing operations. The
+              right equipment depends on the material being processed,
+              required output and operating application.
+            </p>
+
+            <p className="mt-5 text-lg leading-8 text-gray-600">
+              Browse the current NEWTA listings below to view
+              photographs, specifications, pricing, location and
+              enquiry information for each available asset.
             </p>
 
           </div>
@@ -233,12 +256,12 @@ const equipment = await Equipment.find({
             <div className="mt-12 rounded-2xl border bg-white p-10 text-center shadow-sm">
 
               <h2 className="text-2xl font-bold text-[#0B2F24]">
-                No mobile crushing or screening equipment currently
-                available
+                No mobile crushers or screening equipment currently available
               </h2>
 
               <p className="mt-3 text-gray-600">
-                Please check back soon for new machinery listings.
+                Please check back soon for new crushing and screening
+                equipment listings.
               </p>
 
               <Link
@@ -254,50 +277,62 @@ const equipment = await Equipment.find({
 
         </section>
 
-        {/* EQUIPMENT INFORMATION */}
+        {/* EQUIPMENT APPLICATIONS */}
 
         <section className="border-t bg-white">
 
           <div className="mx-auto max-w-7xl px-6 py-16">
 
-            <div className="grid gap-8 md:grid-cols-3">
+            <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
+              Crushing & Screening Equipment Applications
+            </h2>
 
-              <div className="rounded-2xl border p-6 shadow-sm">
+            <p className="mt-4 max-w-4xl text-lg leading-8 text-gray-600">
+              Crushing and screening plant plays an important role in
+              processing materials for construction, quarrying,
+              mining and other industrial applications.
+            </p>
+
+            <div className="mt-10 grid gap-6 md:grid-cols-3">
+
+              <div className="rounded-2xl border bg-[#FAF8F2] p-6 shadow-sm">
 
                 <h3 className="text-xl font-bold text-[#0B2F24]">
-                  Mobile Crushers
+                  Mobile Crushing
                 </h3>
 
-                <p className="mt-3 text-gray-600">
-                  Browse mobile crushing equipment suitable for
-                  aggregate, quarrying, construction and other
-                  commercial applications.
+                <p className="mt-3 leading-7 text-gray-600">
+                  Mobile crushing equipment can be used to reduce
+                  rock, aggregate and other materials to the required
+                  size for further processing or use.
                 </p>
 
               </div>
 
-              <div className="rounded-2xl border p-6 shadow-sm">
+              <div className="rounded-2xl border bg-[#FAF8F2] p-6 shadow-sm">
 
                 <h3 className="text-xl font-bold text-[#0B2F24]">
-                  Screening Equipment
+                  Screening Plant
                 </h3>
 
-                <p className="mt-3 text-gray-600">
-                  View available screening plant and equipment for
-                  processing and separating material.
+                <p className="mt-3 leading-7 text-gray-600">
+                  Screening equipment separates processed material
+                  into different sizes and can form an important part
+                  of aggregate and material-processing operations.
                 </p>
 
               </div>
 
-              <div className="rounded-2xl border p-6 shadow-sm">
+              <div className="rounded-2xl border bg-[#FAF8F2] p-6 shadow-sm">
 
                 <h3 className="text-xl font-bold text-[#0B2F24]">
-                  Private Treaty Sales
+                  Quarry & Construction
                 </h3>
 
-                <p className="mt-3 text-gray-600">
-                  Enquire directly with NEWTA Commercial Sales about
-                  available plant and machinery.
+                <p className="mt-3 leading-7 text-gray-600">
+                  Crushing and screening equipment can be used in
+                  quarrying, construction, road building and aggregate
+                  production applications.
                 </p>
 
               </div>
@@ -308,26 +343,55 @@ const equipment = await Equipment.find({
 
         </section>
 
-        {/* RELATED EQUIPMENT */}
+        {/* BUYER INFORMATION */}
 
         <section className="bg-[#FAF8F2]">
 
           <div className="mx-auto max-w-7xl px-6 py-16">
 
-            <h2 className="text-3xl font-bold text-[#0B2F24]">
-              More Commercial & Industrial Equipment
+            <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
+              Buying Crushing & Screening Equipment
             </h2>
 
-            <p className="mt-4 max-w-3xl text-lg text-gray-600">
-              Looking for other commercial machinery, vehicles or
-              industrial assets? Browse the full NEWTA inventory.
+            <p className="mt-5 max-w-4xl text-lg leading-8 text-gray-600">
+              Buyers can review the available information for each
+              asset before making an enquiry. Listing information may
+              include photographs, specifications, operating hours,
+              location, pricing and other details provided for the
+              individual machine.
+            </p>
+
+            <p className="mt-5 max-w-4xl text-lg leading-8 text-gray-600">
+              Equipment availability changes as assets are sold and
+              new machinery is added to the NEWTA Commercial Sales
+              inventory.
+            </p>
+
+          </div>
+
+        </section>
+
+        {/* RELATED EQUIPMENT */}
+
+        <section className="border-t bg-white">
+
+          <div className="mx-auto max-w-7xl px-6 py-16">
+
+            <h2 className="text-3xl font-bold text-[#0B2F24]">
+              More Plant & Machinery
+            </h2>
+
+            <p className="mt-4 max-w-3xl text-lg leading-8 text-gray-600">
+              Looking for other construction, agricultural or
+              industrial machinery? Browse the wider NEWTA
+              Commercial Sales plant and machinery inventory.
             </p>
 
             <Link
-              href="/equipment"
+              href="/equipment/plant-machinery-for-sale-south-africa"
               className="mt-6 inline-block rounded-xl bg-[#0B2F24] px-7 py-3 font-bold text-white transition hover:bg-green-900"
             >
-              View All Equipment →
+              View Plant & Machinery →
             </Link>
 
           </div>
@@ -341,13 +405,13 @@ const equipment = await Equipment.find({
           <div className="mx-auto max-w-7xl px-6 py-16 text-center">
 
             <h2 className="text-3xl font-bold md:text-4xl">
-              Looking for Crushing or Screening Equipment?
+              Looking for a Crusher or Screening Plant?
             </h2>
 
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-300">
+            <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-gray-300">
               Contact NEWTA Commercial Sales if you are looking for
-              a particular crusher, screening plant or other commercial
-              equipment.
+              a particular mobile crusher, screening plant or other
+              crushing and screening equipment.
             </p>
 
             <Link

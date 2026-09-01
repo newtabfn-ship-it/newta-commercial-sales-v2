@@ -10,10 +10,11 @@ import Footer from "../../components/Footer";
 import EquipmentCard from "../../components/EquipmentCard";
 
 export const metadata: Metadata = {
-  title: "Buses for Sale South Africa | NEWTA Commercial Sales",
+  title:
+    "Buses for Sale South Africa | NEWTA Commercial Sales",
 
   description:
-    "Browse buses for sale in South Africa through NEWTA Commercial Sales. View available buses, specifications, images, pricing and enquiry information.",
+    "Browse buses for sale in South Africa through NEWTA Commercial Sales. Find passenger buses and commercial buses for transport, staff transport, schools, tourism and other commercial applications, with specifications, images, pricing and enquiry information.",
 
   alternates: {
     canonical:
@@ -21,10 +22,11 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "Buses for Sale South Africa | NEWTA Commercial Sales",
+    title:
+      "Buses for Sale South Africa | NEWTA Commercial Sales",
 
     description:
-      "Browse buses currently available through NEWTA Commercial Sales across South Africa.",
+      "Browse buses currently available through NEWTA Commercial Sales across South Africa, including passenger and commercial buses for a range of transport applications.",
 
     url:
       "https://newtacommercialsales.com/equipment/buses-for-sale-south-africa",
@@ -39,7 +41,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
 
-    title: "Buses for Sale South Africa | NEWTA Commercial Sales",
+    title:
+      "Buses for Sale South Africa | NEWTA Commercial Sales",
 
     description:
       "Browse available buses through NEWTA Commercial Sales.",
@@ -49,55 +52,85 @@ export const metadata: Metadata = {
 export default async function BusesForSalePage() {
   await connectDB();
 
- const commercialVehicles = equipmentCategories.find(
-  (category) => category.slug === "commercial-vehicles"
-);
+  const commercialVehicles = equipmentCategories.find(
+    (category) => category.slug === "commercial-vehicles"
+  );
 
-const buses = commercialVehicles?.subcategories.find(
-  (subcategory) => subcategory.slug === "buses"
-);
+  const buses = commercialVehicles?.subcategories.find(
+    (subcategory) => subcategory.slug === "buses"
+  );
 
-const equipment = await Equipment.find({
-  category: commercialVehicles?.name,
-  subcategory: buses?.name,
-  status: "Available",
-})
-  .sort({ createdAt: -1 })
-  .lean();
+  const equipment = await Equipment.find({
+    category: commercialVehicles?.name,
+    subcategory: buses?.name,
+    status: "Available",
+  })
+    .sort({ createdAt: -1 })
+    .lean();
 
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "CollectionPage",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
 
-    name: "Buses for Sale South Africa",
+        name: "Buses for Sale South Africa",
 
-    description:
-      "Buses for sale through NEWTA Commercial Sales.",
+        description:
+          "Buses for sale in South Africa through NEWTA Commercial Sales, including passenger and commercial buses for transport, staff transport, schools, tourism and other commercial applications.",
 
-    url:
-      "https://newtacommercialsales.com/equipment/buses-for-sale-south-africa",
+        url:
+          "https://newtacommercialsales.com/equipment/buses-for-sale-south-africa",
 
-    isPartOf: {
-      "@type": "WebSite",
-      name: "NEWTA Commercial Sales",
-      url: "https://newtacommercialsales.com",
-    },
+        isPartOf: {
+          "@type": "WebSite",
+          name: "NEWTA Commercial Sales",
+          url: "https://newtacommercialsales.com",
+        },
 
-    mainEntity: {
-      "@type": "ItemList",
+        mainEntity: {
+          "@type": "ItemList",
 
-      numberOfItems: equipment.length,
+          numberOfItems: equipment.length,
 
-      itemListElement: equipment.map((item, index) => ({
-        "@type": "ListItem",
+          itemListElement: equipment.map((item, index) => ({
+            "@type": "ListItem",
 
-        position: index + 1,
+            position: index + 1,
 
-        name: item.title,
+            name: item.title,
 
-        url: `https://newtacommercialsales.com/equipment/${item.slug}`,
-      })),
-    },
+            url: `https://newtacommercialsales.com/equipment/${item.slug}`,
+          })),
+        },
+      },
+
+      {
+        "@type": "BreadcrumbList",
+
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: "https://newtacommercialsales.com",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Equipment",
+            item: "https://newtacommercialsales.com/equipment",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "Buses for Sale South Africa",
+            item:
+              "https://newtacommercialsales.com/equipment/buses-for-sale-south-africa",
+          },
+        ],
+      },
+    ],
   };
 
   return (
@@ -155,10 +188,10 @@ const equipment = await Equipment.find({
             </h1>
 
             <p className="mt-6 max-w-4xl text-lg leading-8 text-gray-200 md:text-xl">
-              Browse buses currently available through NEWTA
-              Commercial Sales. View available passenger and commercial
-              buses with photographs, specifications, pricing and
-              enquiry information.
+              Browse buses for sale across South Africa through NEWTA
+              Commercial Sales. Find passenger and commercial buses
+              suitable for staff transport, schools, tourism, passenger
+              transport and other commercial applications.
             </p>
 
           </div>
@@ -172,25 +205,99 @@ const equipment = await Equipment.find({
           <div className="max-w-4xl">
 
             <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
-              Buses for Sale
+              Commercial Buses for Sale
             </h2>
 
             <p className="mt-5 text-lg leading-8 text-gray-600">
-              NEWTA Commercial Sales offers commercial vehicles,
-              machinery and industrial assets through Private Treaty
-              Sales. Browse our current bus inventory below for
-              available assets, photographs, specifications and pricing
-              information.
+              NEWTA Commercial Sales offers buses and other commercial
+              vehicles through Private Treaty Sales across South Africa.
+              Our bus listings provide buyers with access to available
+              passenger and commercial bus assets, with photographs,
+              specifications and pricing information shown on each
+              individual listing.
             </p>
 
             <p className="mt-5 text-lg leading-8 text-gray-600">
-              Select a bus to view its complete listing or enquire
-              directly with NEWTA Commercial Sales.
+              Buses can be used for staff transport, school transport,
+              passenger services, tourism, shuttle operations and other
+              commercial transport requirements. The correct bus depends
+              on its configuration, passenger capacity, condition and
+              intended application.
+            </p>
+
+            <p className="mt-5 text-lg leading-8 text-gray-600">
+              Browse the current NEWTA bus listings below to view
+              photographs, specifications, pricing, location and
+              enquiry information.
             </p>
 
           </div>
 
-          {/* LISTINGS */}
+        </section>
+
+        {/* APPLICATIONS */}
+
+        <section className="border-t bg-white">
+
+          <div className="mx-auto max-w-7xl px-6 py-16">
+
+            <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
+              Bus Applications
+            </h2>
+
+            <p className="mt-4 max-w-4xl text-lg leading-8 text-gray-600">
+              Commercial buses are used across South Africa for a range
+              of passenger transport requirements. Applications depend
+              on the individual bus, seating configuration, condition
+              and operating requirements.
+            </p>
+
+            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+
+              {[
+                "Staff transport",
+                "School transport",
+                "Passenger transport",
+                "Tourism operations",
+                "Shuttle services",
+                "Corporate transport",
+                "Community transport",
+                "Commercial passenger services",
+              ].map((use) => (
+                <div
+                  key={use}
+                  className="rounded-2xl border bg-[#FAF8F2] p-5"
+                >
+                  <p className="font-semibold text-[#0B2F24]">
+                    {use}
+                  </p>
+                </div>
+              ))}
+
+            </div>
+
+          </div>
+
+        </section>
+
+        {/* CURRENT LISTINGS */}
+
+        <section className="mx-auto max-w-7xl px-6 py-16">
+
+          <div className="max-w-4xl">
+
+            <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
+              Buses Currently for Sale
+            </h2>
+
+            <p className="mt-4 text-lg leading-8 text-gray-600">
+              View buses currently available through NEWTA Commercial
+              Sales. Each listing includes available photographs,
+              specifications, pricing, location and enquiry
+              information.
+            </p>
+
+          </div>
 
           {equipment.length > 0 ? (
 
@@ -258,12 +365,13 @@ const equipment = await Equipment.find({
               <div className="rounded-2xl border p-6 shadow-sm">
 
                 <h3 className="text-xl font-bold text-[#0B2F24]">
-                  Commercial Buses
+                  Passenger Buses
                 </h3>
 
                 <p className="mt-3 text-gray-600">
-                  Browse available buses suitable for passenger,
-                  transport and commercial applications.
+                  Browse passenger buses suitable for staff transport,
+                  schools, tourism, shuttle services and other
+                  passenger transport applications.
                 </p>
 
               </div>
@@ -275,8 +383,9 @@ const equipment = await Equipment.find({
                 </h3>
 
                 <p className="mt-3 text-gray-600">
-                  Each asset listing includes photographs,
-                  specifications, pricing and enquiry information.
+                  Each bus listing includes available photographs,
+                  specifications, pricing, location and enquiry
+                  information.
                 </p>
 
               </div>
@@ -300,27 +409,46 @@ const equipment = await Equipment.find({
 
         </section>
 
-        {/* RELATED VEHICLES */}
+        {/* RELATED COMMERCIAL VEHICLES */}
 
         <section className="bg-[#FAF8F2]">
 
           <div className="mx-auto max-w-7xl px-6 py-16">
 
-            <h2 className="text-3xl font-bold text-[#0B2F24]">
+            <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
               More Commercial Vehicles
             </h2>
 
-            <p className="mt-4 max-w-3xl text-lg text-gray-600">
-              Looking for trucks, buses, trailers or other commercial
-              vehicles? Browse the full NEWTA inventory.
+            <p className="mt-4 max-w-4xl text-lg leading-8 text-gray-600">
+              Looking for another commercial vehicle? Browse the full
+              NEWTA inventory, including trucks, truck tractors,
+              trailers and other commercial vehicles.
             </p>
 
-            <Link
-              href="/equipment/trucks-for-sale-south-africa"
-              className="mt-6 inline-block rounded-xl bg-[#0B2F24] px-7 py-3 font-bold text-white transition hover:bg-green-900"
-            >
-              View Commercial Vehicles →
-            </Link>
+            <div className="mt-8 flex flex-wrap gap-4">
+
+              <Link
+                href="/equipment/trucks-for-sale-south-africa"
+                className="rounded-xl bg-[#0B2F24] px-6 py-3 font-bold text-white transition hover:bg-green-900"
+              >
+                Trucks for Sale
+              </Link>
+
+              <Link
+                href="/equipment/trailers-for-sale-south-africa"
+                className="rounded-xl bg-[#0B2F24] px-6 py-3 font-bold text-white transition hover:bg-green-900"
+              >
+                Trailers for Sale
+              </Link>
+
+              <Link
+                href="/equipment/truck-tractors-for-sale-south-africa"
+                className="rounded-xl bg-[#0B2F24] px-6 py-3 font-bold text-white transition hover:bg-green-900"
+              >
+                Truck Tractors
+              </Link>
+
+            </div>
 
           </div>
 
@@ -336,10 +464,10 @@ const equipment = await Equipment.find({
               Looking for a Bus?
             </h2>
 
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-300">
-              Contact NEWTA Commercial Sales if you are looking for a
-              particular bus or want more information about an
-              available asset.
+            <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-gray-300">
+              Contact NEWTA Commercial Sales if you are looking for
+              a particular bus or want more information about an
+              available commercial asset.
             </p>
 
             <Link

@@ -10,10 +10,11 @@ import Footer from "../../components/Footer";
 import EquipmentCard from "../../components/EquipmentCard";
 
 export const metadata: Metadata = {
-  title: "Cars for Sale South Africa | NEWTA Commercial Sales",
+  title:
+    "Cars for Sale South Africa | NEWTA Commercial Sales",
 
   description:
-    "Browse cars and passenger vehicles for sale in South Africa through NEWTA Commercial Sales. View available vehicles, specifications, images, pricing and enquiry information.",
+    "Browse cars and passenger vehicles for sale in South Africa through NEWTA Commercial Sales. Find passenger cars and commercial vehicles for business, personal, fleet and general transport use, with specifications, images, pricing and enquiry information.",
 
   alternates: {
     canonical:
@@ -21,23 +22,27 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "Cars for Sale South Africa | NEWTA Commercial Sales",
+    title:
+      "Cars for Sale South Africa | NEWTA Commercial Sales",
 
     description:
-      "Browse cars and passenger vehicles currently available through NEWTA Commercial Sales across South Africa.",
+      "Browse cars and passenger vehicles currently available through NEWTA Commercial Sales across South Africa, including vehicles for personal, business, fleet and general transport applications.",
 
     url:
       "https://newtacommercialsales.com/equipment/cars-for-sale-south-africa",
 
     type: "website",
+
     siteName: "NEWTA Commercial Sales",
+
     locale: "en_ZA",
   },
 
   twitter: {
     card: "summary_large_image",
 
-    title: "Cars for Sale South Africa | NEWTA Commercial Sales",
+    title:
+      "Cars for Sale South Africa | NEWTA Commercial Sales",
 
     description:
       "Browse available cars and passenger vehicles through NEWTA Commercial Sales.",
@@ -65,34 +70,67 @@ export default async function CarsForSalePage() {
 
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "CollectionPage",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
 
-    name: "Cars for Sale South Africa",
+        name: "Cars for Sale South Africa",
 
-    description:
-      "Cars and passenger vehicles for sale through NEWTA Commercial Sales.",
+        description:
+          "Cars and passenger vehicles for sale in South Africa through NEWTA Commercial Sales, including passenger cars and vehicles suitable for personal, business, fleet and general transport applications.",
 
-    url:
-      "https://newtacommercialsales.com/equipment/cars-for-sale-south-africa",
+        url:
+          "https://newtacommercialsales.com/equipment/cars-for-sale-south-africa",
 
-    isPartOf: {
-      "@type": "WebSite",
-      name: "NEWTA Commercial Sales",
-      url: "https://newtacommercialsales.com",
-    },
+        isPartOf: {
+          "@type": "WebSite",
+          name: "NEWTA Commercial Sales",
+          url: "https://newtacommercialsales.com",
+        },
 
-    mainEntity: {
-      "@type": "ItemList",
+        mainEntity: {
+          "@type": "ItemList",
 
-      numberOfItems: equipment.length,
+          numberOfItems: equipment.length,
 
-      itemListElement: equipment.map((item, index) => ({
-        "@type": "ListItem",
-        position: index + 1,
-        name: item.title,
-        url: `https://newtacommercialsales.com/equipment/${item.slug}`,
-      })),
-    },
+          itemListElement: equipment.map((item, index) => ({
+            "@type": "ListItem",
+
+            position: index + 1,
+
+            name: item.title,
+
+            url: `https://newtacommercialsales.com/equipment/${item.slug}`,
+          })),
+        },
+      },
+
+      {
+        "@type": "BreadcrumbList",
+
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: "https://newtacommercialsales.com",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Equipment",
+            item: "https://newtacommercialsales.com/equipment",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "Cars for Sale South Africa",
+            item:
+              "https://newtacommercialsales.com/equipment/cars-for-sale-south-africa",
+          },
+        ],
+      },
+    ],
   };
 
   return (
@@ -107,13 +145,21 @@ export default async function CarsForSalePage() {
       <Navbar />
 
       <main className="min-h-screen bg-[#FAF8F2]">
+
+        {/* HERO */}
+
         <section className="bg-gradient-to-r from-green-950 via-green-900 to-green-800 text-white">
+
           <div className="mx-auto max-w-7xl px-6 py-20">
+
             <nav
               aria-label="Breadcrumb"
               className="mb-8 text-sm text-gray-300"
             >
-              <Link href="/" className="hover:text-[#D4AF37]">
+              <Link
+                href="/"
+                className="hover:text-[#D4AF37]"
+              >
                 Home
               </Link>
 
@@ -142,38 +188,131 @@ export default async function CarsForSalePage() {
             </h1>
 
             <p className="mt-6 max-w-4xl text-lg leading-8 text-gray-200 md:text-xl">
-              Browse cars and passenger vehicles currently available
-              through NEWTA Commercial Sales. View photographs,
-              specifications, pricing and enquiry information for
-              available vehicles across South Africa.
+              Browse cars and passenger vehicles for sale across South
+              Africa through NEWTA Commercial Sales. Find available
+              passenger vehicles suitable for personal use, business,
+              fleet operations and general transport requirements.
             </p>
+
           </div>
+
         </section>
 
+        {/* INTRODUCTION */}
+
         <section className="mx-auto max-w-7xl px-6 py-16">
+
           <div className="max-w-4xl">
+
             <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
-              Cars & Passenger Vehicles for Sale
+              Cars and Passenger Vehicles for Sale
             </h2>
 
             <p className="mt-5 text-lg leading-8 text-gray-600">
-              NEWTA Commercial Sales connects buyers with vehicles
-              and commercial assets available through Private Treaty
-              Sales. Browse our current passenger vehicle listings
-              below.
+              NEWTA Commercial Sales offers cars and passenger vehicles
+              through Private Treaty Sales across South Africa. Our
+              vehicle listings provide buyers with access to available
+              cars, with photographs, specifications and pricing
+              information shown on each individual listing.
             </p>
+
+            <p className="mt-5 text-lg leading-8 text-gray-600">
+              Passenger vehicles can be suitable for private use,
+              business travel, fleet operations, company vehicles and
+              general transport. The correct vehicle depends on the
+              individual vehicle, condition, specifications and intended
+              use.
+            </p>
+
+            <p className="mt-5 text-lg leading-8 text-gray-600">
+              Browse the current NEWTA car listings below to view
+              photographs, specifications, pricing, location and
+              enquiry information.
+            </p>
+
+          </div>
+
+        </section>
+
+        {/* VEHICLE APPLICATIONS */}
+
+        <section className="border-t bg-white">
+
+          <div className="mx-auto max-w-7xl px-6 py-16">
+
+            <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
+              Passenger Vehicle Applications
+            </h2>
+
+            <p className="mt-4 max-w-4xl text-lg leading-8 text-gray-600">
+              Cars and passenger vehicles are used across South Africa
+              for personal, business and commercial transport. Vehicle
+              suitability depends on the individual specification,
+              condition and intended application.
+            </p>
+
+            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+
+              {[
+                "Personal transport",
+                "Business travel",
+                "Company vehicles",
+                "Fleet operations",
+                "Staff transport",
+                "Sales and service vehicles",
+                "General passenger transport",
+                "Business and commercial use",
+              ].map((use) => (
+                <div
+                  key={use}
+                  className="rounded-2xl border bg-[#FAF8F2] p-5"
+                >
+                  <p className="font-semibold text-[#0B2F24]">
+                    {use}
+                  </p>
+                </div>
+              ))}
+
+            </div>
+
+          </div>
+
+        </section>
+
+        {/* CURRENT LISTINGS */}
+
+        <section className="mx-auto max-w-7xl px-6 py-16">
+
+          <div className="max-w-4xl">
+
+            <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
+              Cars Currently for Sale
+            </h2>
+
+            <p className="mt-4 text-lg leading-8 text-gray-600">
+              View cars and passenger vehicles currently available
+              through NEWTA Commercial Sales. Each listing includes
+              available photographs, specifications, pricing, location
+              and enquiry information.
+            </p>
+
           </div>
 
           {equipment.length > 0 ? (
+
             <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+
               {equipment.map((item) => (
+
                 <EquipmentCard
                   key={item._id.toString()}
                   id={item.slug}
                   slug={item.slug}
                   image={
                     item.images?.length
-                      ? item.images.find((img: any) => img.cover)?.url ??
+                      ? item.images.find(
+                          (img: any) => img.cover
+                        )?.url ??
                         item.images[0].url
                       : "/placeholder-equipment.jpg"
                   }
@@ -184,17 +323,22 @@ export default async function CarsForSalePage() {
                   hours={item.kmHours}
                   location={item.province}
                 />
+
               ))}
+
             </div>
+
           ) : (
+
             <div className="mt-12 rounded-2xl border bg-white p-10 text-center shadow-sm">
+
               <h2 className="text-2xl font-bold text-[#0B2F24]">
                 No cars currently available
               </h2>
 
               <p className="mt-3 text-gray-600">
-                Please check back soon for new passenger vehicle
-                listings.
+                Please check back soon for new car and passenger
+                vehicle listings.
               </p>
 
               <Link
@@ -203,35 +347,135 @@ export default async function CarsForSalePage() {
               >
                 View All Equipment
               </Link>
+
             </div>
+
           )}
+
         </section>
+
+        {/* INFORMATION */}
 
         <section className="border-t bg-white">
-          <div className="mx-auto max-w-7xl px-6 py-16">
-            <h2 className="text-3xl font-bold text-[#0B2F24]">
-              Passenger Vehicles Available
-            </h2>
 
-            <p className="mt-5 max-w-4xl text-lg leading-8 text-gray-600">
-              Browse available cars and passenger vehicles listed by
-              NEWTA Commercial Sales. Each listing provides the
-              available vehicle details, photographs and enquiry
-              information.
-            </p>
+          <div className="mx-auto max-w-7xl px-6 py-16">
+
+            <div className="grid gap-8 md:grid-cols-3">
+
+              <div className="rounded-2xl border p-6 shadow-sm">
+
+                <h3 className="text-xl font-bold text-[#0B2F24]">
+                  Passenger Vehicles
+                </h3>
+
+                <p className="mt-3 text-gray-600">
+                  Browse available cars and passenger vehicles suitable
+                  for personal, business, fleet and general transport
+                  applications.
+                </p>
+
+              </div>
+
+              <div className="rounded-2xl border p-6 shadow-sm">
+
+                <h3 className="text-xl font-bold text-[#0B2F24]">
+                  View Full Details
+                </h3>
+
+                <p className="mt-3 text-gray-600">
+                  Each vehicle listing includes available photographs,
+                  specifications, pricing, location and enquiry
+                  information.
+                </p>
+
+              </div>
+
+              <div className="rounded-2xl border p-6 shadow-sm">
+
+                <h3 className="text-xl font-bold text-[#0B2F24]">
+                  Private Treaty Sales
+                </h3>
+
+                <p className="mt-3 text-gray-600">
+                  Contact NEWTA Commercial Sales directly about an
+                  available car or another commercial asset.
+                </p>
+
+              </div>
+
+            </div>
+
           </div>
+
         </section>
 
-        <section className="bg-[#0B2F24] text-white">
-          <div className="mx-auto max-w-7xl px-6 py-16 text-center">
-            <h2 className="text-3xl font-bold md:text-4xl">
-              Looking for a Specific Car?
+        {/* RELATED COMMERCIAL VEHICLES */}
+
+        <section className="bg-[#FAF8F2]">
+
+          <div className="mx-auto max-w-7xl px-6 py-16">
+
+            <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
+              More Commercial Vehicles
             </h2>
 
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-300">
+            <p className="mt-4 max-w-4xl text-lg leading-8 text-gray-600">
+              Looking for another commercial vehicle? Browse the full
+              NEWTA inventory, including trucks, buses, bakkies,
+              trailers and truck tractors depending on current
+              availability.
+            </p>
+
+            <div className="mt-8 flex flex-wrap gap-4">
+
+              <Link
+                href="/equipment/trucks-for-sale-south-africa"
+                className="rounded-xl bg-[#0B2F24] px-6 py-3 font-bold text-white transition hover:bg-green-900"
+              >
+                Trucks for Sale
+              </Link>
+
+              <Link
+                href="/equipment/bakkies-for-sale-south-africa"
+                className="rounded-xl bg-[#0B2F24] px-6 py-3 font-bold text-white transition hover:bg-green-900"
+              >
+                Bakkies for Sale
+              </Link>
+
+              <Link
+                href="/equipment/buses-for-sale-south-africa"
+                className="rounded-xl bg-[#0B2F24] px-6 py-3 font-bold text-white transition hover:bg-green-900"
+              >
+                Buses for Sale
+              </Link>
+
+              <Link
+                href="/equipment/trailers-for-sale-south-africa"
+                className="rounded-xl bg-[#0B2F24] px-6 py-3 font-bold text-white transition hover:bg-green-900"
+              >
+                Trailers for Sale
+              </Link>
+
+            </div>
+
+          </div>
+
+        </section>
+
+        {/* CTA */}
+
+        <section className="bg-[#0B2F24] text-white">
+
+          <div className="mx-auto max-w-7xl px-6 py-16 text-center">
+
+            <h2 className="text-3xl font-bold md:text-4xl">
+              Looking for a Car?
+            </h2>
+
+            <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-gray-300">
               Contact NEWTA Commercial Sales if you are looking for
-              a particular vehicle or want more information about an
-              available asset.
+              a particular car or passenger vehicle, or want more
+              information about an available vehicle.
             </p>
 
             <Link
@@ -240,8 +484,11 @@ export default async function CarsForSalePage() {
             >
               Contact NEWTA
             </Link>
+
           </div>
+
         </section>
+
       </main>
 
       <Footer />

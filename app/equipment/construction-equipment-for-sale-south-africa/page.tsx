@@ -152,9 +152,10 @@ export default async function ConstructionEquipmentForSalePage() {
 
             <p className="mt-6 max-w-4xl text-lg leading-8 text-gray-200 md:text-xl">
               Browse construction equipment currently available
-              through NEWTA Commercial Sales. View machinery,
-              specifications, photographs, pricing and enquiry
-              information for assets available across South Africa.
+              through NEWTA Commercial Sales. View construction
+              machinery, specifications, photographs, pricing and
+              enquiry information for assets available across
+              South Africa.
             </p>
 
           </div>
@@ -163,28 +164,51 @@ export default async function ConstructionEquipmentForSalePage() {
         <section className="mx-auto max-w-7xl px-6 py-16">
 
           <div className="max-w-4xl">
+
             <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
               Construction Equipment for Sale
             </h2>
 
             <p className="mt-5 text-lg leading-8 text-gray-600">
-              Browse current construction equipment listings
-              available through NEWTA Commercial Sales. View
-              specifications, photographs, pricing and enquiry
-              information for each available asset.
+              NEWTA Commercial Sales offers construction equipment,
+              machinery and commercial assets through Private Treaty
+              Sales across South Africa. Browse our current
+              construction equipment listings below to view available
+              machines, specifications, photographs, pricing and
+              enquiry information.
             </p>
+
+            <p className="mt-5 text-lg leading-8 text-gray-600">
+              Construction equipment can be used across building,
+              civil engineering, earthmoving, infrastructure,
+              agricultural, industrial and general contracting
+              applications. Available machinery varies according to
+              current stock and seller requirements.
+            </p>
+
+            <p className="mt-5 text-lg leading-8 text-gray-600">
+              Select an available machine below to view its full
+              listing and contact NEWTA Commercial Sales for further
+              information.
+            </p>
+
           </div>
 
           {equipment.length > 0 ? (
+
             <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+
               {equipment.map((item) => (
+
                 <EquipmentCard
                   key={item._id.toString()}
                   id={item.slug}
                   slug={item.slug}
                   image={
                     item.images?.length
-                      ? item.images.find((img: any) => img.cover)?.url ??
+                      ? item.images.find(
+                          (img: any) => img.cover
+                        )?.url ??
                         item.images[0].url
                       : "/placeholder-equipment.jpg"
                   }
@@ -195,10 +219,15 @@ export default async function ConstructionEquipmentForSalePage() {
                   hours={item.kmHours}
                   location={item.province}
                 />
+
               ))}
+
             </div>
+
           ) : (
+
             <div className="mt-12 rounded-2xl border bg-white p-10 text-center shadow-sm">
+
               <h2 className="text-2xl font-bold text-[#0B2F24]">
                 No construction equipment currently available
               </h2>
@@ -214,39 +243,161 @@ export default async function ConstructionEquipmentForSalePage() {
               >
                 View All Equipment
               </Link>
+
             </div>
+
           )}
 
         </section>
 
         <section className="border-t bg-white">
+
           <div className="mx-auto max-w-7xl px-6 py-16">
 
-            <h2 className="text-3xl font-bold text-[#0B2F24]">
-              Construction Machinery
+            <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
+              Construction Machinery Applications
             </h2>
 
             <p className="mt-5 max-w-4xl text-lg leading-8 text-gray-600">
-              Browse construction machinery available through NEWTA
-              Commercial Sales. Our Private Treaty Sales approach
-              provides buyers with direct access to available assets
-              and equipment.
+              Construction machinery is used across a wide range of
+              projects and industries. Equipment requirements depend
+              on the type of work, operating conditions, machine
+              capacity and application.
             </p>
 
+            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+
+              <div className="rounded-2xl border bg-[#FAF8F2] p-6 shadow-sm">
+                <h3 className="text-xl font-bold text-[#0B2F24]">
+                  Building & Construction
+                </h3>
+
+                <p className="mt-3 leading-7 text-gray-600">
+                  Machinery used for building projects, site
+                  preparation, material handling and general
+                  construction work.
+                </p>
+              </div>
+
+              <div className="rounded-2xl border bg-[#FAF8F2] p-6 shadow-sm">
+                <h3 className="text-xl font-bold text-[#0B2F24]">
+                  Civil Engineering
+                </h3>
+
+                <p className="mt-3 leading-7 text-gray-600">
+                  Equipment suitable for infrastructure, roadwork,
+                  earthworks and other civil engineering applications.
+                </p>
+              </div>
+
+              <div className="rounded-2xl border bg-[#FAF8F2] p-6 shadow-sm">
+                <h3 className="text-xl font-bold text-[#0B2F24]">
+                  Earthmoving
+                </h3>
+
+                <p className="mt-3 leading-7 text-gray-600">
+                  Construction machinery used for excavation,
+                  loading, grading, site preparation and material
+                  movement.
+                </p>
+              </div>
+
+              <div className="rounded-2xl border bg-[#FAF8F2] p-6 shadow-sm">
+                <h3 className="text-xl font-bold text-[#0B2F24]">
+                  Infrastructure Projects
+                </h3>
+
+                <p className="mt-3 leading-7 text-gray-600">
+                  Machinery for infrastructure development,
+                  maintenance and large-scale construction projects.
+                </p>
+              </div>
+
+              <div className="rounded-2xl border bg-[#FAF8F2] p-6 shadow-sm">
+                <h3 className="text-xl font-bold text-[#0B2F24]">
+                  Industrial Applications
+                </h3>
+
+                <p className="mt-3 leading-7 text-gray-600">
+                  Equipment used for industrial sites, material
+                  handling, maintenance and general commercial work.
+                </p>
+              </div>
+
+              <div className="rounded-2xl border bg-[#FAF8F2] p-6 shadow-sm">
+                <h3 className="text-xl font-bold text-[#0B2F24]">
+                  Agricultural & General Use
+                </h3>
+
+                <p className="mt-3 leading-7 text-gray-600">
+                  Selected construction machines may also be suited
+                  to agricultural, property development and general
+                  contracting applications.
+                </p>
+              </div>
+
+            </div>
+
           </div>
+
+        </section>
+
+        <section className="bg-[#FAF8F2]">
+
+          <div className="mx-auto max-w-7xl px-6 py-16">
+
+            <h2 className="text-3xl font-bold text-[#0B2F24]">
+              Construction Equipment Available Across South Africa
+            </h2>
+
+            <p className="mt-5 max-w-4xl text-lg leading-8 text-gray-600">
+              NEWTA Commercial Sales connects buyers with
+              construction machinery and commercial assets available
+              from sellers across South Africa. Availability changes
+              as machines are sold and new assets are added.
+            </p>
+
+            <div className="mt-8 flex flex-wrap gap-4">
+
+              <Link
+                href="/equipment/plant-machinery-for-sale-south-africa"
+                className="rounded-xl bg-[#0B2F24] px-6 py-3 font-bold text-white transition hover:bg-green-900"
+              >
+                Plant & Machinery
+              </Link>
+
+              <Link
+                href="/equipment/cranes-for-sale-south-africa"
+                className="rounded-xl bg-[#0B2F24] px-6 py-3 font-bold text-white transition hover:bg-green-900"
+              >
+                Cranes
+              </Link>
+
+              <Link
+                href="/equipment/agricultural-equipment-for-sale-south-africa"
+                className="rounded-xl bg-[#0B2F24] px-6 py-3 font-bold text-white transition hover:bg-green-900"
+              >
+                Agricultural Equipment
+              </Link>
+
+            </div>
+
+          </div>
+
         </section>
 
         <section className="bg-[#0B2F24] text-white">
+
           <div className="mx-auto max-w-7xl px-6 py-16 text-center">
 
             <h2 className="text-3xl font-bold md:text-4xl">
               Looking for Construction Equipment?
             </h2>
 
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-300">
+            <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-gray-300">
               Contact NEWTA Commercial Sales if you are looking for
               a particular machine or want more information about an
-              available asset.
+              available construction asset.
             </p>
 
             <Link
@@ -257,6 +408,7 @@ export default async function ConstructionEquipmentForSalePage() {
             </Link>
 
           </div>
+
         </section>
 
       </main>

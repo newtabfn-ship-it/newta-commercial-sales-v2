@@ -9,27 +9,27 @@ import Footer from "../../components/Footer";
 import EquipmentCard from "../../components/EquipmentCard";
 import { equipmentCategories } from "@/app/data/categories";
 
+const SITE_URL = "https://newtacommercialsales.com";
+
 export const metadata: Metadata = {
-  title:
-  "Trucks for Sale South Africa | Commercial Trucks | NEWTA",
+  title: "Trucks for Sale South Africa | NEWTA Commercial Sales",
 
   description:
-  "Browse trucks for sale in South Africa through NEWTA Commercial Sales. Find dropside trucks, flatdeck trucks, 2 ton, 3 ton, 4 ton, 8 ton, 10 ton, 12 ton, 14 ton and 16 ton trucks, plus other commercial trucks.",
+    "Browse trucks for sale in South Africa through NEWTA Commercial Sales. Find 2 ton, 3 ton, 4 ton, 8 ton, 10 ton, 12 ton, 14 ton and 16 ton trucks, dropside trucks, flatdeck trucks and other commercial trucks.",
 
   alternates: {
     canonical:
-      "https://newtacommercialsales.com/equipment/trucks-for-sale-south-africa",
+      `${SITE_URL}/equipment/trucks-for-sale-south-africa`,
   },
 
   openGraph: {
-    title:
-      "Trucks for Sale South Africa | NEWTA Commercial Sales",
+    title: "Trucks for Sale South Africa | NEWTA Commercial Sales",
 
     description:
-  "Browse commercial trucks for sale across South Africa through NEWTA Commercial Sales, including dropside trucks, flatdeck trucks, rigid trucks, truck tractors and trucks in various tonnage classes.",
+      "Browse commercial trucks for sale across South Africa through NEWTA Commercial Sales, including different truck types, body configurations and tonnage classes.",
 
     url:
-      "https://newtacommercialsales.com/equipment/trucks-for-sale-south-africa",
+      `${SITE_URL}/equipment/trucks-for-sale-south-africa`,
 
     type: "website",
 
@@ -41,28 +41,128 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
 
-    title:
-      "Trucks for Sale South Africa | NEWTA Commercial Sales",
+    title: "Trucks for Sale South Africa | NEWTA Commercial Sales",
 
     description:
-  "Browse trucks for sale in South Africa, including dropside trucks, flatdeck trucks, rigid trucks, truck tractors and other commercial vehicles from NEWTA Commercial Sales.",
+      "Browse trucks for sale in South Africa through NEWTA Commercial Sales, including different truck types and tonnage classes.",
   },
 };
+
+const tonnagePages = [
+  {
+    title: "2 Ton Trucks",
+    description:
+      "Smaller commercial trucks suitable for local deliveries, business transport and general cargo.",
+    href: "/equipment/2-ton-trucks-for-sale-south-africa",
+  },
+  {
+    title: "3 Ton Trucks",
+    description:
+      "Practical commercial trucks for deliveries, transport businesses, materials and general freight.",
+    href: "/equipment/3-ton-trucks-for-sale-south-africa",
+  },
+  {
+    title: "4 Ton Trucks",
+    description:
+      "Medium-sized trucks suitable for business deliveries, materials, equipment and general commercial transport.",
+    href: "/equipment/4-ton-trucks-for-sale-south-africa",
+  },
+  {
+    title: "8 Ton Trucks",
+    description:
+      "Versatile commercial trucks capable of carrying heavier materials, equipment and general freight.",
+    href: "/equipment/8-ton-trucks-for-sale-south-africa",
+  },
+  {
+    title: "10 Ton Trucks",
+    description:
+      "Larger commercial trucks for transporting heavier loads, materials, equipment and general freight.",
+    href: "/equipment/10-ton-trucks-for-sale-south-africa",
+  },
+  {
+    title: "12 Ton Trucks",
+    description:
+      "Heavy commercial trucks suitable for transport, construction, industrial and material-handling applications.",
+    href: "/equipment/12-ton-trucks-for-sale-south-africa",
+  },
+  {
+    title: "14 Ton Trucks",
+    description:
+      "Heavy-duty commercial trucks designed for larger loads and demanding transport applications.",
+    href: "/equipment/14-ton-trucks-for-sale-south-africa",
+  },
+  {
+    title: "16 Ton Trucks",
+    description:
+      "Large commercial trucks suitable for heavy transport, construction materials, industrial freight and other demanding applications.",
+    href: "/equipment/16-ton-trucks-for-sale-south-africa",
+  },
+];
+
+const truckTypes = [
+  {
+    title: "Dropside Trucks",
+    description:
+      "Dropside trucks provide practical loading access and are commonly used for deliveries, building materials, equipment, agricultural goods and general freight.",
+    href: "/equipment/dropside-trucks-for-sale-south-africa",
+  },
+  {
+    title: "Flatdeck Trucks",
+    description:
+      "Flatdeck trucks offer an open load area for transporting machinery, equipment, materials, pallets and other commercial cargo.",
+    href: "/equipment/flatdeck-trucks-for-sale-south-africa",
+  },
+  {
+    title: "Crane Trucks",
+    description:
+      "Crane trucks combine cargo transport with lifting capability and can be used for construction, industrial, material handling and equipment transport.",
+    href: "/equipment/crane-trucks-for-sale-south-africa",
+  },
+  {
+    title: "Cement Mixer Trucks",
+    description:
+      "Mixer trucks are designed for transporting and mixing concrete and are commonly used in construction and concrete supply operations.",
+    href: "/equipment/cement-mixer-trucks-for-sale-south-africa",
+  },
+  {
+    title: "Truck Tractors",
+    description:
+      "Truck tractors are designed to pull semi-trailers and are widely used in long-distance, regional and heavy commercial transport.",
+    href: "/equipment/truck-tractors-for-sale-south-africa",
+  },
+  {
+    title: "Other Commercial Trucks",
+    description:
+      "NEWTA also offers other commercial truck configurations depending on current stock and seller requirements.",
+    href: "/equipment/other-trucks-for-sale-south-africa",
+  },
+];
+
+const truckUses = [
+  "Local and regional deliveries",
+  "General freight transport",
+  "Building and construction materials",
+  "Agricultural transport",
+  "Industrial equipment transport",
+  "Machinery and material transport",
+  "Retail and business distribution",
+  "Heavy commercial transport",
+];
 
 export default async function TrucksForSaleSouthAfrica() {
   await connectDB();
 
- const commercialVehicles = equipmentCategories.find(
-  (category) => category.slug === "commercial-vehicles"
-);
+  const commercialVehicles = equipmentCategories.find(
+    (category) => category.slug === "commercial-vehicles"
+  );
 
-const truckSubcategories =
+  const truckSubcategories =
   commercialVehicles?.subcategories
     .filter((subcategory) => subcategory.group === "trucks")
     .map((subcategory) => subcategory.name) ?? [];
 
 const equipment = await Equipment.find({
-  category: "Commercial Vehicles",
+  category: commercialVehicles?.name,
   subcategory: { $in: truckSubcategories },
   status: "Available",
 })
@@ -71,36 +171,67 @@ const equipment = await Equipment.find({
 
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "CollectionPage",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
 
-    name: "Trucks for Sale South Africa",
+        name: "Trucks for Sale South Africa",
 
-    description:
-  "Commercial trucks for sale in South Africa through NEWTA Commercial Sales, including dropside trucks, flatdeck trucks, rigid trucks, truck tractors, mixer trucks, crane trucks and other commercial vehicles.",
-    url:
-      "https://newtacommercialsales.com/equipment/trucks-for-sale-south-africa",
+        description:
+          "Commercial trucks for sale in South Africa through NEWTA Commercial Sales, including dropside trucks, flatdeck trucks, crane trucks, mixer trucks, truck tractors and trucks in various tonnage classes.",
 
-    isPartOf: {
-      "@type": "WebSite",
-      name: "NEWTA Commercial Sales",
-      url: "https://newtacommercialsales.com",
-    },
+        url:
+          `${SITE_URL}/equipment/trucks-for-sale-south-africa`,
 
-    mainEntity: {
-      "@type": "ItemList",
+        isPartOf: {
+          "@type": "WebSite",
+          name: "NEWTA Commercial Sales",
+          url: SITE_URL,
+        },
 
-      numberOfItems: equipment.length,
+        mainEntity: {
+          "@type": "ItemList",
 
-      itemListElement: equipment.map((item, index) => ({
-        "@type": "ListItem",
+          numberOfItems: equipment.length,
 
-        position: index + 1,
+          itemListElement: equipment.map((item, index) => ({
+            "@type": "ListItem",
 
-        name: item.title,
+            position: index + 1,
 
-        url: `https://newtacommercialsales.com/equipment/${item.slug}`,
-      })),
-    },
+            name: item.title,
+
+            url: `${SITE_URL}/equipment/${item.slug}`,
+          })),
+        },
+      },
+
+      {
+        "@type": "BreadcrumbList",
+
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: SITE_URL,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Equipment",
+            item: `${SITE_URL}/equipment`,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "Trucks for Sale South Africa",
+            item:
+              `${SITE_URL}/equipment/trucks-for-sale-south-africa`,
+          },
+        ],
+      },
+    ],
   };
 
   return (
@@ -133,9 +264,7 @@ const equipment = await Equipment.find({
                 Home
               </Link>
 
-              <span className="mx-2">
-                /
-              </span>
+              <span className="mx-2">/</span>
 
               <Link
                 href="/equipment"
@@ -144,9 +273,7 @@ const equipment = await Equipment.find({
                 Equipment
               </Link>
 
-              <span className="mx-2">
-                /
-              </span>
+              <span className="mx-2">/</span>
 
               <span className="text-[#D4AF37]">
                 Trucks for Sale South Africa
@@ -157,23 +284,23 @@ const equipment = await Equipment.find({
               Private Treaty Sales
             </span>
 
-            <h1 className="mt-6 max-w-4xl text-4xl font-extrabold leading-tight md:text-6xl">
+            <h1 className="mt-6 max-w-5xl text-4xl font-extrabold leading-tight md:text-6xl">
               Trucks for Sale South Africa
             </h1>
 
             <p className="mt-6 max-w-4xl text-lg leading-8 text-gray-200 md:text-xl">
-              Browse commercial trucks for sale across South Africa through
-NEWTA Commercial Sales. Our truck inventory can include dropside
-trucks, flatdeck trucks, rigid trucks, truck tractors, mixer trucks,
-crane trucks and other commercial vehicles in a range of sizes and
-tonnage classes.
+              Browse commercial trucks for sale across South Africa
+              through NEWTA Commercial Sales. Our truck inventory
+              includes different truck types, body configurations and
+              tonnage classes for transport, construction, agriculture,
+              industry, deliveries and general commercial work.
             </p>
 
           </div>
 
         </section>
 
-        {/* CONTENT */}
+        {/* INTRODUCTION */}
 
         <section className="mx-auto max-w-7xl px-6 py-16">
 
@@ -184,26 +311,174 @@ tonnage classes.
             </h2>
 
             <p className="mt-5 text-lg leading-8 text-gray-600">
-              NEWTA Commercial Sales connects buyers with commercial
-vehicles and equipment available from sellers across
-South Africa. Our truck inventory covers a wide range of
-commercial vehicles, from smaller 2 ton, 3 ton and 4 ton
-trucks through to larger 8 ton, 10 ton, 12 ton, 14 ton
-and 16 ton trucks.
+              NEWTA Commercial Sales offers commercial trucks through
+              Private Treaty Sales across South Africa. Our available
+              trucks can range from smaller delivery vehicles through
+              to larger trucks designed for heavier commercial loads.
+            </p>
 
-Depending on current availability, buyers can find
-dropside trucks, flatdeck trucks, rigid trucks, delivery
-trucks, truck tractors, mixer trucks, crane trucks and
-other commercial trucks for sale through Private Treaty
-Sales.
+            <p className="mt-5 text-lg leading-8 text-gray-600">
+              Depending on current availability, buyers may find
+              dropside trucks, flatdeck trucks, crane trucks, mixer
+              trucks, truck tractors and other commercial trucks.
+              Trucks are available in different tonnage classes and
+              specifications depending on the individual asset.
+            </p>
 
-Browse the current truck listings below for specifications,
-photographs, pricing, location and enquiry information.
+            <p className="mt-5 text-lg leading-8 text-gray-600">
+              Browse the current NEWTA truck listings below to view
+              photographs, specifications, pricing, location and
+              enquiry information.
             </p>
 
           </div>
 
-          {/* LISTINGS */}
+        </section>
+
+        {/* COMMON USES */}
+
+        <section className="border-t bg-white">
+
+          <div className="mx-auto max-w-7xl px-6 py-16">
+
+            <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
+              Commercial Truck Applications
+            </h2>
+
+            <p className="mt-4 max-w-4xl text-lg leading-8 text-gray-600">
+              Commercial trucks are used across many South African
+              industries. The correct truck depends on the load,
+              body configuration, operating environment and required
+              carrying capacity.
+            </p>
+
+            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+
+              {truckUses.map((use) => (
+                <div
+                  key={use}
+                  className="rounded-2xl border bg-[#FAF8F2] p-5"
+                >
+                  <p className="font-semibold text-[#0B2F24]">
+                    {use}
+                  </p>
+                </div>
+              ))}
+
+            </div>
+
+          </div>
+
+        </section>
+
+        {/* TRUCK TYPES */}
+
+        <section className="bg-[#FAF8F2]">
+
+          <div className="mx-auto max-w-7xl px-6 py-16">
+
+            <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
+              Truck Types for Sale in South Africa
+            </h2>
+
+            <p className="mt-4 max-w-4xl text-lg leading-8 text-gray-600">
+              Explore different commercial truck configurations
+              available through NEWTA Commercial Sales. Availability
+              changes as trucks are sold and new assets are added.
+            </p>
+
+            <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+
+              {truckTypes.map((truck) => (
+                <Link
+                  key={truck.href}
+                  href={truck.href}
+                  className="group rounded-2xl border bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+                >
+                  <h3 className="text-xl font-bold text-[#0B2F24] group-hover:text-green-800">
+                    {truck.title}
+                  </h3>
+
+                  <p className="mt-3 leading-7 text-gray-600">
+                    {truck.description}
+                  </p>
+
+                  <span className="mt-5 inline-block font-bold text-[#D4AF37]">
+                    View {truck.title} →
+                  </span>
+                </Link>
+              ))}
+
+            </div>
+
+          </div>
+
+        </section>
+
+        {/* TONNAGE */}
+
+        <section className="border-t bg-white">
+
+          <div className="mx-auto max-w-7xl px-6 py-16">
+
+            <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
+              Trucks by Tonnage
+            </h2>
+
+            <p className="mt-4 max-w-4xl text-lg leading-8 text-gray-600">
+              NEWTA Commercial Sales has dedicated pages for different
+              truck tonnage classes. These pages provide more
+              information about the type of work each truck size can
+              be suited to and show available listings where stock is
+              available.
+            </p>
+
+            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+
+              {tonnagePages.map((truck) => (
+                <Link
+                  key={truck.href}
+                  href={truck.href}
+                  className="group rounded-2xl border bg-[#FAF8F2] p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+                >
+                  <h3 className="text-xl font-bold text-[#0B2F24] group-hover:text-green-800">
+                    {truck.title}
+                  </h3>
+
+                  <p className="mt-3 text-gray-600">
+                    {truck.description}
+                  </p>
+
+                  <span className="mt-5 inline-block font-bold text-[#D4AF37]">
+                    View {truck.title} →
+                  </span>
+                </Link>
+              ))}
+
+            </div>
+
+          </div>
+
+        </section>
+
+        {/* CURRENT LISTINGS */}
+
+        <section className="mx-auto max-w-7xl px-6 py-16">
+
+          <div className="max-w-4xl">
+
+            <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
+              Trucks Currently for Sale
+            </h2>
+
+            <p className="mt-4 text-lg leading-8 text-gray-600">
+              View the commercial trucks currently available through
+              NEWTA Commercial Sales. Each listing includes available
+              photographs, specifications, pricing and enquiry
+              information.
+            </p>
+
+          </div>
 
           {equipment.length > 0 ? (
 
@@ -261,91 +536,59 @@ photographs, pricing, location and enquiry information.
 
         </section>
 
-        {/* TRUCK TYPES */}
+        {/* RELATED COMMERCIAL VEHICLES */}
 
-<section className="border-t bg-white">
+        <section className="bg-[#FAF8F2]">
 
-  <div className="mx-auto max-w-7xl px-6 py-16">
+          <div className="mx-auto max-w-7xl px-6 py-16">
 
-    <h2 className="text-3xl font-bold text-[#0B2F24]">
-      Commercial Truck Types for Sale
-    </h2>
+            <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
+              More Commercial Vehicles
+            </h2>
 
-    <p className="mt-4 max-w-4xl text-lg leading-8 text-gray-600">
-      NEWTA Commercial Sales offers a broad range of commercial
-      trucks for sale in South Africa. Available truck types and
-      specifications vary according to current stock and seller
-      requirements.
-    </p>
+            <p className="mt-4 max-w-4xl text-lg leading-8 text-gray-600">
+              If you are looking for more than trucks, NEWTA
+              Commercial Sales also offers bakkies, buses, cars,
+              trailers, truck tractors and other commercial vehicles
+              depending on current availability.
+            </p>
 
-    <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-8 flex flex-wrap gap-4">
 
-      <div className="rounded-2xl border p-6 shadow-sm">
-        <h3 className="text-xl font-bold text-[#0B2F24]">
-          Dropside Trucks
-        </h3>
-        <p className="mt-3 text-gray-600">
-          Commercial dropside trucks for transport, deliveries,
-          construction and general business use.
-        </p>
-      </div>
+              <Link
+                href="/equipment/trailers-for-sale-south-africa"
+                className="rounded-xl bg-[#0B2F24] px-6 py-3 font-bold text-white transition hover:bg-green-900"
+              >
+                Trailers for Sale
+              </Link>
 
-      <div className="rounded-2xl border p-6 shadow-sm">
-        <h3 className="text-xl font-bold text-[#0B2F24]">
-          Flatdeck Trucks
-        </h3>
-        <p className="mt-3 text-gray-600">
-          Flatdeck and platform trucks suitable for transporting
-          machinery, equipment, materials and general cargo.
-        </p>
-      </div>
+              <Link
+                href="/equipment/truck-tractors-for-sale-south-africa"
+                className="rounded-xl bg-[#0B2F24] px-6 py-3 font-bold text-white transition hover:bg-green-900"
+              >
+                Truck Tractors
+              </Link>
 
-      <div className="rounded-2xl border p-6 shadow-sm">
-        <h3 className="text-xl font-bold text-[#0B2F24]">
-          2 Ton, 3 Ton and 4 Ton Trucks
-        </h3>
-        <p className="mt-3 text-gray-600">
-          Smaller commercial trucks suitable for deliveries,
-          transport businesses and general commercial applications.
-        </p>
-      </div>
+              <Link
+                href="/equipment/bakkies-for-sale-south-africa"
+                className="rounded-xl bg-[#0B2F24] px-6 py-3 font-bold text-white transition hover:bg-green-900"
+              >
+                Bakkies
+              </Link>
 
-      <div className="rounded-2xl border p-6 shadow-sm">
-        <h3 className="text-xl font-bold text-[#0B2F24]">
-          8 Ton, 10 Ton and 12 Ton Trucks
-        </h3>
-        <p className="mt-3 text-gray-600">
-          Medium and heavy commercial trucks available according
-          to current NEWTA inventory.
-        </p>
-      </div>
+              <Link
+                href="/equipment/buses-for-sale-south-africa"
+                className="rounded-xl bg-[#0B2F24] px-6 py-3 font-bold text-white transition hover:bg-green-900"
+              >
+                Buses
+              </Link>
 
-      <div className="rounded-2xl border p-6 shadow-sm">
-        <h3 className="text-xl font-bold text-[#0B2F24]">
-          14 Ton and 16 Ton Trucks
-        </h3>
-        <p className="mt-3 text-gray-600">
-          Larger commercial trucks for transport, construction,
-          industrial and heavy-duty applications.
-        </p>
-      </div>
+            </div>
 
-      <div className="rounded-2xl border p-6 shadow-sm">
-        <h3 className="text-xl font-bold text-[#0B2F24]">
-          Specialised Commercial Trucks
-        </h3>
-        <p className="mt-3 text-gray-600">
-          Mixer trucks, crane trucks, truck tractors and other
-          specialised commercial vehicles available through
-          Private Treaty Sales.
-        </p>
-      </div>
+          </div>
 
-    </div>
+        </section>
 
-  </div>
-
-</section>
         {/* CTA */}
 
         <section className="bg-[#0B2F24] text-white">
@@ -356,10 +599,11 @@ photographs, pricing, location and enquiry information.
               Looking for a Specific Truck?
             </h2>
 
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-300">
+            <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-gray-300">
               Contact NEWTA Commercial Sales if you are looking for
-              a particular commercial vehicle or want more information
-              about an available asset.
+              a particular truck, tonnage class or commercial vehicle,
+              or if you want more information about an available
+              asset.
             </p>
 
             <Link

@@ -10,23 +10,25 @@ import Footer from "../../components/Footer";
 import EquipmentCard from "../../components/EquipmentCard";
 
 const pageUrl =
-  "https://newtacommercialsales.com/equipment/backend tipper-trailers-for-sale-south-africa";
+  "https://newtacommercialsales.com/equipment/backend-tipper-trailers-for-sale-south-africa";
 
 export const metadata: Metadata = {
-  title: "Backend Tipper Trailers for Sale South Africa | NEWTA Commercial Sales",
+  title:
+    "Backend Tipper Trailers for Sale South Africa | NEWTA Commercial Sales",
 
   description:
-    "Backend Tipper trailers for sale in South Africa through NEWTA Commercial Sales. Browse available Backend Tipper trailers for transporting sand, stone, agricultural materials.",
+    "Backend tipper trailers for sale in South Africa through NEWTA Commercial Sales. Browse available rear tipping trailers, including Sloper and Copelyn trailers, with specifications, photographs, pricing and enquiry information.",
 
   alternates: {
     canonical: pageUrl,
   },
 
   openGraph: {
-    title: "Backend Tipper Trailers for Sale South Africa | NEWTA Commercial Sales",
+    title:
+      "Backend Tipper Trailers for Sale South Africa | NEWTA Commercial Sales",
 
     description:
-      "Browse Backend Tipper trailers for sale through NEWTA Commercial Sales.",
+      "Browse backend tipper trailers for sale through NEWTA Commercial Sales, including Sloper, Copelyn and other rear tipping trailers available across South Africa.",
 
     url: pageUrl,
 
@@ -40,10 +42,11 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
 
-    title: "Backend Tipper Trailers for Sale South Africa | NEWTA Commercial Sales",
+    title:
+      "Backend Tipper Trailers for Sale South Africa | NEWTA Commercial Sales",
 
     description:
-      "Browse available Backend Tipper trailers through NEWTA Commercial Sales.",
+      "Browse available backend tipper trailers through NEWTA Commercial Sales.",
   },
 };
 
@@ -59,11 +62,14 @@ export default async function BackendTipperTrailersForSalePage() {
   );
 
   /*
-   * Backend Tipper trailers may eventually have their own category in
-   * categories.ts. Until then, this page uses the existing Trailers
-   * category and filters the available listings by trailer title/type.
+   * Backend Tipper trailers currently use the main Trailers category.
+   *
+   * Until Backend Tipper trailers have their own dedicated category,
+   * we retrieve available trailer listings and identify relevant
+   * listings from their title, description, make, model and type.
    */
-  const equipment = await Equipment.find({
+
+  const trailerEquipment = await Equipment.find({
     category: commercialVehicles?.name,
     subcategory: trailers?.name,
     status: "Available",
@@ -71,7 +77,7 @@ export default async function BackendTipperTrailersForSalePage() {
     .sort({ createdAt: -1 })
     .lean();
 
-  const BackendTipperEquipment = equipment.filter((item: any) => {
+  const backendTipperEquipment = trailerEquipment.filter((item: any) => {
     const searchableText = [
       item.title,
       item.description,
@@ -79,14 +85,21 @@ export default async function BackendTipperTrailersForSalePage() {
       item.model,
       item.type,
       item.subcategory,
+      item.category,
     ]
       .filter(Boolean)
       .join(" ")
       .toLowerCase();
 
-    return searchableText.includes("sloper") ||
-           searchableText.includes("copelyn") ||
-           searchableText.includes("backend tipper");
+    return (
+      searchableText.includes("backend tipper") ||
+      searchableText.includes("back end tipper") ||
+      searchableText.includes("back-end tipper") ||
+      searchableText.includes("rear tipper") ||
+      searchableText.includes("rear tipping") ||
+      searchableText.includes("sloper") ||
+      searchableText.includes("copelyn")
+    );
   });
 
   const structuredData = {
@@ -96,7 +109,7 @@ export default async function BackendTipperTrailersForSalePage() {
     name: "Backend Tipper Trailers for Sale South Africa",
 
     description:
-      "Backend Tipper trailers for sale through NEWTA Commercial Sales.",
+      "Backend tipper trailers for sale through NEWTA Commercial Sales.",
 
     url: pageUrl,
 
@@ -114,17 +127,19 @@ export default async function BackendTipperTrailersForSalePage() {
     mainEntity: {
       "@type": "ItemList",
 
-      numberOfItems: BackendTipperEquipment.length,
+      numberOfItems: backendTipperEquipment.length,
 
-      itemListElement: BackendTipperEquipment.map((item: any, index: number) => ({
-        "@type": "ListItem",
+      itemListElement: backendTipperEquipment.map(
+        (item: any, index: number) => ({
+          "@type": "ListItem",
 
-        position: index + 1,
+          position: index + 1,
 
-        name: item.title,
+          name: item.title,
 
-        url: `https://newtacommercialsales.com/equipment/${item.slug}`,
-      })),
+          url: `https://newtacommercialsales.com/equipment/${item.slug}`,
+        })
+      ),
     },
   };
 
@@ -140,14 +155,22 @@ export default async function BackendTipperTrailersForSalePage() {
       <Navbar />
 
       <main className="min-h-screen bg-[#FAF8F2]">
+
         {/* HERO */}
+
         <section className="bg-gradient-to-r from-green-950 via-green-900 to-green-800 text-white">
+
           <div className="mx-auto max-w-7xl px-6 py-20">
+
             <nav
               aria-label="Breadcrumb"
               className="mb-8 text-sm text-gray-300"
             >
-              <Link href="/" className="hover:text-[#D4AF37]">
+
+              <Link
+                href="/"
+                className="transition hover:text-[#D4AF37]"
+              >
                 Home
               </Link>
 
@@ -155,7 +178,7 @@ export default async function BackendTipperTrailersForSalePage() {
 
               <Link
                 href="/equipment"
-                className="hover:text-[#D4AF37]"
+                className="transition hover:text-[#D4AF37]"
               >
                 Equipment
               </Link>
@@ -164,9 +187,9 @@ export default async function BackendTipperTrailersForSalePage() {
 
               <Link
                 href="/equipment/trailers-for-sale-south-africa"
-                className="hover:text-[#D4AF37]"
+                className="transition hover:text-[#D4AF37]"
               >
-                Trailers
+                Trailers for Sale
               </Link>
 
               <span className="mx-2">/</span>
@@ -174,6 +197,7 @@ export default async function BackendTipperTrailersForSalePage() {
               <span className="text-[#D4AF37]">
                 Backend Tipper Trailers
               </span>
+
             </nav>
 
             <span className="inline-block rounded-full bg-[#D4AF37] px-5 py-2 text-sm font-bold uppercase tracking-wider text-[#0B2F24]">
@@ -185,153 +209,236 @@ export default async function BackendTipperTrailersForSalePage() {
             </h1>
 
             <p className="mt-6 max-w-4xl text-lg leading-8 text-gray-200 md:text-xl">
-              Browse Backend Tipper trailers for sale through NEWTA
-              Commercial Sales. Backend Tippers are used for transporting sand, stone, agricultural materials.
+              Browse backend tipper trailers for sale in South Africa
+              through NEWTA Commercial Sales. Find rear tipping trailers
+              suitable for transporting and unloading sand, stone,
+              aggregate, agricultural materials and other bulk loads.
             </p>
+
+            <div className="mt-8 flex flex-wrap gap-4">
+
+              <Link
+                href="#available-trailers"
+                className="rounded-xl bg-[#D4AF37] px-7 py-3 font-bold text-[#0B2F24] shadow-lg transition hover:bg-[#C89B2C]"
+              >
+                View Available Trailers
+              </Link>
+
+              <Link
+                href="/contact"
+                className="rounded-xl border border-white/30 bg-white/10 px-7 py-3 font-bold text-white transition hover:bg-white/20"
+              >
+                Enquire About a Trailer
+              </Link>
+
+            </div>
+
           </div>
+
         </section>
 
         {/* INTRODUCTION */}
+
         <section className="mx-auto max-w-7xl px-6 py-16">
+
           <div className="max-w-4xl">
+
             <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
               Backend Tipper Trailers for Sale
             </h2>
 
             <p className="mt-5 text-lg leading-8 text-gray-600">
-              Backend tipper trailers are designed to transport and unload
-              bulk materials by tipping the load from the rear of the trailer.
-              They are commonly used for transporting sand, stone, agricultural
-              materials, construction materials and other bulk commercial loads.
+              Backend tipper trailers are designed to transport and
+              discharge bulk materials from the rear of the trailer.
+              They are commonly used in construction, agriculture,
+              quarrying, aggregate transport and general commercial
+              haulage.
             </p>
 
             <p className="mt-5 text-lg leading-8 text-gray-600">
-              Backend tipping trailers are available in different designs and
-              configurations. Sloper and Copelyn trailers are examples of
-              backend tipping trailers, with the individual NEWTA listing
-              providing the specific make, model, dimensions and specifications.
+              NEWTA Commercial Sales lists available trailers through
+              Private Treaty Sales. Individual listings provide the
+              available photographs, specifications, dimensions,
+              capacity, pricing, location and enquiry information for
+              each trailer.
             </p>
+
+            <p className="mt-5 text-lg leading-8 text-gray-600">
+              Backend tipping trailers can be available in different
+              sizes, configurations and cubic metre capacities. Buyers
+              should refer to the individual NEWTA listing for the exact
+              specification of each trailer.
+            </p>
+
+          </div>
+
+        </section>
+
+        {/* COMMON USES */}
+
+        <section className="border-y bg-white">
+
+          <div className="mx-auto max-w-7xl px-6 py-16">
+
+            <div className="max-w-4xl">
+
+              <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
+                Common Uses for Backend Tipper Trailers
+              </h2>
+
+              <p className="mt-5 text-lg leading-8 text-gray-600">
+                Backend tipper trailers can be used for a wide range
+                of commercial bulk transport applications.
+              </p>
 
             </div>
 
-          {/* COMMON USES */}
-          <div className="mt-14">
-            <h2 className="text-3xl font-bold text-[#0B2F24]">
-              Common Uses for Backend Tipper Trailers
-            </h2>
+            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
 
-            <p className="mt-4 max-w-3xl text-lg leading-8 text-gray-600">
-              Backend Tipper trailers can be used across construction,
-              agriculture, and general commercial transport applications.
-            </p>
-
-            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {[
-             "Sand",
-             "Stone and aggregate",
-             "Agricultural materials",
-             "Construction materials",
-             "Bulk commercial materials",
-             "General bulk transport",
-             ].map((use) => (
+                "Sand transport",
+                "Stone and aggregate",
+                "Construction materials",
+                "Agricultural materials",
+                "Bulk material transport",
+                "Quarrying applications",
+                "General commercial haulage",
+                "Material handling",
+                "Earthmoving support",
+              ].map((use) => (
+
                 <div
                   key={use}
-                  className="rounded-2xl border bg-white p-6 shadow-sm"
+                  className="rounded-2xl border bg-[#FAF8F2] p-6 shadow-sm"
                 >
+
                   <div className="flex items-start gap-3">
-                    <span className="mt-1 text-[#D4AF37]">✓</span>
+
+                    <span className="mt-1 text-lg font-bold text-[#D4AF37]">
+                      ✓
+                    </span>
 
                     <span className="font-semibold text-[#0B2F24]">
                       {use}
                     </span>
+
                   </div>
+
                 </div>
+
               ))}
+
             </div>
+
           </div>
+
         </section>
 
-        {/* TRAILER CONFIGURATIONS */}
-        <section className="border-y bg-white">
+        {/* SLOPER AND COPELYN */}
+
+        <section className="bg-[#FAF8F2]">
+
           <div className="mx-auto max-w-7xl px-6 py-16">
+
             <div className="max-w-4xl">
+
               <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
-                Backend Tipper Trailer Configurations
+                Sloper and Copelyn Backend Tipper Trailers
               </h2>
 
               <p className="mt-5 text-lg leading-8 text-gray-600">
-                Backend Tipper trailers are available in different
-                configurations depending on the intended application,
-                load requirements and trailer design. NEWTA listings
-                provide the specific dimensions and configuration of
-                each asset.
+                NEWTA Commercial Sales may list different makes and
+                types of backend tipping trailers. Sloper and Copelyn
+                are examples of trailer names that may be associated
+                with backend tipping equipment.
               </p>
+
+              <p className="mt-5 text-lg leading-8 text-gray-600">
+                The exact trailer design, dimensions, cubic metre
+                capacity, condition and specification can differ from
+                one asset to another. Always refer to the individual
+                listing for the specific trailer information.
+              </p>
+
             </div>
 
             <div className="mt-10 grid gap-6 md:grid-cols-2">
-              <div className="rounded-2xl border bg-[#FAF8F2] p-7 shadow-sm">
+
+              <div className="rounded-2xl border bg-white p-7 shadow-sm">
+
                 <h3 className="text-2xl font-bold text-[#0B2F24]">
-                  Backend Tipper Trailers
-                </h3>
-
-                <p className="mt-4 leading-7 text-gray-600">
-                  They are commonly used for transporting sand, stone, agricultural
-                   materials, construction materials and other bulk commercial loads.
-                </p>
-              </div>
-
-              <div className="rounded-2xl border bg-[#FAF8F2] p-7 shadow-sm">
-                <h3 className="text-2xl font-bold text-[#0B2F24]">
-                  Backend Tipper Trailers
-                </h3>
-
-                <p className="mt-4 leading-7 text-gray-600">
-                 Backend tipping trailers are available in different designs and
-                 Cubic metres. Sloper and Copelyn trailers are examples of
-                 backend tipping trailers.
-                </p>
-
-                 <h4 className="text-2xl font-bold text-[#0B2F24]">
                   Sloper Tipper Trailers
-                </h4>
+                </h3>
 
                 <p className="mt-4 leading-7 text-gray-600">
-                Sloper trailers are backend tipping trailers designed for bulk material transport
-                 and rear discharge applications.
+                  Sloper trailers are used for bulk material transport
+                  and rear discharge applications. Available trailer
+                  specifications depend on the individual asset listed
+                  by NEWTA Commercial Sales.
                 </p>
 
-                <h5 className="text-2xl font-bold text-[#0B2F24]">
-                  Copelyn Tipper Trailers
-                </h5>
-
-                <p className="mt-4 leading-7 text-gray-600">
-                Copelyn trailers are used for transporting and unloading bulk materials, 
-                with the individual trailer specification determining its exact configuration and capacity.
-                </p>
-
-                
               </div>
+
+              <div className="rounded-2xl border bg-white p-7 shadow-sm">
+
+                <h3 className="text-2xl font-bold text-[#0B2F24]">
+                  Copelyn Tipper Trailers
+                </h3>
+
+                <p className="mt-4 leading-7 text-gray-600">
+                  Copelyn trailers can be used for transporting and
+                  unloading bulk materials. The individual trailer
+                  listing determines its exact configuration,
+                  dimensions and capacity.
+                </p>
+
+              </div>
+
             </div>
+
           </div>
+
         </section>
 
-        {/* LISTINGS */}
-        <section className="mx-auto max-w-7xl px-6 py-16">
-          <div className="max-w-4xl">
-            <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
-              Backend Tipper Trailers Currently Available
-            </h2>
+        {/* AVAILABLE LISTINGS */}
 
-            <p className="mt-4 text-lg leading-8 text-gray-600">
-              Browse current NEWTA Commercial Sales listings below.
-              Each listing includes available photographs,
-              specifications, pricing and enquiry information.
-            </p>
+        <section
+          id="available-trailers"
+          className="mx-auto max-w-7xl px-6 py-16"
+        >
+
+          <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+
+            <div className="max-w-4xl">
+
+              <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
+                Backend Tipper Trailers Currently Available
+              </h2>
+
+              <p className="mt-5 text-lg leading-8 text-gray-600">
+                Browse current backend tipper trailer listings from
+                NEWTA Commercial Sales. Open an individual listing to
+                view available photographs, specifications, pricing,
+                location and enquiry information.
+              </p>
+
+            </div>
+
+            <div className="shrink-0 rounded-xl bg-white px-5 py-3 text-sm font-bold text-[#0B2F24] shadow-sm ring-1 ring-gray-200">
+              {backendTipperEquipment.length}{" "}
+              {backendTipperEquipment.length === 1
+                ? "Available Trailer"
+                : "Available Trailers"}
+            </div>
+
           </div>
 
-          {BackendTipperEquipment.length > 0 ? (
+          {backendTipperEquipment.length > 0 ? (
+
             <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              {BackendTipperEquipment.map((item: any) => (
+
+              {backendTipperEquipment.map((item: any) => (
+
                 <EquipmentCard
                   key={item._id.toString()}
                   id={item.slug}
@@ -350,126 +457,208 @@ export default async function BackendTipperTrailersForSalePage() {
                   hours={item.kmHours}
                   location={item.province}
                 />
+
               ))}
+
             </div>
+
           ) : (
+
             <div className="mt-12 rounded-2xl border bg-white p-10 text-center shadow-sm">
+
               <h2 className="text-2xl font-bold text-[#0B2F24]">
-                No Backend Tipper trailers currently available
+                No Backend Tipper Trailers Currently Available
               </h2>
 
-              <p className="mt-3 text-gray-600">
-                Please check back soon for new Backend Tipper trailer
-                listings.
+              <p className="mx-auto mt-3 max-w-2xl leading-7 text-gray-600">
+                There are currently no backend tipper trailers listed
+                as available. New trailers may be added as they become
+                available through NEWTA Commercial Sales.
               </p>
 
-              <Link
-                href="/equipment/trailers-for-sale-south-africa"
-                className="mt-6 inline-block rounded-xl bg-[#D4AF37] px-6 py-3 font-bold text-[#0B2F24]"
-              >
-                View All Trailers
-              </Link>
+              <div className="mt-6 flex flex-wrap justify-center gap-4">
+
+                <Link
+                  href="/equipment/trailers-for-sale-south-africa"
+                  className="rounded-xl bg-[#D4AF37] px-6 py-3 font-bold text-[#0B2F24] transition hover:bg-[#C89B2C]"
+                >
+                  View All Trailers
+                </Link>
+
+                <Link
+                  href="/contact"
+                  className="rounded-xl bg-[#0B2F24] px-6 py-3 font-bold text-white transition hover:bg-green-900"
+                >
+                  Contact NEWTA
+                </Link>
+
+              </div>
+
             </div>
+
           )}
+
         </section>
 
-        {/* RELATED TRAILER TYPES */}
-        <section className="bg-[#FAF8F2]">
-          <div className="mx-auto max-w-7xl px-6 py-16">
-            <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
-              Other Trailer Types
-            </h2>
+        {/* TRAILER BUYER INFORMATION */}
 
-            <p className="mt-4 max-w-3xl text-lg leading-8 text-gray-600">
-              Explore other commercial trailer categories available
-              through NEWTA Commercial Sales.
-            </p>
+        <section className="border-y bg-white">
+
+          <div className="mx-auto max-w-7xl px-6 py-16">
+
+            <div className="max-w-4xl">
+
+              <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
+                Buying a Backend Tipper Trailer
+              </h2>
+
+              <p className="mt-5 text-lg leading-8 text-gray-600">
+                When considering a backend tipper trailer, buyers
+                should review the individual trailer's available
+                specifications and condition. Important information
+                can include trailer dimensions, cubic metre capacity,
+                construction, tipping configuration and overall
+                condition.
+              </p>
+
+            </div>
+
+            <div className="mt-10 grid gap-6 md:grid-cols-3">
+
+              <div className="rounded-2xl border bg-[#FAF8F2] p-7 shadow-sm">
+
+                <div className="text-3xl font-extrabold text-[#D4AF37]">
+                  01
+                </div>
+
+                <h3 className="mt-4 text-xl font-bold text-[#0B2F24]">
+                  Check the Specification
+                </h3>
+
+                <p className="mt-3 leading-7 text-gray-600">
+                  Review the available dimensions, capacity,
+                  configuration and other specifications supplied
+                  with the listing.
+                </p>
+
+              </div>
+
+              <div className="rounded-2xl border bg-[#FAF8F2] p-7 shadow-sm">
+
+                <div className="text-3xl font-extrabold text-[#D4AF37]">
+                  02
+                </div>
+
+                <h3 className="mt-4 text-xl font-bold text-[#0B2F24]">
+                  Review the Photos
+                </h3>
+
+                <p className="mt-3 leading-7 text-gray-600">
+                  Examine the available photographs and listing
+                  information to understand the condition and
+                  configuration of the trailer.
+                </p>
+
+              </div>
+
+              <div className="rounded-2xl border bg-[#FAF8F2] p-7 shadow-sm">
+
+                <div className="text-3xl font-extrabold text-[#D4AF37]">
+                  03
+                </div>
+
+                <h3 className="mt-4 text-xl font-bold text-[#0B2F24]">
+                  Make an Enquiry
+                </h3>
+
+                <p className="mt-3 leading-7 text-gray-600">
+                  Contact NEWTA Commercial Sales for additional
+                  information about an available backend tipper
+                  trailer.
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+        {/* RELATED TRAILERS */}
+
+        <section className="bg-[#FAF8F2]">
+
+          <div className="mx-auto max-w-7xl px-6 py-16">
+
+            <div className="max-w-4xl">
+
+              <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
+                Other Trailers for Sale in South Africa
+              </h2>
+
+              <p className="mt-5 text-lg leading-8 text-gray-600">
+                Looking for a different trailer? Browse the wider
+                NEWTA Commercial Sales trailer inventory and related
+                trailer categories.
+              </p>
+
+            </div>
 
             <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+
               <Link
                 href="/equipment/trailers-for-sale-south-africa"
-                className="rounded-2xl border bg-white p-6 font-bold text-[#0B2F24] shadow-sm transition hover:-translate-y-1 hover:border-[#D4AF37]"
+                className="rounded-2xl border bg-white p-6 font-bold text-[#0B2F24] shadow-sm transition hover:-translate-y-1 hover:border-[#D4AF37] hover:shadow-md"
               >
                 All Trailers →
               </Link>
 
               <Link
-                href="/equipment/Backend Tipper-trailers-for-sale-south-africa"
-                className="rounded-2xl border bg-white p-6 font-bold text-[#0B2F24] shadow-sm transition hover:-translate-y-1 hover:border-[#D4AF37]"
-              >
-                Flatdeck Trailers →
-              </Link>
-
-              <Link
                 href="/equipment/side-tipper-trailers-for-sale-south-africa"
-                className="rounded-2xl border bg-white p-6 font-bold text-[#0B2F24] shadow-sm transition hover:-translate-y-1 hover:border-[#D4AF37]"
+                className="rounded-2xl border bg-white p-6 font-bold text-[#0B2F24] shadow-sm transition hover:-translate-y-1 hover:border-[#D4AF37] hover:shadow-md"
               >
                 Side Tipper Trailers →
               </Link>
 
               <Link
                 href="/equipment/dropside-trailers-for-sale-south-africa"
-                className="rounded-2xl border bg-white p-6 font-bold text-[#0B2F24] shadow-sm transition hover:-translate-y-1 hover:border-[#D4AF37]"
+                className="rounded-2xl border bg-white p-6 font-bold text-[#0B2F24] shadow-sm transition hover:-translate-y-1 hover:border-[#D4AF37] hover:shadow-md"
               >
                 Dropside Trailers →
               </Link>
+
+              <Link
+                href="/equipment"
+                className="rounded-2xl border bg-white p-6 font-bold text-[#0B2F24] shadow-sm transition hover:-translate-y-1 hover:border-[#D4AF37] hover:shadow-md"
+              >
+                All Equipment →
+              </Link>
+
             </div>
+
           </div>
+
         </section>
 
-        {/* INFORMATION */}
-        <section className="border-t bg-white">
-          <div className="mx-auto max-w-7xl px-6 py-16">
-            <div className="grid gap-8 md:grid-cols-3">
-              <div className="rounded-2xl border p-6 shadow-sm">
-                <h3 className="text-xl font-bold text-[#0B2F24]">
-                  Copelyn and Sloper backend tipper trailers
-                </h3>
+        {/* FINAL CTA */}
 
-                <p className="mt-3 leading-7 text-gray-600">
-                  Backend tipping trailers are available in different designs and
-                  cubic metres. Mostly transporting stone, sand or agricultural materials.
-                </p>
-              </div>
-
-              <div className="rounded-2xl border p-6 shadow-sm">
-                <h3 className="text-xl font-bold text-[#0B2F24]">
-                  Multiple Configurations
-                </h3>
-
-                <p className="mt-3 leading-7 text-gray-600">
-                  Backend Tipper trailers can be found in different
-                  configurations and dimensions. Check each NEWTA
-                  listing for the exact specification.
-                </p>
-              </div>
-
-              <div className="rounded-2xl border p-6 shadow-sm">
-                <h3 className="text-xl font-bold text-[#0B2F24]">
-                  Private Treaty Sales
-                </h3>
-
-                <p className="mt-3 leading-7 text-gray-600">
-                  Contact NEWTA Commercial Sales directly about an
-                  available Backend Tipper trailer or another commercial
-                  asset.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* CTA */}
         <section className="bg-[#0B2F24] text-white">
+
           <div className="mx-auto max-w-7xl px-6 py-16 text-center">
-            <h2 className="text-3xl font-bold md:text-4xl">
+
+            <span className="inline-block rounded-full bg-[#D4AF37] px-5 py-2 text-sm font-bold uppercase tracking-wider text-[#0B2F24]">
+              NEWTA Commercial Sales
+            </span>
+
+            <h2 className="mt-6 text-3xl font-bold md:text-4xl">
               Looking for a Backend Tipper Trailer?
             </h2>
 
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-300">
-              Contact NEWTA Commercial Sales if you are looking for a
-              particular Backend Tipper trailer or want more information
-              about an available asset.
+            <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-gray-300">
+              Contact NEWTA Commercial Sales if you are looking for
+              a specific backend tipper trailer, Sloper trailer,
+              Copelyn trailer or another commercial trailer.
             </p>
 
             <Link
@@ -478,8 +667,11 @@ export default async function BackendTipperTrailersForSalePage() {
             >
               Contact NEWTA
             </Link>
+
           </div>
+
         </section>
+
       </main>
 
       <Footer />

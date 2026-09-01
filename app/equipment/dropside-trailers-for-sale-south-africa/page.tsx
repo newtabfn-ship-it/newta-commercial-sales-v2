@@ -10,23 +10,23 @@ import Footer from "../../components/Footer";
 import EquipmentCard from "../../components/EquipmentCard";
 
 const pageUrl =
-  "https://newtacommercialsales.com/equipment/dropside tipper-trailers-for-sale-south-africa";
+  "https://newtacommercialsales.com/equipment/dropside-trailers-for-sale-south-africa";
 
 export const metadata: Metadata = {
-  title: "Dropside Tipper Trailers for Sale South Africa | NEWTA Commercial Sales",
+  title: "Dropside Trailers for Sale South Africa | NEWTA Commercial Sales",
 
   description:
-    "Dropside Tipper trailers for sale in South Africa through NEWTA Commercial Sales. Browse available Dropside Tipper trailers are used for transporting building materials, agricultural products, machinery, equipment and general freight.",
+    "Dropside trailers for sale in South Africa through NEWTA Commercial Sales. Browse available Dropside trailers are used for transporting building materials, agricultural products, machinery, equipment and general freight.",
 
   alternates: {
     canonical: pageUrl,
   },
 
   openGraph: {
-    title: "Dropside Tipper Trailers for Sale South Africa | NEWTA Commercial Sales",
+    title: "Dropside Trailers for Sale South Africa | NEWTA Commercial Sales",
 
     description:
-      "Browse Dropside Tipper trailers for sale through NEWTA Commercial Sales.",
+      "Browse Dropside trailers for sale through NEWTA Commercial Sales.",
 
     url: pageUrl,
 
@@ -40,10 +40,10 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
 
-    title: "Dropside Tipper Trailers for Sale South Africa | NEWTA Commercial Sales",
+    title: "Dropside Trailers for Sale South Africa | NEWTA Commercial Sales",
 
     description:
-      "Browse available Dropside Tipper trailers through NEWTA Commercial Sales.",
+      "Browse available Dropside trailers through NEWTA Commercial Sales.",
   },
 };
 
@@ -59,7 +59,7 @@ export default async function DropsideTipperTrailersForSalePage() {
   );
 
   /*
-   * Dropside Tipper trailers may eventually have their own category in
+   * Dropside trailers may eventually have their own category in
    * categories.ts. Until then, this page uses the existing Trailers
    * category and filters the available listings by trailer title/type.
    */
@@ -84,17 +84,17 @@ export default async function DropsideTipperTrailersForSalePage() {
       .join(" ")
       .toLowerCase();
 
-    return searchableText.includes("Dropside tipper");
+    return searchableText.includes("Dropside");
   });
 
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
 
-    name: "Dropside Tipper Trailers for Sale South Africa",
+    name: "Dropside Trailers for Sale South Africa",
 
     description:
-      "Dropside Tipper trailers for sale through NEWTA Commercial Sales.",
+      "Dropside trailers for sale through NEWTA Commercial Sales.",
 
     url: pageUrl,
 
@@ -106,7 +106,7 @@ export default async function DropsideTipperTrailersForSalePage() {
 
     about: {
       "@type": "Thing",
-      name: "Dropside Tipper Trailers",
+      name: "Dropside Trailers",
     },
 
     mainEntity: {
@@ -170,7 +170,7 @@ export default async function DropsideTipperTrailersForSalePage() {
               <span className="mx-2">/</span>
 
               <span className="text-[#D4AF37]">
-                Dropside Tipper Trailers
+                Dropside Trailers
               </span>
             </nav>
 
@@ -179,12 +179,12 @@ export default async function DropsideTipperTrailersForSalePage() {
             </span>
 
             <h1 className="mt-6 max-w-5xl text-4xl font-extrabold leading-tight md:text-6xl">
-              Dropside Tipper Trailers for Sale South Africa
+              Dropside Trailers for Sale South Africa
             </h1>
 
             <p className="mt-6 max-w-4xl text-lg leading-8 text-gray-200 md:text-xl">
-              Browse Dropside Tipper trailers for sale through NEWTA
-              Commercial Sales. Dropside Tippers are used for transporting  building materials,
+              Browse Dropside trailers for sale through NEWTA
+              Commercial Sales. Dropsides are used for transporting  building materials,
               agricultural products, machinery, equipment and general freight.
             </p>
           </div>
@@ -194,7 +194,7 @@ export default async function DropsideTipperTrailersForSalePage() {
         <section className="mx-auto max-w-7xl px-6 py-16">
           <div className="max-w-4xl">
             <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
-              Dropside Tipper Trailers for Sale
+              Dropside Trailers for Sale
             </h2>
 
             <p className="mt-5 text-lg leading-8 text-gray-600">
@@ -217,11 +217,11 @@ export default async function DropsideTipperTrailersForSalePage() {
           {/* COMMON USES */}
           <div className="mt-14">
             <h2 className="text-3xl font-bold text-[#0B2F24]">
-              Common Uses for Dropside Tipper Trailers
+              Common Uses for Dropside Trailers
             </h2>
 
             <p className="mt-4 max-w-3xl text-lg leading-8 text-gray-600">
-              Dropside Tipper trailers can be used across construction,
+              Dropside trailers can be used across construction,
               agriculture, and general commercial transport applications.
             </p>
 
@@ -256,11 +256,11 @@ export default async function DropsideTipperTrailersForSalePage() {
           <div className="mx-auto max-w-7xl px-6 py-16">
             <div className="max-w-4xl">
               <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
-                Dropside Tipper Trailer Configurations
+                Dropside Trailer Configurations
               </h2>
 
               <p className="mt-5 text-lg leading-8 text-gray-600">
-                Dropside Tipper trailers are available in different
+                Dropside trailers are available in different
                 configurations depending on the intended application,
                 load requirements and trailer design. NEWTA listings
                 provide the specific dimensions and configuration of
@@ -271,7 +271,7 @@ export default async function DropsideTipperTrailersForSalePage() {
             <div className="mt-10 grid gap-6 md:grid-cols-2">
               <div className="rounded-2xl border bg-[#FAF8F2] p-7 shadow-sm">
                 <h3 className="text-2xl font-bold text-[#0B2F24]">
-                  Dropside Tipper Trailers
+                  Dropside Trailers
                 </h3>
 
                 <p className="mt-4 leading-7 text-gray-600">
@@ -282,7 +282,7 @@ export default async function DropsideTipperTrailersForSalePage() {
 
               <div className="rounded-2xl border bg-[#FAF8F2] p-7 shadow-sm">
                 <h3 className="text-2xl font-bold text-[#0B2F24]">
-                  Dropside Tipper Trailers
+                  Dropside Trailers
                 </h3>
 
                 <p className="mt-4 leading-7 text-gray-600">
@@ -299,7 +299,7 @@ export default async function DropsideTipperTrailersForSalePage() {
         <section className="mx-auto max-w-7xl px-6 py-16">
           <div className="max-w-4xl">
             <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
-              Dropside Tipper Trailers Currently Available
+              Dropside Trailers Currently Available
             </h2>
 
             <p className="mt-4 text-lg leading-8 text-gray-600">
@@ -335,11 +335,11 @@ export default async function DropsideTipperTrailersForSalePage() {
           ) : (
             <div className="mt-12 rounded-2xl border bg-white p-10 text-center shadow-sm">
               <h2 className="text-2xl font-bold text-[#0B2F24]">
-                No Dropside Tipper trailers currently available
+                No Dropside trailers currently available
               </h2>
 
               <p className="mt-3 text-gray-600">
-                Please check back soon for new Dropside Tipper trailer
+                Please check back soon for new Dropside trailer
                 listings.
               </p>
 
@@ -374,7 +374,7 @@ export default async function DropsideTipperTrailersForSalePage() {
               </Link>
 
               <Link
-                href="/equipment/Dropside Tipper-trailers-for-sale-south-africa"
+                href="/equipment/Dropside-trailers-for-sale-south-africa"
                 className="rounded-2xl border bg-white p-6 font-bold text-[#0B2F24] shadow-sm transition hover:-translate-y-1 hover:border-[#D4AF37]"
               >
                 Flatdeck Trailers →
@@ -403,7 +403,7 @@ export default async function DropsideTipperTrailersForSalePage() {
             <div className="grid gap-8 md:grid-cols-3">
               <div className="rounded-2xl border p-6 shadow-sm">
                 <h3 className="text-xl font-bold text-[#0B2F24]">
-                  Dropside tipper trailers
+                  Dropside trailers
                 </h3>
 
                 <p className="mt-3 leading-7 text-gray-600">
@@ -419,7 +419,7 @@ export default async function DropsideTipperTrailersForSalePage() {
                 </h3>
 
                 <p className="mt-3 leading-7 text-gray-600">
-                  Dropside Tipper trailers can be found in different
+                  Dropside trailers can be found in different
                   configurations and dimensions. Check each NEWTA
                   listing for the exact specification.
                 </p>
@@ -432,7 +432,7 @@ export default async function DropsideTipperTrailersForSalePage() {
 
                 <p className="mt-3 leading-7 text-gray-600">
                   Contact NEWTA Commercial Sales directly about an
-                  available Dropside Tipper trailer or another commercial
+                  available Dropside trailer or another commercial
                   asset.
                 </p>
               </div>
@@ -444,12 +444,12 @@ export default async function DropsideTipperTrailersForSalePage() {
         <section className="bg-[#0B2F24] text-white">
           <div className="mx-auto max-w-7xl px-6 py-16 text-center">
             <h2 className="text-3xl font-bold md:text-4xl">
-              Looking for a Dropside Tipper Trailer?
+              Looking for a Dropside Trailer?
             </h2>
 
             <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-300">
               Contact NEWTA Commercial Sales if you are looking for a
-              particular Dropside Tipper trailer or want more information
+              particular Dropside trailer or want more information
               about an available asset.
             </p>
 
