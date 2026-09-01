@@ -44,7 +44,7 @@ export default function OnlineAuctionsSouthAfrica() {
       <Navbar />
 
       {/* HERO */}
-      <section className="bg-[#0B2F24] text-white pt-44 pb-20">
+      <section className="bg-[#0B2F24] pt-44 pb-20 text-white">
         <div className="mx-auto max-w-7xl px-6">
           <span className="inline-block rounded-full bg-[#D4AF37] px-5 py-2 text-sm font-bold uppercase tracking-wider text-[#0B2F24]">
             Online Auctions
@@ -108,10 +108,7 @@ export default function OnlineAuctionsSouthAfrica() {
       </section>
 
       {/* SELL BY AUCTION */}
-      <section
-        id="sell-by-auction"
-        className="bg-[#FAF8F2] py-20"
-      >
+      <section id="sell-by-auction" className="bg-[#FAF8F2] py-20">
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
             <div>
@@ -243,10 +240,7 @@ export default function OnlineAuctionsSouthAfrica() {
       </section>
 
       {/* AUCTIONS */}
-      <section
-        id="auctions"
-        className="bg-[#0B2F24] py-20 text-white"
-      >
+      <section id="auctions" className="bg-[#0B2F24] py-20 text-white">
         <div className="mx-auto max-w-5xl px-6 text-center">
           <span className="text-sm font-bold uppercase tracking-widest text-[#D4AF37]">
             Upcoming & Previous Auctions
