@@ -10,7 +10,7 @@ import Footer from "../../components/Footer";
 import EquipmentCard from "../../components/EquipmentCard";
 
 export const metadata: Metadata = {
-  title: "Trailers for Sale South Africa | NEWTA Commercial Sales",
+  title: "Trailers for Sale South Africa",
 
   description:
     "Browse trailers for sale in South Africa through NEWTA Commercial Sales. View available commercial trailers, side tipper trailers, specifications, images, pricing and enquiry information.",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "Trailers for Sale South Africa | NEWTA Commercial Sales",
+    title: "Trailers for Sale South Africa",
 
     description:
       "Browse commercial trailers currently available through NEWTA Commercial Sales across South Africa.",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
 
-    title: "Trailers for Sale South Africa | NEWTA Commercial Sales",
+    title: "Trailers for Sale South Africa",
 
     description:
       "Browse available commercial trailers through NEWTA Commercial Sales.",

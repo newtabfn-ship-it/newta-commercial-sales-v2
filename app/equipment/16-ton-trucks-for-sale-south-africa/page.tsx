@@ -13,7 +13,7 @@ const pageUrl =
   "https://newtacommercialsales.com/equipment/16-ton-trucks-for-sale-south-africa";
 
 export const metadata: Metadata = {
-  title: "16 Ton Trucks for Sale South Africa | NEWTA Commercial Sales",
+  title: "16 Ton Trucks for Sale South Africa",
 
   description:
     "Browse 16 ton trucks for sale in South Africa through NEWTA Commercial Sales. View available commercial trucks including dropside, flatdeck and other 16 ton trucks offered through Private Treaty Sales.",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "16 Ton Trucks for Sale South Africa | NEWTA Commercial Sales",
+    title: "16 Ton Trucks for Sale South Africa",
 
     description:
       "Browse 16 ton trucks for sale in South Africa through NEWTA Commercial Sales.",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
 
-    title: "16 Ton Trucks for Sale South Africa | NEWTA Commercial Sales",
+    title: "16 Ton Trucks for Sale South Africa",
 
     description:
       "Browse 16 ton trucks for sale in South Africa through NEWTA Commercial Sales.",

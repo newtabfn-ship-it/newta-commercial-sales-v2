@@ -11,7 +11,7 @@ import { equipmentCategories } from "@/app/data/categories";
 
 export const metadata: Metadata = {
   title:
-    "Flatdeck Trucks for Sale South Africa | NEWTA Commercial Sales",
+    "Flatdeck Trucks for Sale South Africa",
 
   description:
     "Browse flatdeck trucks for sale in South Africa through NEWTA Commercial Sales. View available flatbed and flat deck trucks with specifications, photographs, pricing and enquiry information.",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     title:
-      "Flatdeck Trucks for Sale South Africa | NEWTA Commercial Sales",
+      "Flatdeck Trucks for Sale South Africa",
 
     description:
       "Browse flatdeck trucks currently available through NEWTA Commercial Sales across South Africa. View truck specifications, photographs, pricing and enquiry information.",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
 
     title:
-      "Flatdeck Trucks for Sale South Africa | NEWTA Commercial Sales",
+      "Flatdeck Trucks for Sale South Africa",
 
     description:
       "Browse available flatdeck trucks through NEWTA Commercial Sales across South Africa.",

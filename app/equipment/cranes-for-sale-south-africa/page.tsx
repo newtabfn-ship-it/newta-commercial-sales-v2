@@ -10,7 +10,7 @@ import Footer from "../../components/Footer";
 import EquipmentCard from "../../components/EquipmentCard";
 
 export const metadata: Metadata = {
-  title: "Cranes for Sale South Africa | NEWTA Commercial Sales",
+  title: "Cranes for Sale South Africa",
 
   description:
     "Browse cranes for sale in South Africa through NEWTA Commercial Sales. View available cranes, lifting equipment, specifications, images, pricing and enquiry information.",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "Cranes for Sale South Africa | NEWTA Commercial Sales",
+    title: "Cranes for Sale South Africa",
     description:
       "Browse cranes and lifting equipment currently available through NEWTA Commercial Sales across South Africa.",
     url:
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Cranes for Sale South Africa | NEWTA Commercial Sales",
+    title: "Cranes for Sale South Africa",
     description:
       "Browse available cranes and lifting equipment through NEWTA Commercial Sales.",
   },

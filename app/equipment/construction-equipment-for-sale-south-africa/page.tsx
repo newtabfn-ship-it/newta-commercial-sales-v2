@@ -11,7 +11,7 @@ import EquipmentCard from "../../components/EquipmentCard";
 
 export const metadata: Metadata = {
   title:
-    "Construction Equipment for Sale South Africa | NEWTA Commercial Sales",
+    "Construction Equipment for Sale South Africa",
 
   description:
     "Browse construction equipment for sale in South Africa through NEWTA Commercial Sales. View available construction machinery, specifications, images, pricing and enquiry information.",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     title:
-      "Construction Equipment for Sale South Africa | NEWTA Commercial Sales",
+      "Construction Equipment for Sale South Africa",
     description:
       "Browse construction equipment currently available through NEWTA Commercial Sales across South Africa.",
     url:
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title:
-      "Construction Equipment for Sale South Africa | NEWTA Commercial Sales",
+      "Construction Equipment for Sale South Africa",
     description:
       "Browse available construction equipment through NEWTA Commercial Sales.",
   },

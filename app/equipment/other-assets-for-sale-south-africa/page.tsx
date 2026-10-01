@@ -10,7 +10,7 @@ import EquipmentCard from "../../components/EquipmentCard";
 
 export const metadata: Metadata = {
   title:
-    "Other Assets for Sale South Africa | NEWTA Commercial Sales",
+    "Other Assets for Sale South Africa",
 
   description:
     "Browse other commercial, industrial and business assets for sale in South Africa through NEWTA Commercial Sales. Find industrial equipment, workshop equipment, tools, spares, attachments, generators, pumps, machinery and other assets.",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     title:
-      "Other Assets for Sale South Africa | NEWTA Commercial Sales",
+      "Other Assets for Sale South Africa",
 
     description:
       "Browse commercial, industrial and business assets currently available through NEWTA Commercial Sales across South Africa.",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
 
     title:
-      "Other Assets for Sale South Africa | NEWTA Commercial Sales",
+      "Other Assets for Sale South Africa",
 
     description:
       "Browse other commercial, industrial and business assets available through NEWTA Commercial Sales.",

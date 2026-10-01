@@ -11,7 +11,7 @@ import EquipmentCard from "../../components/EquipmentCard";
 
 export const metadata: Metadata = {
   title:
-    "Cars for Sale South Africa | NEWTA Commercial Sales",
+    "Cars for Sale South Africa",
 
   description:
     "Browse cars and passenger vehicles for sale in South Africa through NEWTA Commercial Sales. Find passenger cars and commercial vehicles for business, personal, fleet and general transport use, with specifications, images, pricing and enquiry information.",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     title:
-      "Cars for Sale South Africa | NEWTA Commercial Sales",
+      "Cars for Sale South Africa",
 
     description:
       "Browse cars and passenger vehicles currently available through NEWTA Commercial Sales across South Africa, including vehicles for personal, business, fleet and general transport applications.",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
 
     title:
-      "Cars for Sale South Africa | NEWTA Commercial Sales",
+      "Cars for Sale South Africa",
 
     description:
       "Browse available cars and passenger vehicles through NEWTA Commercial Sales.",

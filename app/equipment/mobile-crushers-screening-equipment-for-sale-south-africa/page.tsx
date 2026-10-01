@@ -11,7 +11,7 @@ import EquipmentCard from "../../components/EquipmentCard";
 
 export const metadata: Metadata = {
   title:
-    "Mobile Crushers & Screening Equipment for Sale South Africa | NEWTA Commercial Sales",
+    "Mobile Crushers & Screening Equipment for Sale South Africa",
 
   description:
     "Browse mobile crushers and screening equipment for sale in South Africa through NEWTA Commercial Sales. View available crushing and screening plant, specifications, images, pricing and enquiry information.",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     title:
-      "Mobile Crushers & Screening Equipment for Sale South Africa | NEWTA Commercial Sales",
+      "Mobile Crushers & Screening Equipment for Sale South Africa",
 
     description:
       "Browse mobile crushers and screening equipment currently available through NEWTA Commercial Sales across South Africa.",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
 
     title:
-      "Mobile Crushers & Screening Equipment for Sale South Africa | NEWTA Commercial Sales",
+      "Mobile Crushers & Screening Equipment for Sale South Africa",
 
     description:
       "Browse mobile crushers and screening equipment available through NEWTA Commercial Sales.",

@@ -10,7 +10,7 @@ import EquipmentCard from "../../components/EquipmentCard";
 
 export const metadata: Metadata = {
   title:
-    "Mining Equipment for Sale South Africa | NEWTA Commercial Sales",
+    "Mining Equipment for Sale South Africa",
 
   description:
     "Browse mining equipment for sale in South Africa through NEWTA Commercial Sales. View available mining machinery and commercial equipment offered through Private Treaty Sales.",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     title:
-      "Mining Equipment for Sale South Africa | NEWTA Commercial Sales",
+      "Mining Equipment for Sale South Africa",
 
     description:
       "Browse mining equipment currently available through NEWTA Commercial Sales. Find mining machinery and commercial equipment available through Private Treaty Sales.",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
 
     title:
-      "Mining Equipment for Sale South Africa | NEWTA Commercial Sales",
+      "Mining Equipment for Sale South Africa",
 
     description:
       "Browse available mining equipment through NEWTA Commercial Sales.",

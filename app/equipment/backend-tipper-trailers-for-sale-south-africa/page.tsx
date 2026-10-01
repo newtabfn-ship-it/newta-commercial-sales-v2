@@ -14,7 +14,7 @@ const pageUrl =
 
 export const metadata: Metadata = {
   title:
-    "Backend Tipper Trailers for Sale South Africa | NEWTA Commercial Sales",
+    "Backend Tipper Trailers for Sale South Africa",
 
   description:
     "Backend tipper trailers for sale in South Africa through NEWTA Commercial Sales. Browse available rear tipping trailers, including Sloper and Copelyn trailers, with specifications, photographs, pricing and enquiry information.",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     title:
-      "Backend Tipper Trailers for Sale South Africa | NEWTA Commercial Sales",
+      "Backend Tipper Trailers for Sale South Africa",
 
     description:
       "Browse backend tipper trailers for sale through NEWTA Commercial Sales, including Sloper, Copelyn and other rear tipping trailers available across South Africa.",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
 
     title:
-      "Backend Tipper Trailers for Sale South Africa | NEWTA Commercial Sales",
+      "Backend Tipper Trailers for Sale South Africa",
 
     description:
       "Browse available backend tipper trailers through NEWTA Commercial Sales.",

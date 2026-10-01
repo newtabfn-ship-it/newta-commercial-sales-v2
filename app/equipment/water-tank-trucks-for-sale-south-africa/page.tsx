@@ -11,7 +11,7 @@ import EquipmentCard from "../../components/EquipmentCard";
 
 export const metadata: Metadata = {
   title:
-    "Water Tank Trucks for Sale South Africa | NEWTA Commercial Sales",
+    "Water Tank Trucks for Sale South Africa",
 
   description:
     "Browse water tank trucks for sale in South Africa through NEWTA Commercial Sales. View available water trucks for construction, mining, agriculture, roadworks, dust suppression and commercial water transport.",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     title:
-      "Water Tank Trucks for Sale South Africa | NEWTA Commercial Sales",
+      "Water Tank Trucks for Sale South Africa",
 
     description:
       "Browse water tank trucks currently available through NEWTA Commercial Sales across South Africa for construction, mining, agriculture, roadworks, dust suppression and commercial water transport.",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
 
     title:
-      "Water Tank Trucks for Sale South Africa | NEWTA Commercial Sales",
+      "Water Tank Trucks for Sale South Africa",
 
     description:
       "Browse available water tank trucks through NEWTA Commercial Sales in South Africa.",

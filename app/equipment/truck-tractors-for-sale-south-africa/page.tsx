@@ -10,7 +10,7 @@ import Footer from "../../components/Footer";
 import EquipmentCard from "../../components/EquipmentCard";
 
 export const metadata: Metadata = {
-  title: "Truck Tractors for Sale South Africa | NEWTA Commercial Sales",
+  title: "Truck Tractors for Sale South Africa",
 
   description:
     "Browse truck tractors for sale in South Africa through NEWTA Commercial Sales. View available truck tractors, specifications, images, pricing and enquiry information.",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "Truck Tractors for Sale South Africa | NEWTA Commercial Sales",
+    title: "Truck Tractors for Sale South Africa",
 
     description:
       "Browse truck tractors currently available through NEWTA Commercial Sales across South Africa.",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
 
-    title: "Truck Tractors for Sale South Africa | NEWTA Commercial Sales",
+    title: "Truck Tractors for Sale South Africa",
 
     description:
       "Browse available truck tractors through NEWTA Commercial Sales.",

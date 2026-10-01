@@ -13,7 +13,7 @@ const pageUrl =
   "https://newtacommercialsales.com/equipment/2-ton-trucks-for-sale-south-africa";
 
 export const metadata: Metadata = {
-  title: "2 Ton Trucks for Sale South Africa | NEWTA Commercial Sales",
+  title: "2 Ton Trucks for Sale South Africa",
 
   description:
     "Browse 2 ton trucks for sale in South Africa through NEWTA Commercial Sales. View available commercial trucks including dropside, flatdeck and other 2 ton trucks offered through Private Treaty Sales.",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "2 Ton Trucks for Sale South Africa | NEWTA Commercial Sales",
+    title: "2 Ton Trucks for Sale South Africa",
 
     description:
       "Browse 2 ton trucks for sale in South Africa through NEWTA Commercial Sales.",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
 
-    title: "2 Ton Trucks for Sale South Africa | NEWTA Commercial Sales",
+    title: "2 Ton Trucks for Sale South Africa",
 
     description:
       "Browse 2 ton trucks for sale in South Africa through NEWTA Commercial Sales.",

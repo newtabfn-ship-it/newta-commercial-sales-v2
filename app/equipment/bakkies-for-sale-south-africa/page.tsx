@@ -11,7 +11,7 @@ import EquipmentCard from "../../components/EquipmentCard";
 
 export const metadata: Metadata = {
   title:
-    "Bakkies for Sale South Africa | NEWTA Commercial Sales",
+    "Bakkies for Sale South Africa",
 
   description:
     "Browse bakkies and pickups for sale in South Africa through NEWTA Commercial Sales. Find commercial bakkies, work pickups, double cabs, single cabs and other utility vehicles with specifications, images, pricing and enquiry information.",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     title:
-      "Bakkies for Sale South Africa | NEWTA Commercial Sales",
+      "Bakkies for Sale South Africa",
 
     description:
       "Browse bakkies and pickups currently available through NEWTA Commercial Sales across South Africa, including commercial and utility vehicles for a range of business applications.",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
 
     title:
-      "Bakkies for Sale South Africa | NEWTA Commercial Sales",
+      "Bakkies for Sale South Africa",
 
     description:
       "Browse available bakkies and pickups through NEWTA Commercial Sales.",

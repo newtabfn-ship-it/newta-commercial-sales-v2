@@ -11,7 +11,7 @@ import EquipmentCard from "../../components/EquipmentCard";
 
 export const metadata: Metadata = {
   title:
-    "Crane Trucks for Sale South Africa | NEWTA Commercial Sales",
+    "Crane Trucks for Sale South Africa",
 
   description:
     "Browse crane trucks for sale in South Africa through NEWTA Commercial Sales. Find truck-mounted cranes, hydraulic crane trucks and commercial lifting vehicles for construction, industrial, material handling and transport applications.",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     title:
-      "Crane Trucks for Sale South Africa | NEWTA Commercial Sales",
+      "Crane Trucks for Sale South Africa",
 
     description:
       "Browse crane trucks currently available through NEWTA Commercial Sales across South Africa, including truck-mounted cranes and commercial lifting vehicles.",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
 
     title:
-      "Crane Trucks for Sale South Africa | NEWTA Commercial Sales",
+      "Crane Trucks for Sale South Africa",
 
     description:
       "Browse available crane trucks through NEWTA Commercial Sales.",

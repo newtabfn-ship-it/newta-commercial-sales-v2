@@ -11,7 +11,7 @@ import EquipmentCard from "../../components/EquipmentCard";
 
 export const metadata: Metadata = {
   title:
-    "Other Trucks for Sale South Africa | NEWTA Commercial Sales",
+    "Other Trucks for Sale South Africa",
 
   description:
     "Browse other trucks for sale in South Africa through NEWTA Commercial Sales. Find commercial trucks used for transport, construction, agriculture, industrial work and specialised applications.",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     title:
-      "Other Trucks for Sale South Africa | NEWTA Commercial Sales",
+      "Other Trucks for Sale South Africa",
 
     description:
       "Browse other commercial trucks currently available through NEWTA Commercial Sales across South Africa.",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
 
     title:
-      "Other Trucks for Sale South Africa | NEWTA Commercial Sales",
+      "Other Trucks for Sale South Africa",
 
     description:
       "Browse available other trucks through NEWTA Commercial Sales.",

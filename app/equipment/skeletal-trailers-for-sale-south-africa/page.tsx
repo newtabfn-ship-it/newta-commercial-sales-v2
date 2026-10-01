@@ -13,7 +13,7 @@ const pageUrl =
   "https://newtacommercialsales.com/equipment/skeletal-trailers-for-sale-south-africa";
 
 export const metadata: Metadata = {
-  title: "Skeletal Trailers for Sale South Africa | NEWTA Commercial Sales",
+  title: "Skeletal Trailers for Sale South Africa",
 
   description:
     "Skeletal trailers for sale in South Africa through NEWTA Commercial Sales. Browse available Skeletal trailers are used for transporting containers.",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "Skeletal Trailers for Sale South Africa | NEWTA Commercial Sales",
+    title: "Skeletal Trailers for Sale South Africa",
 
     description:
       "Browse Skeletal trailers for sale through NEWTA Commercial Sales.",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
 
-    title: "Skeletal Trailers for Sale South Africa | NEWTA Commercial Sales",
+    title: "Skeletal Trailers for Sale South Africa",
 
     description:
       "Browse available Skeletal trailers through NEWTA Commercial Sales.",

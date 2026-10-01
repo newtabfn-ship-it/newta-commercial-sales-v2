@@ -10,7 +10,7 @@ import EquipmentCard from "../../components/EquipmentCard";
 
 export const metadata: Metadata = {
 title:
-"Drilling Rigs for Sale South Africa | NEWTA Commercial Sales",
+"Drilling Rigs for Sale South Africa",
 
 description:
 "Browse drilling rigs for sale in South Africa through NEWTA Commercial Sales. View available drilling rigs, specifications, images, pricing and enquiry information.",
@@ -22,7 +22,7 @@ canonical:
 
 openGraph: {
 title:
-"Drilling Rigs for Sale South Africa | NEWTA Commercial Sales",
+"Drilling Rigs for Sale South Africa",
 
     description:
   "Browse drilling rigs currently available through NEWTA Commercial Sales across South Africa.",
@@ -41,7 +41,7 @@ locale: "en_ZA",
     card: "summary_large_image",
 
    title:
-  "Drilling Rigs for Sale South Africa | NEWTA Commercial Sales",
+  "Drilling Rigs for Sale South Africa",
 
 description:
   "Browse available drilling rigs through NEWTA Commercial Sales.",

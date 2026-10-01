@@ -13,7 +13,7 @@ const pageUrl =
   "https://newtacommercialsales.com/equipment/side tipper-trailers-for-sale-south-africa";
 
 export const metadata: Metadata = {
-  title: "Side Tipper Trailers for Sale South Africa | NEWTA Commercial Sales",
+  title: "Side Tipper Trailers for Sale South Africa",
 
   description:
     "Side Tipper trailers for sale in South Africa through NEWTA Commercial Sales. Browse available Side Tipper trailers.",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "Side Tipper Trailers for Sale South Africa | NEWTA Commercial Sales",
+    title: "Side Tipper Trailers for Sale South Africa",
 
     description:
       "Browse Side Tipper trailers for sale through NEWTA Commercial Sales.",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
 
-    title: "Side Tipper Trailers for Sale South Africa | NEWTA Commercial Sales",
+    title: "Side Tipper Trailers for Sale South Africa",
 
     description:
       "Browse available Side Tipper trailers through NEWTA Commercial Sales.",

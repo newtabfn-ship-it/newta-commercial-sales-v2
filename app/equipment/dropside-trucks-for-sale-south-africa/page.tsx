@@ -11,7 +11,7 @@ import { equipmentCategories } from "@/app/data/categories";
 
 export const metadata: Metadata = {
   title:
-    "Dropside Trucks for Sale South Africa | NEWTA Commercial Sales",
+    "Dropside Trucks for Sale South Africa",
 
   description:
     "Browse dropside trucks for sale in South Africa through NEWTA Commercial Sales. Find available dropside trucks, 2 ton, 3 ton, 4 ton and larger commercial trucks with specifications, photographs, pricing and enquiry information.",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     title:
-      "Dropside Trucks for Sale South Africa | NEWTA Commercial Sales",
+      "Dropside Trucks for Sale South Africa",
 
     description:
       "Browse dropside trucks currently available through NEWTA Commercial Sales across South Africa. View truck specifications, photographs, pricing and enquiry information.",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
 
     title:
-      "Dropside Trucks for Sale South Africa | NEWTA Commercial Sales",
+      "Dropside Trucks for Sale South Africa",
 
     description:
       "Browse available dropside trucks through NEWTA Commercial Sales across South Africa.",

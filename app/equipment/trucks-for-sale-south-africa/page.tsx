@@ -12,7 +12,7 @@ import { equipmentCategories } from "@/app/data/categories";
 const SITE_URL = "https://newtacommercialsales.com";
 
 export const metadata: Metadata = {
-  title: "Trucks for Sale South Africa | NEWTA Commercial Sales",
+  title: "Trucks for Sale South Africa",
 
   description:
     "Browse trucks for sale in South Africa through NEWTA Commercial Sales. Find 2 ton, 3 ton, 4 ton, 8 ton, 10 ton, 12 ton, 14 ton and 16 ton trucks, dropside trucks, flatdeck trucks and other commercial trucks.",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "Trucks for Sale South Africa | NEWTA Commercial Sales",
+    title: "Trucks for Sale South Africa",
 
     description:
       "Browse commercial trucks for sale across South Africa through NEWTA Commercial Sales, including different truck types, body configurations and tonnage classes.",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
 
-    title: "Trucks for Sale South Africa | NEWTA Commercial Sales",
+    title: "Trucks for Sale South Africa",
 
     description:
       "Browse trucks for sale in South Africa through NEWTA Commercial Sales, including different truck types and tonnage classes.",

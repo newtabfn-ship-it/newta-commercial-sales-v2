@@ -13,7 +13,7 @@ const pageUrl =
   "https://newtacommercialsales.com/equipment/lowbed-trailers-for-sale-south-africa";
 
 export const metadata: Metadata = {
-  title: "Lowbed Trailers for Sale South Africa | NEWTA Commercial Sales",
+  title: "Lowbed Trailers for Sale South Africa",
 
   description:
     "Lowbed trailers for sale in South Africa through NEWTA Commercial Sales. Browse available Lowbed trailers are used for transporting are designed to transport heavy machinery, construction equipment, earthmoving equipment and other large commercial assets.",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "Lowbed Trailers for Sale South Africa | NEWTA Commercial Sales",
+    title: "Lowbed Trailers for Sale South Africa",
 
     description:
       "Browse Lowbed trailers for sale through NEWTA Commercial Sales.",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
 
-    title: "Lowbed Trailers for Sale South Africa | NEWTA Commercial Sales",
+    title: "Lowbed Trailers for Sale South Africa",
 
     description:
       "Browse available Lowbed trailers through NEWTA Commercial Sales.",

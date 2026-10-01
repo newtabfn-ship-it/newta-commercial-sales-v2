@@ -11,7 +11,7 @@ import EquipmentCard from "../../components/EquipmentCard";
 
 export const metadata: Metadata = {
   title:
-    "Concrete Mixer Trucks for Sale South Africa | NEWTA Commercial Sales",
+    "Concrete Mixer Trucks for Sale South Africa",
 
   description:
     "Browse concrete mixer trucks for sale in South Africa through NEWTA Commercial Sales. Find cement mixer trucks for construction, concrete transport and ready-mix operations, with specifications, images, pricing and enquiry information.",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     title:
-      "Concrete Mixer Trucks for Sale South Africa | NEWTA Commercial Sales",
+      "Concrete Mixer Trucks for Sale South Africa",
 
     description:
       "Browse concrete mixer trucks currently available through NEWTA Commercial Sales across South Africa, including cement mixer trucks for construction and concrete transport.",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
 
     title:
-      "Concrete Mixer Trucks for Sale South Africa | NEWTA Commercial Sales",
+      "Concrete Mixer Trucks for Sale South Africa",
 
     description:
       "Browse available concrete mixer trucks and cement mixer trucks through NEWTA Commercial Sales.",

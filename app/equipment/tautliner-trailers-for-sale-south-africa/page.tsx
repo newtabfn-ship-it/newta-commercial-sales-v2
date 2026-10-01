@@ -13,7 +13,7 @@ const pageUrl =
   "https://newtacommercialsales.com/equipment/tautliner-trailers-for-sale-south-africa";
 
 export const metadata: Metadata = {
-  title: "Tautliner Trailers for Sale South Africa | NEWTA Commercial Sales",
+  title: "Tautliner Trailers for Sale South Africa",
 
   description:
     "Tautliner trailers for sale in South Africa through NEWTA Commercial Sales. Browse available tautliner trailers for equipment, building materials, agricultural loads and general commercial freight.",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "Tautliner Trailers for Sale South Africa | NEWTA Commercial Sales",
+    title: "Tautliner Trailers for Sale South Africa",
 
     description:
       "Browse tautliner trailers for sale through NEWTA Commercial Sales, including standard and combination trailer configurations.",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
 
-    title: "Tautliner Trailers for Sale South Africa | NEWTA Commercial Sales",
+    title: "Tautliner Trailers for Sale South Africa",
 
     description:
       "Browse available tautliner trailers through NEWTA Commercial Sales.",

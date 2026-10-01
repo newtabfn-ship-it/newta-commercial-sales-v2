@@ -11,7 +11,7 @@ import EquipmentCard from "../../components/EquipmentCard";
 
 export const metadata: Metadata = {
   title:
-    "Buses for Sale South Africa | NEWTA Commercial Sales",
+    "Buses for Sale South Africa",
 
   description:
     "Browse buses for sale in South Africa through NEWTA Commercial Sales. Find passenger buses and commercial buses for transport, staff transport, schools, tourism and other commercial applications, with specifications, images, pricing and enquiry information.",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     title:
-      "Buses for Sale South Africa | NEWTA Commercial Sales",
+      "Buses for Sale South Africa",
 
     description:
       "Browse buses currently available through NEWTA Commercial Sales across South Africa, including passenger and commercial buses for a range of transport applications.",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
 
     title:
-      "Buses for Sale South Africa | NEWTA Commercial Sales",
+      "Buses for Sale South Africa",
 
     description:
       "Browse available buses through NEWTA Commercial Sales.",

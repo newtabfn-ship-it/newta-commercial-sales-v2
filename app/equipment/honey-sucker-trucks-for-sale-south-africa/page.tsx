@@ -11,7 +11,7 @@ import EquipmentCard from "../../components/EquipmentCard";
 
 export const metadata: Metadata = {
   title:
-    "Honey Sucker Trucks for Sale South Africa | NEWTA Commercial Sales",
+    "Honey Sucker Trucks for Sale South Africa",
 
   description:
      "Browse honey sucker trucks and vacuum trucks for sale in South Africa through NEWTA Commercial Sales. Find commercial vacuum trucks for sanitation, waste removal, liquid waste collection and pumping operations.",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     title:
-      "Honey Sucker Trucks for Sale South Africa | NEWTA Commercial Sales",
+      "Honey Sucker Trucks for Sale South Africa",
 
     description:
     "Browse honey sucker trucks and vacuum trucks for sale in South Africa through NEWTA Commercial Sales. Find commercial vacuum trucks for sanitation, waste removal, liquid waste collection and pumping operations.",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
 
     title:
-      "Honey Sucker Trucks for Sale South Africa | NEWTA Commercial Sales",
+      "Honey Sucker Trucks for Sale South Africa",
 
     description:
       "Browse available Honey Sucker trucks through NEWTA Commercial Sales.",

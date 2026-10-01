@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title:
-      "Commercial Vehicles & Machinery for Sale | NEWTA Commercial Sales",
+      "Commercial Vehicles & Machinery for Sale",
 
     description:
       "Browse our latest commercial vehicles, machinery, trucks, plant, trailers and industrial assets for sale across South Africa.",

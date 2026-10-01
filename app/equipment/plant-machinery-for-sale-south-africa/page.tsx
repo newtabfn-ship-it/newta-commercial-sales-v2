@@ -11,7 +11,7 @@ import EquipmentCard from "../../components/EquipmentCard";
 
 export const metadata: Metadata = {
   title:
-    "Plant & Machinery for Sale South Africa | NEWTA Commercial Sales",
+    "Plant & Machinery for Sale South Africa",
 
   description:
     "Browse plant and machinery for sale in South Africa through NEWTA Commercial Sales. Find construction equipment, cranes, agricultural machinery, compressors, crushing and screening equipment available through Private Treaty Sales.",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     title:
-      "Plant & Machinery for Sale South Africa | NEWTA Commercial Sales",
+      "Plant & Machinery for Sale South Africa",
 
     description:
       "Browse plant and machinery currently available through NEWTA Commercial Sales, including construction equipment, cranes, agricultural machinery, compressors and crushing and screening equipment.",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
 
     title:
-      "Plant & Machinery for Sale South Africa | NEWTA Commercial Sales",
+      "Plant & Machinery for Sale South Africa",
 
     description:
       "Browse available plant and machinery through NEWTA Commercial Sales.",
