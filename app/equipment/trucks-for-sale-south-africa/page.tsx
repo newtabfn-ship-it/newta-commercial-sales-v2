@@ -158,9 +158,13 @@ export default async function TrucksForSaleSouthAfrica() {
 
   const truckSubcategories =
   commercialVehicles?.subcategories
-    .filter((subcategory) => subcategory.group === "trucks")
+    .filter(
+      (subcategory) =>
+        subcategory.group === "trucks" ||
+        subcategory.group === "truck-sizes"
+    )
     .map((subcategory) => subcategory.name) ?? [];
-
+    
 const equipment = await Equipment.find({
   category: commercialVehicles?.name,
   subcategory: { $in: truckSubcategories },

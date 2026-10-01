@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
-import Providers from "./providers";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://newtacommercialsales.com"),
@@ -49,6 +48,7 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+
     googleBot: {
       index: true,
       follow: true,
@@ -67,9 +67,12 @@ export const metadata: Metadata = {
     locale: "en_ZA",
     url: "https://newtacommercialsales.com",
     siteName: "NEWTA Commercial Sales",
+
     title: "NEWTA Commercial Sales",
+
     description:
       "Commercial vehicles, machinery, plant, industrial equipment and private treaty sales throughout South Africa.",
+
     images: [
       {
         url: "/og-image.png",
@@ -82,9 +85,12 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
+
     title: "NEWTA Commercial Sales",
+
     description:
       "Commercial vehicles, machinery, plant, industrial equipment, trucks, trailers, spares and business assets throughout South Africa.",
+
     images: ["/og-image.png"],
   },
 
@@ -102,32 +108,30 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en-ZA">
-     <body>
-  <script
-    type="application/ld+json"
-    dangerouslySetInnerHTML={{
-      __html: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        name: "NEWTA Commercial Sales",
-        url: "https://newtacommercialsales.com",
-        logo: "https://newtacommercialsales.com/newta-logo.png",
-        telephone: "+27 61 015 6516",
-        email: "newtabfn@gmail.com",
-        areaServed: {
-          "@type": "Country",
-          name: "South Africa",
-        },
-      }),
-    }}
-  />
+      <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "NEWTA Commercial Sales",
+              url: "https://newtacommercialsales.com",
+              logo: "https://newtacommercialsales.com/newta-logo.png",
+              telephone: "+27 61 015 6516",
+              email: "newtabfn@gmail.com",
+              areaServed: {
+                "@type": "Country",
+                name: "South Africa",
+              },
+            }),
+          }}
+        />
 
-  {children}
+        {children}
 
-  <GoogleAnalytics gaId="G-R1NQRK458K" />
-</body>
-
-      <GoogleAnalytics gaId="G-R1NQRK458K" />
+        <GoogleAnalytics gaId="G-R1NQRK458K" />
+      </body>
     </html>
   );
 }

@@ -111,8 +111,9 @@ const fullscreenFilmstripRef = useRef<HTMLDivElement>(null);
   width={1600}
   height={1000}
   priority
+  unoptimized
   sizes="100vw"
-  className="w-full h-[300px] lg:h-[340px] object-cover cursor-zoom-in transition-all duration-700 hover:scale-[1.01]"
+ className="w-full h-[400px] lg:h-[550px] object-contain cursor-zoom-in transition-all duration-700 hover:scale-[1.01]"
 />
 <div className="absolute left-6 top-6">
   <span className="rounded-lg bg-green-700 px-4 py-2 text-sm font-bold uppercase tracking-wider text-white shadow-lg">
@@ -167,6 +168,7 @@ const fullscreenFilmstripRef = useRef<HTMLDivElement>(null);
   alt={`${title} ${index + 1}`}
   width={170}
   height={110}
+  unoptimized
   sizes="170px"
   className="h-24 w-40 object-cover transition-transform duration-500 hover:scale-105"
 />
@@ -246,6 +248,7 @@ const fullscreenFilmstripRef = useRef<HTMLDivElement>(null);
   width={1800}
   height={1200}
   priority
+  unoptimized
   sizes="90vw"
   className="max-h-[70vh] max-w-[88vw] w-auto object-contain"
 />
@@ -286,6 +289,7 @@ const fullscreenFilmstripRef = useRef<HTMLDivElement>(null);
   alt={`${title} ${index + 1}`}
   width={110}
   height={75}
+  unoptimized
   sizes="110px"
   className="h-16 w-24 object-cover"
 />

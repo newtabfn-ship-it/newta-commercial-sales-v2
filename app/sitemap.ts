@@ -76,6 +76,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly",
       priority: 0.9,
     },
+    
+    {
+  url: `${BASE_URL}/equipment/water-tank-trucks-for-sale-south-africa`,
+  lastModified: new Date(),
+  changeFrequency: "weekly",
+  priority: 0.9,
+},
+
+{
+  url: `${BASE_URL}/equipment/honey-sucker-trucks-for-sale-south-africa`,
+  lastModified: new Date(),
+  changeFrequency: "weekly",
+  priority: 0.9,
+},
 
     // Truck Sizes
 
@@ -321,6 +335,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly",
       priority: 0.9,
     },
+
+    {
+  url: `${BASE_URL}/online-truck-auctions-south-africa`,
+  lastModified: new Date(),
+  changeFrequency: "weekly",
+  priority: 0.9,
+},
+
+{
+  url: `${BASE_URL}/online-machinery-auctions-south-africa`,
+  lastModified: new Date(),
+  changeFrequency: "weekly",
+  priority: 0.9,
+},
   ];
 
   return [

@@ -450,14 +450,15 @@ export default async function SixteenTonTrucksForSaleSouthAfrica() {
             <div className="mt-8 flex flex-wrap gap-3">
 
               {[
-                ["2 Ton Trucks", "/equipment/3-ton-trucks-for-sale-south-africa"],
-                ["3 Ton Trucks", "/equipment/4-ton-trucks-for-sale-south-africa"],
-                ["4 Ton Trucks", "/equipment/8-ton-trucks-for-sale-south-africa"],
-                ["8 Ton Trucks", "/equipment/10-ton-trucks-for-sale-south-africa"],
-                ["10 Ton Trucks", "/equipment/12-ton-trucks-for-sale-south-africa"],
-                ["12 Ton Trucks", "/equipment/14-ton-trucks-for-sale-south-africa"],
-                ["14 Ton Trucks", "/equipment/16-ton-trucks-for-sale-south-africa"],
-              ].map(([label, href]) => (
+  ["2 Ton Trucks", "/equipment/2-ton-trucks-for-sale-south-africa"],
+  ["3 Ton Trucks", "/equipment/3-ton-trucks-for-sale-south-africa"],
+  ["4 Ton Trucks", "/equipment/4-ton-trucks-for-sale-south-africa"],
+  ["8 Ton Trucks", "/equipment/8-ton-trucks-for-sale-south-africa"],
+  ["10 Ton Trucks", "/equipment/10-ton-trucks-for-sale-south-africa"],
+  ["12 Ton Trucks", "/equipment/12-ton-trucks-for-sale-south-africa"],
+  ["14 Ton Trucks", "/equipment/14-ton-trucks-for-sale-south-africa"],
+  ["16 Ton Trucks", "/equipment/16-ton-trucks-for-sale-south-africa"],
+].map(([label, href]) => (
 
                 <Link
                   key={href}

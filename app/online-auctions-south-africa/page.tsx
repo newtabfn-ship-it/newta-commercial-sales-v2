@@ -5,18 +5,23 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
-  title: "Online Auctions South Africa | NEWTA Commercial Sales",
+  title:
+    "Online Auctions South Africa | Trucks, Machinery & Commercial Assets | NEWTA",
   description:
-    "Online auctions in South Africa through NEWTA Commercial Sales. If you have commercial vehicles, trucks, machinery, plant, industrial assets or other business assets to sell by auction, contact NEWTA.",
+    "Online auctions in South Africa for trucks, commercial vehicles, bakkies, machinery, plant, industrial equipment and business assets. Contact NEWTA Commercial Sales to discuss selling assets by online auction.",
   keywords: [
     "online auctions South Africa",
-    "online auctions",
-    "commercial auctions South Africa",
-    "machinery auctions South Africa",
+    "online auctions for trucks South Africa",
     "truck auctions South Africa",
+    "machinery auctions South Africa",
     "plant auctions South Africa",
+    "commercial vehicle auctions South Africa",
     "equipment auctions South Africa",
+    "industrial auctions South Africa",
     "asset auctions South Africa",
+    "online machinery auctions",
+    "online truck auctions",
+    "commercial assets for auction",
     "NEWTA Commercial Sales",
   ],
   alternates: {
@@ -24,9 +29,10 @@ export const metadata: Metadata = {
       "https://newtacommercialsales.com/online-auctions-south-africa",
   },
   openGraph: {
-    title: "Online Auctions South Africa | NEWTA Commercial Sales",
+    title:
+      "Online Auctions South Africa | Trucks, Machinery & Commercial Assets | NEWTA",
     description:
-      "NEWTA Commercial Sales can assist with the sale of commercial vehicles, trucks, machinery, plant and industrial assets through online auctions.",
+      "Sell trucks, commercial vehicles, machinery, plant, industrial equipment and other commercial assets through online auctions with NEWTA Commercial Sales.",
     url: "https://newtacommercialsales.com/online-auctions-south-africa",
     siteName: "NEWTA Commercial Sales",
     locale: "en_ZA",
@@ -87,22 +93,32 @@ export default function OnlineAuctionsSouthAfrica() {
 
           <div className="mt-6 space-y-5 text-lg leading-8 text-gray-700">
             <p>
-              NEWTA Commercial Sales provides a practical route for businesses,
-              companies and asset owners looking to sell commercial assets
-              through online auctions.
-            </p>
+  NEWTA Commercial Sales provides online auction services in South Africa
+  for businesses, companies and asset owners looking to sell commercial
+  vehicles, trucks, bakkies, machinery, plant, industrial equipment and
+  other business assets.
+</p>
 
-            <p>
-              When an auction opportunity becomes available, NEWTA can arrange
-              and market the asset for auction through our online auction
-              platform partner.
-            </p>
+<p>
+  Online auctions can provide an effective sales route for commercial
+  assets where competitive bidding and access to a wider audience of
+  registered buyers may be beneficial. Depending on the asset and the
+  proposed sale, NEWTA can assist with preparing and marketing assets
+  for sale through an online auction platform.
+</p>
 
-            <p>
-              This allows sellers to reach registered online auction buyers
-              while NEWTA handles the preparation, asset information and
-              marketing required to present the asset professionally.
-            </p>
+<p>
+  Assets that may be suitable for online auction include trucks, truck
+  tractors, trailers, commercial vehicles, construction machinery,
+  agricultural equipment, plant and machinery, mining equipment,
+  compressors, industrial equipment and other commercial assets.
+</p>
+
+<p>
+  If you are considering selling commercial assets by auction in South
+  Africa, contact NEWTA Commercial Sales to discuss your assets and the
+  available selling options.
+</p>
           </div>
         </div>
       </section>
@@ -256,58 +272,280 @@ export default function OnlineAuctionsSouthAfrica() {
             access.
           </p>
 
-          {/* CURRENT AUCTION PLACEHOLDER */}
-          <div className="mt-10 rounded-2xl border border-white/10 bg-white/10 p-8">
-            <p className="text-sm font-bold uppercase tracking-wider text-[#D4AF37]">
-              Current Auction
-            </p>
+          {/* CURRENT AUCTION */}
+<div className="mt-10 rounded-2xl border border-[#D4AF37]/40 bg-white/10 p-8 text-left">
+  <p className="text-sm font-bold uppercase tracking-wider text-[#D4AF37]">
+    Upcoming Auction
+  </p>
 
-            <h3 className="mt-3 text-2xl font-bold">
-              No Current Auction
-            </h3>
+  <h3 className="mt-3 text-2xl font-bold md:text-3xl">
+    NEWTA Truck, Construction & Agri Online Auction
+  </h3>
 
-            <p className="mt-3 text-gray-300">
-              There are currently no NEWTA auctions being promoted. Check back
-              when our next auction becomes available.
-            </p>
-          </div>
+  <p className="mt-4 text-lg leading-8 text-gray-300">
+    NEWTA Commercial Sales is promoting an upcoming online auction featuring
+    trucks, construction equipment and agricultural assets.
+  </p>
+
+  <div className="mt-6 grid gap-4 sm:grid-cols-2">
+    <div className="rounded-xl bg-white/10 p-4">
+      <p className="text-sm font-bold uppercase tracking-wider text-[#D4AF37]">
+        Auction Starts
+      </p>
+      <p className="mt-1 font-semibold text-white">
+        6 October 2026 at 07:00
+      </p>
+    </div>
+
+    <div className="rounded-xl bg-white/10 p-4">
+      <p className="text-sm font-bold uppercase tracking-wider text-[#D4AF37]">
+        Auction Closes
+      </p>
+      <p className="mt-1 font-semibold text-white">
+        8 October 2026 at 09:00
+      </p>
+    </div>
+
+    <div className="rounded-xl bg-white/10 p-4">
+      <p className="text-sm font-bold uppercase tracking-wider text-[#D4AF37]">
+        Location
+      </p>
+      <p className="mt-1 font-semibold text-white">
+        Free State, South Africa
+      </p>
+    </div>
+
+    <div className="rounded-xl bg-white/10 p-4">
+      <p className="text-sm font-bold uppercase tracking-wider text-[#D4AF37]">
+        Auction Type
+      </p>
+      <p className="mt-1 font-semibold text-white">
+        Timed Online Auction
+      </p>
+    </div>
+  </div>
+
+  <div className="mt-7">
+    <p className="text-gray-300">
+      The auction is conducted through our online auction partner. Buyers can
+      view the auction details, register and participate through the BidPro
+      auction platform.
+    </p>
+  </div>
+
+  <div className="mt-8 flex flex-wrap gap-4">
+    <a
+      href="https://www.bidpro.co.za/AuctionDetails/1591"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-block rounded-xl bg-[#D4AF37] px-7 py-4 font-bold text-[#0B2F24] transition hover:opacity-90"
+    >
+      View Auction & Bid →
+    </a>
+
+    <Link
+      href="/contact"
+      className="inline-block rounded-xl border border-white/30 bg-white/10 px-7 py-4 font-bold text-white transition hover:bg-white/20"
+    >
+      Contact NEWTA
+    </Link>
+  </div>
+</div>
         </div>
       </section>
 
-      {/* BIDPRO / PREVIOUS AUCTION */}
-      <section className="bg-[#FAF8F2] py-20">
-        <div className="mx-auto max-w-5xl px-6 text-center">
-          <span className="text-sm font-bold uppercase tracking-widest text-[#D4AF37]">
-            Auction Platform
-          </span>
+   {/* PREVIOUS ONLINE AUCTIONS */}
+<section className="bg-[#FAF8F2] py-20">
+  <div className="mx-auto max-w-7xl px-6">
 
-          <h2 className="mt-3 text-3xl font-extrabold text-[#0B2F24] md:text-4xl">
-            Online Auction Listings
-          </h2>
+    <div className="text-center">
+      <span className="text-sm font-bold uppercase tracking-widest text-[#D4AF37]">
+        Previous Auctions
+      </span>
 
-          <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-gray-700">
-            Auction listings promoted by NEWTA may be hosted on our online
-            auction platform partner. Auction links will be provided here when
-            applicable.
-          </p>
+      <h2 className="mt-3 text-3xl font-extrabold text-[#0B2F24] md:text-4xl">
+        Previous Online Auctions
+      </h2>
 
-          <div className="mt-8">
-            <a
-              href="https://www.bidpro.co.za/AuctionDetails/1511"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block rounded-xl border-2 border-[#0B2F24] px-7 py-4 font-bold text-[#0B2F24] transition hover:bg-[#0B2F24] hover:text-white"
-            >
-              View Previous Auction
-            </a>
-          </div>
+      <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-gray-700">
+        NEWTA Commercial Sales has promoted a range of online auctions
+        involving trucks, trailers, plant, machinery, vehicles, industrial
+        assets, automotive spares and other commercial assets.
+      </p>
+    </div>
 
-          <p className="mt-5 text-sm text-gray-500">
-            Previous auction example — auction links will be updated when new
-            NEWTA auctions become available.
-          </p>
-        </div>
-      </section>
+    <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+
+      {/* Auction 1 */}
+      <div className="rounded-2xl bg-white p-7 shadow-lg transition hover:-translate-y-1 hover:shadow-xl">
+        <span className="text-sm font-bold uppercase tracking-wider text-[#D4AF37]">
+          Previous Auction
+        </span>
+
+        <h3 className="mt-3 text-xl font-bold text-[#0B2F24]">
+          Crushing, Screening, Trucks, Trailers & Equipment
+        </h3>
+
+        <a
+          href="https://www.bidpro.co.za/AuctionDetails/1511"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-6 inline-block rounded-xl bg-[#0B2F24] px-5 py-3 font-bold text-white transition hover:bg-[#D4AF37] hover:text-[#0B2F24]"
+        >
+          View Auction →
+        </a>
+      </div>
+
+      {/* Auction 2 */}
+      <div className="rounded-2xl bg-white p-7 shadow-lg transition hover:-translate-y-1 hover:shadow-xl">
+        <span className="text-sm font-bold uppercase tracking-wider text-[#D4AF37]">
+          Previous Auction
+        </span>
+
+        <h3 className="mt-3 text-xl font-bold text-[#0B2F24]">
+          Online Movable Asset Disposal - NC
+        </h3>
+
+        <a
+          href="https://www.bidpro.co.za/AuctionDetails/1502"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-6 inline-block rounded-xl bg-[#0B2F24] px-5 py-3 font-bold text-white transition hover:bg-[#D4AF37] hover:text-[#0B2F24]"
+        >
+          View Auction →
+        </a>
+      </div>
+
+      {/* Auction 3 */}
+      <div className="rounded-2xl bg-white p-7 shadow-lg transition hover:-translate-y-1 hover:shadow-xl">
+        <span className="text-sm font-bold uppercase tracking-wider text-[#D4AF37]">
+          Previous Auction
+        </span>
+
+        <h3 className="mt-3 text-xl font-bold text-[#0B2F24]">
+          Fleet Disposal Auction
+        </h3>
+
+        <a
+          href="https://www.bidpro.co.za/AuctionDetails/1508"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-6 inline-block rounded-xl bg-[#0B2F24] px-5 py-3 font-bold text-white transition hover:bg-[#D4AF37] hover:text-[#0B2F24]"
+        >
+          View Auction →
+        </a>
+      </div>
+
+      {/* Auction 4 */}
+      <div className="rounded-2xl bg-white p-7 shadow-lg transition hover:-translate-y-1 hover:shadow-xl">
+        <span className="text-sm font-bold uppercase tracking-wider text-[#D4AF37]">
+          Previous Auction
+        </span>
+
+        <h3 className="mt-3 text-xl font-bold text-[#0B2F24]">
+          NEWTA FS&NC Plant, Trucks, & Equipment Auction
+        </h3>
+
+        <a
+          href="https://www.bidpro.co.za/AuctionDetails/1480"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-6 inline-block rounded-xl bg-[#0B2F24] px-5 py-3 font-bold text-white transition hover:bg-[#D4AF37] hover:text-[#0B2F24]"
+        >
+          View Auction →
+        </a>
+      </div>
+
+      {/* Auction 5 */}
+      <div className="rounded-2xl bg-white p-7 shadow-lg transition hover:-translate-y-1 hover:shadow-xl">
+        <span className="text-sm font-bold uppercase tracking-wider text-[#D4AF37]">
+          Previous Auction
+        </span>
+
+        <h3 className="mt-3 text-xl font-bold text-[#0B2F24]">
+          Corporate Assets Disposal Sale
+        </h3>
+
+        <a
+          href="https://www.bidpro.co.za/AuctionDetails/1388"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-6 inline-block rounded-xl bg-[#0B2F24] px-5 py-3 font-bold text-white transition hover:bg-[#D4AF37] hover:text-[#0B2F24]"
+        >
+          View Auction →
+        </a>
+      </div>
+
+      {/* Auction 6 */}
+      <div className="rounded-2xl bg-white p-7 shadow-lg transition hover:-translate-y-1 hover:shadow-xl">
+        <span className="text-sm font-bold uppercase tracking-wider text-[#D4AF37]">
+          Previous Auction
+        </span>
+
+        <h3 className="mt-3 text-xl font-bold text-[#0B2F24]">
+          Year End Clearance Sale - Free State
+        </h3>
+
+        <a
+          href="https://www.bidpro.co.za/AuctionDetails/1286"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-6 inline-block rounded-xl bg-[#0B2F24] px-5 py-3 font-bold text-white transition hover:bg-[#D4AF37] hover:text-[#0B2F24]"
+        >
+          View Auction →
+        </a>
+      </div>
+
+      {/* Auction 7 */}
+      <div className="rounded-2xl bg-white p-7 shadow-lg transition hover:-translate-y-1 hover:shadow-xl">
+        <span className="text-sm font-bold uppercase tracking-wider text-[#D4AF37]">
+          Previous Auction
+        </span>
+
+        <h3 className="mt-3 text-xl font-bold text-[#0B2F24]">
+          Loose Assets and Automotive Spares and Projects
+        </h3>
+
+        <a
+          href="https://www.bidpro.co.za/AuctionDetails/1274"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-6 inline-block rounded-xl bg-[#0B2F24] px-5 py-3 font-bold text-white transition hover:bg-[#D4AF37] hover:text-[#0B2F24]"
+        >
+          View Auction →
+        </a>
+      </div>
+
+      {/* Auction 8 */}
+      <div className="rounded-2xl bg-white p-7 shadow-lg transition hover:-translate-y-1 hover:shadow-xl">
+        <span className="text-sm font-bold uppercase tracking-wider text-[#D4AF37]">
+          Previous Auction
+        </span>
+
+        <h3 className="mt-3 text-xl font-bold text-[#0B2F24]">
+          Grand Final Sale
+        </h3>
+
+        <a
+          href="https://www.bidpro.co.za/AuctionDetails/1324"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-6 inline-block rounded-xl bg-[#0B2F24] px-5 py-3 font-bold text-white transition hover:bg-[#D4AF37] hover:text-[#0B2F24]"
+        >
+          View Auction →
+        </a>
+      </div>
+
+    </div>
+
+    <p className="mx-auto mt-10 max-w-3xl text-center text-sm leading-6 text-gray-500">
+      Previous auction listings are provided as examples of auctions promoted
+      by NEWTA Commercial Sales. Future NEWTA auction opportunities will be
+      added to this page when available.
+    </p>
+
+  </div>
+</section>
 
       {/* FINAL CTA */}
       <section className="bg-white py-20">

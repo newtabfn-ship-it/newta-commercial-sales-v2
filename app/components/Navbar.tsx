@@ -65,8 +65,15 @@ export default function Navbar() {
   </Link>
 
   <Link href="/equipment" className="transition hover:text-[#D4AF37]">
-    Equipment
-  </Link>
+  Equipment
+</Link>
+
+<Link
+  href="/equipment/trucks-for-sale-south-africa"
+  className="transition hover:text-[#D4AF37]"
+>
+  Trucks for Sale
+</Link>
 
   <Link
     href="/online-auctions-south-africa"
@@ -145,6 +152,14 @@ export default function Navbar() {
   >
     🚜 Equipment
   </Link>
+
+  <Link
+  href="/equipment/trucks-for-sale-south-africa"
+  onClick={() => setMobileOpen(false)}
+  className="border-b border-white/10 py-4 text-white hover:text-[#D4AF37]"
+>
+  🚛 Trucks for Sale
+</Link>
 
   <Link
     href="/online-auctions-south-africa"

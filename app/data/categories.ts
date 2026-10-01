@@ -63,6 +63,19 @@ seoSlug: "truck-tractors-for-sale-south-africa",
 group: "trucks",
 },
 {
+  name: "Water Tank Trucks",
+  slug: "water-tank-trucks",
+  seoSlug: "water-tank-trucks-for-sale-south-africa",
+  group: "trucks",
+},
+
+{
+  name: "Honey Sucker Trucks",
+  slug: "honey-sucker-trucks",
+  seoSlug: "honey-sucker-trucks-for-sale-south-africa",
+  group: "trucks",
+},
+{
 name: "2 Ton Trucks",
 slug: "2-ton-trucks",
 seoSlug: "2-ton-trucks-for-sale-south-africa",
