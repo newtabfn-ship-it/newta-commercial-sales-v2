@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { submitEnquiry } from "@/lib/enquirySubmission";
 
 type Equipment = {
   _id: string;
   title: string;
-  referenceNumber: string;
-  status: string;
+  referenceNumber?: string;
+  status?: string;
 };
 
 type Props = {
@@ -15,6 +16,10 @@ type Props = {
 
 export default function EnquiryForm({ equipment }: Props) {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [saved, setSaved] = useState(false);
+  const sending = useRef(false);
+  const savedOnce = useRef(false);
 
   const [form, setForm] = useState({
     name: "",
@@ -38,51 +43,39 @@ export default function EnquiryForm({ equipment }: Props) {
     e: React.FormEvent<HTMLFormElement>
   ) {
     e.preventDefault();
-
+    if (sending.current || savedOnce.current || saved) return;
+    sending.current = true;
     setLoading(true);
-
+    setError(null);
     try {
-      const response = await fetch("/api/enquiries", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+      const result = await submitEnquiry({
           equipmentId: equipment?._id,
           equipmentTitle: equipment?.title,
           referenceNumber: equipment?.referenceNumber,
           ...form,
-        }),
       });
-
-      if (!response.ok) {
-        throw new Error("Failed to submit enquiry.");
+      if (result.saved) {
+        savedOnce.current = true;
+        setSaved(true);
+      } else {
+        setError(result.message || "We could not confirm that your enquiry was saved. Please try again shortly.");
       }
-
-      window.location.href = "/contact/success";
-    
-      setForm({
-        name: "",
-        company: "",
-        phone: "",
-        email: "",
-        province: "",
-        message: "",
-      });
-
-    } catch (error) {
-      console.error(error);
-      alert("Unable to submit your enquiry.");
+    } finally {
+      sending.current = false;
+      setLoading(false);
     }
-
-    setLoading(false);
   }
+
+  if (saved) return <p role="status" className="rounded-xl border border-green-700 bg-green-50 p-6 text-green-900">
+    Your enquiry has been saved. Thank you — a NEWTA consultant will contact you.
+  </p>;
 
   return (
     <form
       onSubmit={handleSubmit}
       className="space-y-6"
     >
+      <fieldset disabled={loading} className="space-y-6">
       {/* Full Name */}
 
       <div>
@@ -176,11 +169,11 @@ export default function EnquiryForm({ equipment }: Props) {
                 {equipment.title}
               </h3>
 
-              <p className="mt-2 text-gray-600">
+              {equipment.referenceNumber && <p className="mt-2 text-gray-600">
                 Reference: {equipment.referenceNumber}
-              </p>
+              </p>}
 
-              <span
+              {equipment.status && <span
                 className={`mt-4 inline-block rounded-full px-3 py-1 text-xs font-bold text-white ${
                   equipment.status === "Available"
                     ? "bg-green-600"
@@ -188,7 +181,7 @@ export default function EnquiryForm({ equipment }: Props) {
                 }`}
               >
                 {equipment.status}
-              </span>
+              </span>}
             </>
           ) : (
             <p className="text-gray-500">
@@ -214,12 +207,14 @@ export default function EnquiryForm({ equipment }: Props) {
         />
       </div>
 
+      {error && <p role="alert" className="rounded-lg border border-amber-700 bg-amber-50 p-4 text-amber-950">{error}</p>}
       <button
         disabled={loading}
         className="w-full rounded-xl bg-[#D4AF37] py-4 text-lg font-bold text-[#0B2F24] hover:opacity-90 disabled:opacity-50"
       >
         {loading ? "Sending..." : "Send Enquiry"}
       </button>
+      </fieldset>
     </form>
   );
 }

@@ -6,6 +6,7 @@ export default function AccountSettingsPage() {
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
 const [saving, setSaving] = useState(false);
+  const [saveSucceeded, setSaveSucceeded] = useState(false);
 
   const [form, setForm] = useState({
     name: "",
@@ -45,6 +46,7 @@ const [saving, setSaving] = useState(false);
   }));
 }
     async function handleSave() {
+  setSaveSucceeded(false);
   if (form.newPassword !== form.confirmPassword) {
     setMessage("New passwords do not match.");
     return;
@@ -65,10 +67,13 @@ const [saving, setSaving] = useState(false);
     const data = await response.json();
 
     if (!response.ok) {
-      setMessage(data.message);
+      setMessage(response.status === 503 && data.code === "DATABASE_WRITES_PAUSED"
+        ? "Your account changes were not saved. Please keep this page open and try again shortly."
+        : "Account changes could not be confirmed. Please try again shortly.");
       return;
     }
 
+    setSaveSucceeded(true);
     setMessage("✅ Account updated successfully.");
 
     setForm((previous) => ({
@@ -77,8 +82,8 @@ const [saving, setSaving] = useState(false);
       newPassword: "",
       confirmPassword: "",
     }));
-  } catch (error) {
-    console.error(error);
+  } catch {
+    console.error("Account update could not be confirmed.");
     setMessage("Something went wrong.");
   } finally {
     setSaving(false);
@@ -220,7 +225,9 @@ const [saving, setSaving] = useState(false);
 
         {/* Save Button */}
         {message && (
-  <div className="mb-6 rounded-xl border border-green-300 bg-green-100 p-4 text-green-800">
+  <div role="status" className={saveSucceeded
+    ? "mb-6 rounded-xl border border-green-300 bg-green-100 p-4 text-green-800"
+    : "mb-6 rounded-xl border border-amber-300 bg-amber-100 p-4 text-amber-900"}>
     {message}
   </div>
 )}

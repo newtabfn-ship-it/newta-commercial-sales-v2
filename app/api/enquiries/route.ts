@@ -1,12 +1,12 @@
 import { Resend } from "resend";
+import { admitDatabaseMutation } from "@/lib/databaseWritePause";
 
 import { NextResponse } from "next/server";
 
 import connectDB from "@/lib/mongodb";
 
 import Enquiry from "@/models/Enquiry";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import { requireEnquiryWritesAllowed, enquiryWriteFailure } from "@/lib/enquiryMaintenance";
 
 export async function GET() {
   try {
@@ -32,12 +32,16 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  let release: (() => void) | undefined;
   try {
+    release = admitDatabaseMutation();
+    requireEnquiryWritesAllowed();
     await connectDB();
 
     const body = await request.json();
 
-    const enquiry = await Enquiry.create({
+    requireEnquiryWritesAllowed();
+    await Enquiry.create({
       equipmentId: body.equipmentId,
       equipmentTitle: body.equipmentTitle,
       referenceNumber: body.referenceNumber,
@@ -53,27 +57,19 @@ export async function POST(request: Request) {
     });
 
     try {
+  const resend = new Resend(process.env.RESEND_API_KEY);
   await resend.emails.send({
     from: "NEWTA <onboarding@resend.dev>",
     to: "newtabfn@gmail.com",
     subject: "NEWTA - New Enquiry",
     text: "You have a new enquiry.\n\nPlease log in to the NEWTA Admin Portal.",
   });
-} catch (emailError) {
-  console.error("Failed to send notification email:", emailError);
+} catch {
+  console.warn("Enquiry saved; notification delivery was not confirmed.");
 }
 
-    return NextResponse.json(enquiry);
+    return NextResponse.json({ saved: true }, { headers: { "Cache-Control": "no-store" } });
   } catch (error) {
-    console.error(error);
-
-    return NextResponse.json(
-      {
-        error: "Failed to create enquiry.",
-      },
-      {
-        status: 500,
-      }
-    );
-  }
+    return enquiryWriteFailure(error, "We could not confirm that your enquiry was saved. Please try again shortly.");
+  } finally { release?.(); }
 }

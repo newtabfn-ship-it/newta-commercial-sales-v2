@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { admitDatabaseMutation, requireDatabaseWritesAllowed, DatabaseWritesPausedError, markDatabaseWriteOutcomeUnknown } from "@/lib/databaseWritePause";
 import bcrypt from "bcrypt";
 
 import connectDB from "@/lib/mongodb";
@@ -8,7 +9,9 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
 export async function PATCH(request: NextRequest) {
+  let release: (() => void) | undefined;
   try {
+    release = admitDatabaseMutation();
     await connectDB();
 
     const {
@@ -73,17 +76,24 @@ user.username = username;
       user.password = hashedPassword;
     }
 
+    requireDatabaseWritesAllowed();
     await user.save();
 
     return NextResponse.json({
       message: "Account updated successfully.",
     });
   } catch (error) {
-    console.error(error);
+    if (error instanceof DatabaseWritesPausedError) {
+      return NextResponse.json({ saved: false, code: "DATABASE_WRITES_PAUSED",
+        message: "Your account changes were not saved. Please keep this page open and try again shortly." },
+      { status: 503, headers: { "Retry-After": "60", "Cache-Control": "no-store" } });
+    }
+    markDatabaseWriteOutcomeUnknown();
+    console.error("Account update failed.");
 
     return NextResponse.json(
       { message: "Server Error." },
       { status: 500 }
     );
-  }
+  } finally { release?.(); }
 }

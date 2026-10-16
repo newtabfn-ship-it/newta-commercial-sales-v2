@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
+import { admitDatabaseMutation } from "@/lib/databaseWritePause";
 
 import connectDB from "@/lib/mongodb";
 import Enquiry from "@/models/Enquiry";
+import { requireEnquiryWritesAllowed, enquiryWriteFailure } from "@/lib/enquiryMaintenance";
 
 export async function GET(
   request: Request,
@@ -27,13 +29,17 @@ export async function PATCH(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  let release: (() => void) | undefined;
   try {
+    release = admitDatabaseMutation();
+    requireEnquiryWritesAllowed();
     await connectDB();
 
     const { id } = await params;
 
     const body = await request.json();
 
+    requireEnquiryWritesAllowed();
     const enquiry = await Enquiry.findByIdAndUpdate(
       id,
       body,
@@ -52,24 +58,25 @@ export async function PATCH(
 
     return NextResponse.json(enquiry);
   } catch (error) {
-    console.error(error);
-
-    return NextResponse.json(
-      { error: "Failed to update enquiry." },
-      { status: 500 }
-    );
+    return enquiryWriteFailure(error, "The enquiry update could not be confirmed. Please try again shortly.",
+      "The enquiry was not updated because updates are temporarily paused. Please try again shortly.");
   }
+  finally { release?.(); }
 }
 
 export async function DELETE(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  let release: (() => void) | undefined;
   try {
+    release = admitDatabaseMutation();
+    requireEnquiryWritesAllowed();
     await connectDB();
 
     const { id } = await params;
 
+    requireEnquiryWritesAllowed();
     const enquiry = await Enquiry.findByIdAndDelete(id);
 
     if (!enquiry) {
@@ -83,11 +90,8 @@ export async function DELETE(
       success: true,
     });
   } catch (error) {
-    console.error(error);
-
-    return NextResponse.json(
-      { error: "Failed to delete enquiry." },
-      { status: 500 }
-    );
+    return enquiryWriteFailure(error, "The enquiry deletion could not be confirmed. Please try again shortly.",
+      "The enquiry was not deleted because updates are temporarily paused. Please try again shortly.");
   }
+  finally { release?.(); }
 }
