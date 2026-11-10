@@ -1,0 +1,7 @@
+{
+  "git": {
+    "deploymentEnabled": {
+      "codex/newta-email-preview": false
+    }
+  }
+}
