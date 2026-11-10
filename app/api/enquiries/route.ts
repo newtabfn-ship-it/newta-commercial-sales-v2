@@ -56,17 +56,26 @@ export async function POST(request: Request) {
       status: "New",
     });
 
-    try {
-  const resend = new Resend(process.env.RESEND_API_KEY);
-  await resend.emails.send({
-    from: "NEWTA <onboarding@resend.dev>",
-    to: "newtabfn@gmail.com",
-    subject: "NEWTA - New Enquiry",
-    text: "You have a new enquiry.\n\nPlease log in to the NEWTA Admin Portal.",
-  });
-} catch {
-  console.warn("Enquiry saved; notification delivery was not confirmed.");
-}
+    const recipient = process.env.NEWTA_ENQUIRY_ADMIN_EMAIL?.trim();
+    const validRecipient = /^[a-z0-9_+%-]+(?:\.[a-z0-9_+%-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i;
+    if (!recipient || recipient.length > 254 || !validRecipient.test(recipient)) {
+      console.warn("Enquiry saved; administrator notification recipient is missing or invalid.");
+    } else {
+      try {
+        const resend = new Resend(process.env.RESEND_API_KEY);
+        const { error } = await resend.emails.send({
+          from: "NEWTA <enquiries@newtacommercialsales.com>",
+          to: recipient,
+          subject: "NEWTA - New Enquiry",
+          text: "You have a new enquiry.\n\nPlease log in to the NEWTA Admin Portal.",
+        });
+        if (error) {
+          console.warn("Enquiry saved; notification delivery was not confirmed.");
+        }
+      } catch {
+        console.warn("Enquiry saved; notification delivery was not confirmed.");
+      }
+    }
 
     return NextResponse.json({ saved: true }, { headers: { "Cache-Control": "no-store" } });
   } catch (error) {
