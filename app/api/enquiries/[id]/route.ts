@@ -1,13 +1,14 @@
 import { NextResponse } from "next/server";
 
-import connectDB from "@/lib/mongodb";
+import { requireEnquiryAdmin } from "@/lib/requireEnquiryAdmin";
 import Enquiry from "@/models/Enquiry";
 
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  await connectDB();
+  const denied = await requireEnquiryAdmin();
+  if (denied) return denied;
 
   const { id } = await params;
 
@@ -27,9 +28,10 @@ export async function PATCH(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  try {
-    await connectDB();
+  const denied = await requireEnquiryAdmin();
+  if (denied) return denied;
 
+  try {
     const { id } = await params;
 
     const body = await request.json();
@@ -65,9 +67,10 @@ export async function DELETE(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  try {
-    await connectDB();
+  const denied = await requireEnquiryAdmin();
+  if (denied) return denied;
 
+  try {
     const { id } = await params;
 
     const enquiry = await Enquiry.findByIdAndDelete(id);
