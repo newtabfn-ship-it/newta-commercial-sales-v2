@@ -6,12 +6,20 @@ const categories = [
     title: "Commercial Vehicles",
     description:
       "Trucks, bakkies, trailers, fleet vehicles and commercial transport solutions.",
+    links: [
+      { href: "/equipment/trucks-for-sale-south-africa", label: "Trucks for Sale South Africa" },
+      { href: "/equipment/trailers-for-sale-south-africa", label: "Trailers for Sale South Africa" },
+    ],
   },
   {
     icon: "🏗️",
     title: "Machinery & Plant",
     description:
       "Construction, earthmoving, mining and industrial machinery for every industry.",
+    links: [
+      { href: "/equipment/construction-equipment-for-sale-south-africa", label: "Construction Equipment for Sale South Africa" },
+      { href: "/equipment/mining-equipment-for-sale-south-africa", label: "Mining Equipment for Sale South Africa" },
+    ],
   },
   {
     icon: "🌾",
@@ -24,6 +32,9 @@ const categories = [
     title: "Industrial Assets",
     description:
       "Generators, forklifts, compressors, workshop equipment, spares and more.",
+    links: [
+      { href: "/equipment/other-assets-for-sale-south-africa", label: "Industrial Machinery & Business Assets" },
+    ],
   },
 ];
 
@@ -71,6 +82,22 @@ export default function WhatWeSell() {
               <p className="mt-4 leading-7 text-gray-600">
                 {category.description}
               </p>
+
+              {category.links && (
+                <ul className="mt-4 space-y-2">
+                  {category.links.map(({ href, label }) => (
+                    <li key={href}>
+                      <Link
+                        href={href}
+                        prefetch={false}
+                        className="inline-block py-1 font-semibold text-[#0B2F24] underline underline-offset-4 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2"
+                      >
+                        {label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           ))}
 

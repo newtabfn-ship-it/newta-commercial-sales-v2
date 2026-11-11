@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title:
@@ -33,6 +34,33 @@ import Equipment from "@/models/Equipment";
 
 import EnquiryButton from "@/app/components/EnquiryButton";
 import MobileActionBar from "../components/MobileActionBar";
+
+const equipmentCategoryGroups = [
+  {
+    heading: "Trucks",
+    links: [
+      { href: "/equipment/trucks-for-sale-south-africa", label: "Trucks for Sale South Africa" },
+      { href: "/equipment/truck-tractors-for-sale-south-africa", label: "Truck Tractors for Sale" },
+      { href: "/equipment/dropside-trucks-for-sale-south-africa", label: "Dropside Trucks for Sale" },
+    ],
+  },
+  {
+    heading: "Trailers",
+    links: [
+      { href: "/equipment/trailers-for-sale-south-africa", label: "Trailers for Sale South Africa" },
+      { href: "/equipment/flatdeck-trailers-for-sale-south-africa", label: "Flatdeck Trailers for Sale" },
+    ],
+  },
+  {
+    heading: "Machinery & Assets",
+    links: [
+      { href: "/equipment/construction-equipment-for-sale-south-africa", label: "Construction Equipment for Sale" },
+      { href: "/equipment/mining-equipment-for-sale-south-africa", label: "Mining Equipment for Sale" },
+      { href: "/equipment/other-assets-for-sale-south-africa", label: "Industrial Machinery & Business Assets" },
+    ],
+  },
+];
+
 export default async function EquipmentPage() {
   await connectDB();
 
@@ -71,6 +99,32 @@ export default async function EquipmentPage() {
           </p>
         </div>
       </section>
+
+      <nav aria-labelledby="equipment-categories" className="mx-auto max-w-7xl px-6 pt-10">
+        <h2 id="equipment-categories" className="text-2xl font-bold text-[#0B2F24] md:text-3xl">
+          Browse Equipment by Category
+        </h2>
+        <div className="mt-5 grid gap-4 md:grid-cols-3">
+          {equipmentCategoryGroups.map(({ heading, links }) => (
+            <div key={heading} className="rounded-2xl border border-gray-200 bg-[#F8F8F5] p-5">
+              <h3 className="text-lg font-bold text-[#0B2F24]">{heading}</h3>
+              <ul className="mt-2 space-y-1">
+                {links.map(({ href, label }) => (
+                  <li key={href}>
+                    <Link
+                      href={href}
+                      prefetch={false}
+                      className="inline-block py-1 font-semibold text-[#0B2F24] underline underline-offset-4 hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2"
+                    >
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </nav>
 
       <section className="max-w-7xl mx-auto px-6 py-16 pb-28 md:pb-16">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
