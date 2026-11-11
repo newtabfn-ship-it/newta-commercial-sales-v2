@@ -304,38 +304,98 @@ const equipment = await Equipment.find({
 
         </section>
 
-        {/* INTRODUCTION */}
+        <section className="mx-auto max-w-7xl px-6 pt-10">
+          <h2 className="text-2xl font-bold text-[#0B2F24]">Buying a Used Truck</h2>
+          <p className="mt-3 max-w-4xl text-gray-600">
+            If you are looking for a used truck, confirm its history and condition
+            with NEWTA. Check the recorded mileage, service history, payload and
+            body dimensions before choosing a truck for your work.
+          </p>
+          <nav aria-label="Shop trucks by body type" className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
+            <Link className="font-semibold text-green-800 underline" href="/equipment/dropside-trucks-for-sale-south-africa">
+              Browse dropside trucks
+            </Link>
+            <Link className="font-semibold text-green-800 underline" href="/equipment/flatdeck-trucks-for-sale-south-africa">
+              Browse flatdeck trucks
+            </Link>
+            <Link className="font-semibold text-green-800 underline" href="/equipment/truck-tractors-for-sale-south-africa">
+              Browse truck tractors
+            </Link>
+          </nav>
+        </section>
+
+        {/* CURRENT LISTINGS */}
 
         <section className="mx-auto max-w-7xl px-6 py-16">
 
           <div className="max-w-4xl">
 
             <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
-              Commercial Trucks for Sale
+              Trucks Currently for Sale
             </h2>
 
-            <p className="mt-5 text-lg leading-8 text-gray-600">
-              NEWTA Commercial Sales offers commercial trucks through
-              Private Treaty Sales across South Africa. Our available
-              trucks can range from smaller delivery vehicles through
-              to larger trucks designed for heavier commercial loads.
-            </p>
-
-            <p className="mt-5 text-lg leading-8 text-gray-600">
-              Depending on current availability, buyers may find
-              dropside trucks, flatdeck trucks, crane trucks, mixer
-              trucks, truck tractors and other commercial trucks.
-              Trucks are available in different tonnage classes and
-              specifications depending on the individual asset.
-            </p>
-
-            <p className="mt-5 text-lg leading-8 text-gray-600">
-              Browse the current NEWTA truck listings below to view
-              photographs, specifications, pricing, location and
-              enquiry information.
+            <p className="mt-4 text-lg leading-8 text-gray-600">
+              View the commercial trucks currently available through
+              NEWTA Commercial Sales. Each listing includes available
+              photographs, specifications, pricing and enquiry
+              information.
             </p>
 
           </div>
+
+          {equipment.length > 0 ? (
+
+            <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+
+              {equipment.map((item) => (
+
+                <EquipmentCard
+                  key={item._id.toString()}
+                  id={item.slug}
+                  slug={item.slug}
+                  image={
+                    item.images?.length
+                      ? item.images.find(
+                          (img: any) => img.cover
+                        )?.url ??
+                        item.images[0].url
+                      : "/placeholder-equipment.jpg"
+                  }
+                  title={item.title}
+                  year={item.year}
+                  status={item.status}
+                  price={`${item.currency ?? "ZAR"} ${item.price}`}
+                  hours={item.kmHours}
+                  location={item.province}
+                />
+
+              ))}
+
+            </div>
+
+          ) : (
+
+            <div className="mt-12 rounded-2xl border bg-white p-10 text-center shadow-sm">
+
+              <h2 className="text-2xl font-bold text-[#0B2F24]">
+                No trucks currently available
+              </h2>
+
+              <p className="mt-3 text-gray-600">
+                Please check back soon for new commercial truck
+                listings.
+              </p>
+
+              <Link
+                href="/equipment"
+                className="mt-6 inline-block rounded-xl bg-[#D4AF37] px-6 py-3 font-bold text-[#0B2F24]"
+              >
+                View All Equipment
+              </Link>
+
+            </div>
+
+          )}
 
         </section>
 
@@ -462,81 +522,6 @@ const equipment = await Equipment.find({
             </div>
 
           </div>
-
-        </section>
-
-        {/* CURRENT LISTINGS */}
-
-        <section className="mx-auto max-w-7xl px-6 py-16">
-
-          <div className="max-w-4xl">
-
-            <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
-              Trucks Currently for Sale
-            </h2>
-
-            <p className="mt-4 text-lg leading-8 text-gray-600">
-              View the commercial trucks currently available through
-              NEWTA Commercial Sales. Each listing includes available
-              photographs, specifications, pricing and enquiry
-              information.
-            </p>
-
-          </div>
-
-          {equipment.length > 0 ? (
-
-            <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-
-              {equipment.map((item) => (
-
-                <EquipmentCard
-                  key={item._id.toString()}
-                  id={item.slug}
-                  slug={item.slug}
-                  image={
-                    item.images?.length
-                      ? item.images.find(
-                          (img: any) => img.cover
-                        )?.url ??
-                        item.images[0].url
-                      : "/placeholder-equipment.jpg"
-                  }
-                  title={item.title}
-                  year={item.year}
-                  status={item.status}
-                  price={`${item.currency ?? "ZAR"} ${item.price}`}
-                  hours={item.kmHours}
-                  location={item.province}
-                />
-
-              ))}
-
-            </div>
-
-          ) : (
-
-            <div className="mt-12 rounded-2xl border bg-white p-10 text-center shadow-sm">
-
-              <h2 className="text-2xl font-bold text-[#0B2F24]">
-                No trucks currently available
-              </h2>
-
-              <p className="mt-3 text-gray-600">
-                Please check back soon for new commercial truck
-                listings.
-              </p>
-
-              <Link
-                href="/equipment"
-                className="mt-6 inline-block rounded-xl bg-[#D4AF37] px-6 py-3 font-bold text-[#0B2F24]"
-              >
-                View All Equipment
-              </Link>
-
-            </div>
-
-          )}
 
         </section>
 

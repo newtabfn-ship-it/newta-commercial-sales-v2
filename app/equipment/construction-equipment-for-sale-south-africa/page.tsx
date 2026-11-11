@@ -61,6 +61,10 @@ export default async function ConstructionEquipmentForSalePage() {
     .sort({ createdAt: -1 })
     .lean();
 
+  const excavators = equipment.filter(
+    (item) => item.slug && /\bexcavators?\b/i.test(item.title)
+  );
+
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -169,29 +173,30 @@ export default async function ConstructionEquipmentForSalePage() {
               Construction Equipment for Sale
             </h2>
 
-            <p className="mt-5 text-lg leading-8 text-gray-600">
-              NEWTA Commercial Sales offers construction equipment,
-              machinery and commercial assets through Private Treaty
-              Sales across South Africa. Browse our current
-              construction equipment listings below to view available
-              machines, specifications, photographs, pricing and
-              enquiry information.
+            <p className="mt-4 text-lg text-gray-600">
+              Compare current listings by machine type, recorded hours and location.
+              Browse <Link className="underline" href="/equipment/plant-machinery-for-sale-south-africa">plant and machinery</Link>
+              {" "}and <Link className="underline" href="/equipment/cranes-for-sale-south-africa">cranes for sale</Link> for related categories.
             </p>
 
-            <p className="mt-5 text-lg leading-8 text-gray-600">
-              Construction equipment can be used across building,
-              civil engineering, earthmoving, infrastructure,
-              agricultural, industrial and general contracting
-              applications. Available machinery varies according to
-              current stock and seller requirements.
-            </p>
-
-            <p className="mt-5 text-lg leading-8 text-gray-600">
-              Select an available machine below to view its full
-              listing and contact NEWTA Commercial Sales for further
-              information.
-            </p>
-
+            {excavators.length > 0 && (
+              <section className="mt-6">
+                <h3 className="text-xl font-bold text-[#0B2F24]">Excavators for Sale</h3>
+                <p className="mt-2 text-gray-600">
+                  Confirm operating weight, recorded hours, undercarriage condition
+                  and included attachments before arranging transport.
+                </p>
+                <ul className="mt-3 list-disc space-y-1 pl-5 text-green-800">
+                  {excavators.map((item) => (
+                    <li key={item._id.toString()}>
+                      <Link href={"/equipment/" + item.slug} className="underline">
+                        {item.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
           </div>
 
           {equipment.length > 0 ? (

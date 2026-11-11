@@ -10,7 +10,7 @@ import Footer from "../../components/Footer";
 import EquipmentCard from "../../components/EquipmentCard";
 
 const pageUrl =
-  "https://newtacommercialsales.com/equipment/side tipper-trailers-for-sale-south-africa";
+  "https://newtacommercialsales.com/equipment/side-tipper-trailers-for-sale-south-africa";
 
 export const metadata: Metadata = {
   title: "Side Tipper Trailers for Sale South Africa",
@@ -359,14 +359,14 @@ export default async function SideTipperTrailersForSalePage() {
               </Link>
 
               <Link
-                href="/equipment/Side Tipper-trailers-for-sale-south-africa"
+                href="/equipment/flatdeck-trailers-for-sale-south-africa"
                 className="rounded-2xl border bg-white p-6 font-bold text-[#0B2F24] shadow-sm transition hover:-translate-y-1 hover:border-[#D4AF37]"
               >
                 Flatdeck Trailers →
               </Link>
 
               <Link
-                href="/equipment/side-tipper-trailers-for-sale-south-africa"
+                href="/equipment/tautliner-trailers-for-sale-south-africa"
                 className="rounded-2xl border bg-white p-6 font-bold text-[#0B2F24] shadow-sm transition hover:-translate-y-1 hover:border-[#D4AF37]"
               >
                 Tautliner Trailers →

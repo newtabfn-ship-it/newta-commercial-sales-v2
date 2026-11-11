@@ -10,10 +10,10 @@ import EquipmentCard from "../../components/EquipmentCard";
 
 export const metadata: Metadata = {
   title:
-    "Other Assets for Sale South Africa",
+    "Industrial Machinery & Business Assets for Sale South Africa",
 
   description:
-    "Browse other commercial, industrial and business assets for sale in South Africa through NEWTA Commercial Sales. Find industrial equipment, workshop equipment, tools, spares, attachments, generators, pumps, machinery and other assets.",
+    "Browse industrial machinery and business assets for sale in South Africa. Check current Other Assets listings for workshop equipment, tools, spares and attachments.",
 
   alternates: {
     canonical:
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     title:
-      "Other Assets for Sale South Africa",
+      "Industrial Machinery & Business Assets for Sale South Africa",
 
     description:
       "Browse commercial, industrial and business assets currently available through NEWTA Commercial Sales across South Africa.",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
 
     title:
-      "Other Assets for Sale South Africa",
+      "Industrial Machinery & Business Assets for Sale South Africa",
 
     description:
       "Browse other commercial, industrial and business assets available through NEWTA Commercial Sales.",
@@ -150,7 +150,7 @@ export default async function OtherAssetsForSaleSouthAfrica() {
             </span>
 
             <h1 className="mt-6 max-w-5xl text-4xl font-extrabold leading-tight md:text-6xl">
-              Other Assets for Sale South Africa
+              Industrial Machinery &amp; Business Assets for Sale South Africa
             </h1>
 
             <p className="mt-6 max-w-4xl text-lg leading-8 text-gray-200 md:text-xl">

@@ -180,35 +180,6 @@ export default async function MiningEquipmentForSalePage() {
 
         </section>
 
-        {/* INTRODUCTION */}
-
-        <section className="mx-auto max-w-7xl px-6 py-16">
-
-          <div className="max-w-4xl">
-
-            <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
-              Mining Equipment for Sale
-            </h2>
-
-            <p className="mt-5 text-lg leading-8 text-gray-600">
-              NEWTA Commercial Sales connects buyers with mining
-              equipment, machinery and other commercial assets
-              available through Private Treaty Sales. Browse our
-              current listings to find equipment available for sale
-              across South Africa.
-            </p>
-
-            <p className="mt-5 text-lg leading-8 text-gray-600">
-              Each available asset can be opened to view photographs,
-              specifications, pricing, location and enquiry
-              information. Equipment availability changes as new
-              assets are listed and existing assets are sold.
-            </p>
-
-          </div>
-
-        </section>
-
         {/* AVAILABLE EQUIPMENT */}
 
         <section
@@ -225,9 +196,10 @@ export default async function MiningEquipmentForSalePage() {
               </h2>
 
               <p className="mt-5 text-lg leading-8 text-gray-600">
-                Browse the latest mining equipment listings from
-                NEWTA Commercial Sales. Listings are displayed
-                according to their current availability.
+                Check each listing for recorded hours and location before arranging transport.
+                Browse related categories for <Link className="underline" href="/equipment/drilling-rigs-for-sale-south-africa">drilling rigs</Link>,{" "}
+                <Link className="underline" href="/equipment/mobile-crushers-screening-equipment-for-sale-south-africa">crushing and screening equipment</Link> or{" "}
+                <Link className="underline" href="/equipment/plant-machinery-for-sale-south-africa">plant and machinery</Link>.
               </p>
 
             </div>

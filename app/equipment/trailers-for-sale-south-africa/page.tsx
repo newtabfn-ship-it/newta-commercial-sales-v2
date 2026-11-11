@@ -165,29 +165,27 @@ const equipment = await Equipment.find({
 
         </section>
 
-        {/* INTRODUCTION */}
-
-        <section className="mx-auto max-w-7xl px-6 py-16">
-
+        <section className="mx-auto max-w-7xl px-6 py-12">
           <div className="max-w-4xl">
-
-            <h2 className="text-3xl font-bold text-[#0B2F24] md:text-4xl">
-              Commercial Trailers for Sale
-            </h2>
-
-            <p className="mt-5 text-lg leading-8 text-gray-600">
-              NEWTA Commercial Sales offers commercial vehicles,
-              trailers, machinery and industrial assets through
-              Private Treaty Sales. Browse our current trailer
-              inventory below for available assets, photographs,
-              specifications and pricing information.
+            <h2 className="text-3xl font-bold text-[#0B2F24]">Tipper Trailers for Sale</h2>
+            <p className="mt-4 text-gray-600">
+              <Link className="font-semibold text-green-800 underline" href="/equipment/side-tipper-trailers-for-sale-south-africa">
+                Browse side tipper trailers
+              </Link>{" "}
+              for trailers that discharge to the side. Check how much clearance
+              you have alongside the trailer at the unloading site.
             </p>
-
-            <p className="mt-5 text-lg leading-8 text-gray-600">
-              Select a trailer to view its complete listing or enquire
-              directly with NEWTA Commercial Sales.
+            <p className="mt-3 text-gray-600">
+              <Link className="font-semibold text-green-800 underline" href="/equipment/backend-tipper-trailers-for-sale-south-africa">
+                Browse backend tipper trailers
+              </Link>{" "}
+              for trailers that discharge to the rear. Check the space behind the
+              trailer and overhead clearance when the body is raised.
             </p>
-
+            <h2 className="mt-8 text-2xl font-bold text-[#0B2F24]">Commercial Trailers Currently for Sale</h2>
+            <p className="mt-3 text-gray-600">
+              Open a listing to see the available photos, specifications and pricing.
+            </p>
           </div>
 
         {/* LISTINGS */}
