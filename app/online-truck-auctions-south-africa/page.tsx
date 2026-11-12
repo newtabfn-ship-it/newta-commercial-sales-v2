@@ -1,3 +1,4 @@
+import YearEndAuctionCard from "../components/YearEndAuctionCard";
 import type { Metadata } from "next";
 import Link from "next/link";
 
@@ -366,84 +367,7 @@ export default function OnlineTruckAuctionsSouthAfricaPage() {
             auction listings.
           </p>
 
-         <div className="mt-10 rounded-2xl border border-[#D4AF37]/40 bg-white/10 p-8 text-left">
-  <p className="text-sm font-bold uppercase tracking-wider text-[#D4AF37]">
-    Upcoming Truck Auction
-  </p>
-
-  <h3 className="mt-3 text-2xl font-bold md:text-3xl">
-    NEWTA Truck, Construction & Agri Online Auction
-  </h3>
-
-  <p className="mt-4 text-lg leading-8 text-gray-300">
-    NEWTA Commercial Sales is promoting an upcoming online auction featuring
-    trucks, construction equipment and agricultural assets.
-  </p>
-
-  <div className="mt-6 grid gap-4 sm:grid-cols-2">
-    <div className="rounded-xl bg-white/10 p-4">
-      <p className="text-sm font-bold uppercase tracking-wider text-[#D4AF37]">
-        Auction Starts
-      </p>
-      <p className="mt-1 font-semibold text-white">
-        6 October 2026 at 07:00
-      </p>
-    </div>
-
-    <div className="rounded-xl bg-white/10 p-4">
-      <p className="text-sm font-bold uppercase tracking-wider text-[#D4AF37]">
-        Auction Closes
-      </p>
-      <p className="mt-1 font-semibold text-white">
-        8 October 2026 at 09:00
-      </p>
-    </div>
-
-    <div className="rounded-xl bg-white/10 p-4">
-      <p className="text-sm font-bold uppercase tracking-wider text-[#D4AF37]">
-        Location
-      </p>
-      <p className="mt-1 font-semibold text-white">
-        Free State, South Africa
-      </p>
-    </div>
-
-    <div className="rounded-xl bg-white/10 p-4">
-      <p className="text-sm font-bold uppercase tracking-wider text-[#D4AF37]">
-        Auction Type
-      </p>
-      <p className="mt-1 font-semibold text-white">
-        Timed Online Auction
-      </p>
-    </div>
-  </div>
-
-  <div className="mt-7">
-    <p className="text-gray-300">
-      The auction is conducted through our external online auction partner.
-      Buyers can view the auction details, register and participate through
-      the BidPro auction platform.
-    </p>
-  </div>
-
-  <div className="mt-8 flex flex-wrap gap-4">
-    <a
-      href="https://www.bidpro.co.za/AuctionDetails/1591"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-block rounded-xl bg-[#D4AF37] px-7 py-4 font-bold text-[#0B2F24] transition hover:opacity-90"
-    >
-      View Auction & Bid →
-    </a>
-
-    <Link
-      href="/online-auctions-south-africa"
-      className="inline-block rounded-xl border border-white/30 bg-white/10 px-7 py-4 font-bold text-white transition hover:bg-white/20"
-    >
-      View All NEWTA Online Auctions
-    </Link>
-  </div>
-</div>
+          <YearEndAuctionCard secondaryHref="/online-auctions-south-africa" secondaryLabel="View All NEWTA Online Auctions" />
 
           <div className="mt-8">
             <Link

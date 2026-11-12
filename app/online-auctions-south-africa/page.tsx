@@ -1,3 +1,4 @@
+import YearEndAuctionCard from "../components/YearEndAuctionCard";
 import type { Metadata } from "next";
 import Link from "next/link";
 
@@ -273,84 +274,29 @@ export default function OnlineAuctionsSouthAfrica() {
           </p>
 
           {/* CURRENT AUCTION */}
-<div className="mt-10 rounded-2xl border border-[#D4AF37]/40 bg-white/10 p-8 text-left">
-  <p className="text-sm font-bold uppercase tracking-wider text-[#D4AF37]">
-    Upcoming Auction
-  </p>
+          <YearEndAuctionCard secondaryHref="/contact" secondaryLabel="Contact NEWTA" />
+        </div>
+      </section>
 
-  <h3 className="mt-3 text-2xl font-bold md:text-3xl">
-    NEWTA Truck, Construction & Agri Online Auction
-  </h3>
-
-  <p className="mt-4 text-lg leading-8 text-gray-300">
-    NEWTA Commercial Sales is promoting an upcoming online auction featuring
-    trucks, construction equipment and agricultural assets.
-  </p>
-
-  <div className="mt-6 grid gap-4 sm:grid-cols-2">
-    <div className="rounded-xl bg-white/10 p-4">
-      <p className="text-sm font-bold uppercase tracking-wider text-[#D4AF37]">
-        Auction Starts
-      </p>
-      <p className="mt-1 font-semibold text-white">
-        6 October 2026 at 07:00
-      </p>
-    </div>
-
-    <div className="rounded-xl bg-white/10 p-4">
-      <p className="text-sm font-bold uppercase tracking-wider text-[#D4AF37]">
-        Auction Closes
-      </p>
-      <p className="mt-1 font-semibold text-white">
-        8 October 2026 at 09:00
-      </p>
-    </div>
-
-    <div className="rounded-xl bg-white/10 p-4">
-      <p className="text-sm font-bold uppercase tracking-wider text-[#D4AF37]">
-        Location
-      </p>
-      <p className="mt-1 font-semibold text-white">
-        Free State, South Africa
-      </p>
-    </div>
-
-    <div className="rounded-xl bg-white/10 p-4">
-      <p className="text-sm font-bold uppercase tracking-wider text-[#D4AF37]">
-        Auction Type
-      </p>
-      <p className="mt-1 font-semibold text-white">
-        Timed Online Auction
-      </p>
-    </div>
-  </div>
-
-  <div className="mt-7">
-    <p className="text-gray-300">
-      The auction is conducted through our online auction partner. Buyers can
-      view the auction details, register and participate through the BidPro
-      auction platform.
-    </p>
-  </div>
-
-  <div className="mt-8 flex flex-wrap gap-4">
-    <a
-      href="https://www.bidpro.co.za/AuctionDetails/1591"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-block rounded-xl bg-[#D4AF37] px-7 py-4 font-bold text-[#0B2F24] transition hover:opacity-90"
-    >
-      View Auction & Bid →
-    </a>
-
-    <Link
-      href="/contact"
-      className="inline-block rounded-xl border border-white/30 bg-white/10 px-7 py-4 font-bold text-white transition hover:bg-white/20"
-    >
-      Contact NEWTA
-    </Link>
-  </div>
-</div>
+      <section aria-labelledby="direct-asset-sales" className="bg-white py-16">
+        <div className="mx-auto max-w-5xl px-6">
+          <div className="rounded-2xl border border-[#D4AF37]/40 bg-[#FAF8F2] p-7 shadow-lg">
+            <h2 id="direct-asset-sales" className="text-3xl font-extrabold text-[#0B2F24]">
+              Direct Asset Sales
+            </h2>
+            <p className="mt-4 leading-7 text-gray-700">
+              Browse NEWTA commercial assets available for direct purchase on
+              BidPro. There is no bidding.
+            </p>
+            <a
+              href="https://bidpro.co.za/AuctionDetails/1610"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-block rounded-xl bg-[#0B2F24] px-5 py-3 font-bold text-white transition hover:bg-[#D4AF37] hover:text-[#0B2F24]"
+            >
+              View Direct Asset Sales on BidPro →
+            </a>
+          </div>
         </div>
       </section>
 
@@ -375,6 +321,38 @@ export default function OnlineAuctionsSouthAfrica() {
     </div>
 
     <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+
+      {[
+        {
+          title: "Commercial Fleet Auction - Free State",
+          description: "Timed online auction featuring trucks, bakkies, machinery and other assets in Bloemfontein.",
+          dates: "3–10 November 2026",
+          href: "https://bidpro.co.za/AuctionDetails/1608",
+        },
+        {
+          title: "NEWTA Truck, Construction & Agri Online Auction",
+          description: "Timed online auction featuring trucks, construction equipment and agricultural assets in the Free State, South Africa.",
+          dates: "Opened 6 October 2026 at 07:00. Closed 8 October 2026 at 09:00.",
+          href: "https://www.bidpro.co.za/AuctionDetails/1591",
+        },
+      ].map(({ title, description, dates, href }) => (
+        <div key={href} className="rounded-2xl bg-white p-7 shadow-lg transition hover:-translate-y-1 hover:shadow-xl">
+          <span className="text-sm font-bold uppercase tracking-wider text-[#D4AF37]">
+            Previous Auction
+          </span>
+          <h3 className="mt-3 text-xl font-bold text-[#0B2F24]">{title}</h3>
+          <p className="mt-3 leading-7 text-gray-700">{description}</p>
+          <p className="mt-2 font-semibold text-[#0B2F24]">{dates}</p>
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 inline-block rounded-xl bg-[#0B2F24] px-5 py-3 font-bold text-white transition hover:bg-[#D4AF37] hover:text-[#0B2F24]"
+          >
+            View Auction →
+          </a>
+        </div>
+      ))}
 
       {/* Auction 1 */}
       <div className="rounded-2xl bg-white p-7 shadow-lg transition hover:-translate-y-1 hover:shadow-xl">
