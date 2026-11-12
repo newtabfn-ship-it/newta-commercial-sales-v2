@@ -56,20 +56,23 @@ export default function EquipmentPage() {
       }),
     });
 
-    if (!response.ok) {
-      throw new Error("Failed to update status.");
-    }
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error ?? "Failed to update status.");
 
-    alert(
-      newStatus === "Sold"
-        ? "Equipment marked as Sold."
-        : "Equipment marked as Available."
-    );
+    const publication = result.publication;
+    const publicUrl = publication?.publicUrl
+      ? new URL(publication.publicUrl, window.location.origin).href
+      : null;
+    const expectedPages = publication?.expectedPages?.join("\n");
+    alert(newStatus === "Sold"
+      ? "Equipment marked as Sold."
+      : ["Equipment marked as Available.", publicUrl && `Public listing: ${publicUrl}`,
+        expectedPages && `Expected catalogue pages:\n${expectedPages}`].filter(Boolean).join("\n\n"));
 
     loadEquipment();
   } catch (error) {
     console.error(error);
-    alert("Unable to update equipment status.");
+    alert(error instanceof Error ? error.message : "Unable to update equipment status.");
   }
 }
 

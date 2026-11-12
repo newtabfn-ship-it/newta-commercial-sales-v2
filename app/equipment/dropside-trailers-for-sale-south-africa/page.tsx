@@ -1,3 +1,4 @@
+import { matchesTrailerType } from "@/lib/equipmentPublishing";
 import type { Metadata } from "next";
 import Link from "next/link";
 
@@ -71,21 +72,7 @@ export default async function DropsideTipperTrailersForSalePage() {
     .sort({ createdAt: -1 })
     .lean();
 
-  const DropsideTipperEquipment = equipment.filter((item: any) => {
-    const searchableText = [
-      item.title,
-      item.description,
-      item.make,
-      item.model,
-      item.type,
-      item.subcategory,
-    ]
-      .filter(Boolean)
-      .join(" ")
-      .toLowerCase();
-
-    return searchableText.includes("Dropside");
-  });
+  const DropsideTipperEquipment = equipment.filter((item) => matchesTrailerType(item, "dropside"));
 
   const structuredData = {
     "@context": "https://schema.org",

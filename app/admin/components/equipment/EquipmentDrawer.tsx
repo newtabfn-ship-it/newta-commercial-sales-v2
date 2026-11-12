@@ -20,6 +20,8 @@ export default function EquipmentDrawer({
   onEquipmentSaved,
 }: EquipmentDrawerProps) {
   const [saving, setSaving] = useState(false);
+  const [formBusy, setFormBusy] = useState(false);
+  const busy = saving || formBusy;
 
   async function handleSuccess() {
     setSaving(true);
@@ -41,7 +43,7 @@ export default function EquipmentDrawer({
 
       <div
         className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-        onClick={!saving ? onClose : undefined}
+        onClick={!busy ? onClose : undefined}
       />
 
       {/* Drawer */}
@@ -67,7 +69,7 @@ export default function EquipmentDrawer({
           </div>
 
           <button
-            disabled={saving}
+            disabled={busy}
             onClick={onClose}
             className="rounded-lg border px-4 py-2 hover:bg-gray-100 disabled:opacity-50"
           >
@@ -85,6 +87,7 @@ export default function EquipmentDrawer({
   equipmentId={equipmentId}
   isEditing={isEditing}
   onSuccess={handleSuccess}
+  onBusyChange={setFormBusy}
 />
 
         </main>
@@ -94,7 +97,7 @@ export default function EquipmentDrawer({
         <footer className="flex items-center justify-between border-t bg-gray-50 px-8 py-6">
 
           <button
-            disabled={saving}
+            disabled={busy}
             onClick={onClose}
             className="rounded-lg border border-gray-300 px-6 py-3 font-semibold hover:bg-white disabled:opacity-50"
           >
@@ -104,11 +107,13 @@ export default function EquipmentDrawer({
           <button
             type="submit"
             form="equipment-form"
-            disabled={saving}
+            disabled={busy}
             className="rounded-lg bg-[#D4AF37] px-8 py-3 font-bold text-[#0B2F24] hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {saving
               ? "Saving..."
+              : formBusy
+              ? "Please wait..."
               : isEditing
               ? "Save Changes"
               : "Save Equipment"}

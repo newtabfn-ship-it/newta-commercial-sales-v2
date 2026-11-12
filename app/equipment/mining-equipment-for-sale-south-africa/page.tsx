@@ -7,6 +7,12 @@ import Equipment from "@/models/Equipment";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import EquipmentCard from "../../components/EquipmentCard";
+import { equipmentCategories } from "@/app/data/categories";
+
+const plantMachinery = equipmentCategories.find(({ slug }) => slug === "plant-machinery");
+const crushingScreening = plantMachinery?.subcategories.find(
+  ({ slug }) => slug === "crushing-screening"
+);
 
 export const metadata: Metadata = {
   title:
@@ -51,12 +57,20 @@ export const metadata: Metadata = {
 export default async function MiningEquipmentForSalePage() {
   await connectDB();
 
-  const equipment = await Equipment.find({
-    category: "Mining Equipment",
+  const miningFilter = { category: "Mining Equipment" };
+  const crushingFilter = plantMachinery && crushingScreening
+    ? { category: plantMachinery.name, subcategory: crushingScreening.name }
+    : null;
+  const availableEquipment = await Equipment.find({
+    $or: crushingFilter ? [miningFilter, crushingFilter] : [miningFilter],
     status: "Available",
   })
     .sort({ createdAt: -1 })
     .lean();
+
+  const equipment = availableEquipment.filter((item) => item.category === miningFilter.category);
+  const crushingEquipment = availableEquipment.filter((item) => item.category !== miningFilter.category);
+  const visibleEquipment = [...equipment, ...crushingEquipment];
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -79,9 +93,9 @@ export default async function MiningEquipmentForSalePage() {
     mainEntity: {
       "@type": "ItemList",
 
-      numberOfItems: equipment.length,
+      numberOfItems: visibleEquipment.length,
 
-      itemListElement: equipment.map((item, index) => ({
+      itemListElement: visibleEquipment.map((item, index) => ({
         "@type": "ListItem",
 
         position: index + 1,
@@ -248,14 +262,15 @@ export default async function MiningEquipmentForSalePage() {
             <div className="mt-12 rounded-2xl border bg-white p-10 text-center shadow-sm">
 
               <h2 className="text-2xl font-bold text-[#0B2F24]">
-                No Mining Equipment Currently Available
+                {crushingEquipment.length > 0
+                  ? "No Dedicated Mining Equipment Currently Available"
+                  : "No Mining Equipment Currently Available"}
               </h2>
 
               <p className="mx-auto mt-3 max-w-2xl text-gray-600">
-                There are currently no available mining equipment
-                listings. Please check back soon for new equipment
-                or contact NEWTA Commercial Sales if you are looking
-                for a specific machine or commercial asset.
+                {crushingEquipment.length > 0
+                  ? "Browse the available crushing and screening equipment below, or contact NEWTA if you are looking for a specific machine."
+                  : "Please check back soon for new equipment or contact NEWTA if you are looking for a specific machine or commercial asset."}
               </p>
 
               <Link
@@ -267,6 +282,34 @@ export default async function MiningEquipmentForSalePage() {
 
             </div>
 
+          )}
+
+          {crushingEquipment.length > 0 && (
+            <section aria-labelledby="available-crushing-screening" className="mt-12">
+              <h2 id="available-crushing-screening" className="text-3xl font-bold text-[#0B2F24]">
+                Available Crushing &amp; Screening Equipment
+              </h2>
+              <div className="mt-6 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                {crushingEquipment.map((item) => (
+                  <EquipmentCard
+                    key={item._id.toString()}
+                    id={item.slug}
+                    slug={item.slug}
+                    image={
+                      item.images?.find((img: { cover?: boolean; url?: string }) => img.cover)?.url ??
+                      item.images?.[0]?.url ??
+                      "/placeholder-equipment.jpg"
+                    }
+                    title={item.title}
+                    year={item.year}
+                    status={item.status}
+                    price={`${item.currency ?? "ZAR"} ${item.price}`}
+                    hours={item.kmHours}
+                    location={item.province}
+                  />
+                ))}
+              </div>
+            </section>
           )}
 
         </section>

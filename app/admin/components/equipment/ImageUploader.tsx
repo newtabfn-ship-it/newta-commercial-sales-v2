@@ -15,6 +15,8 @@ type ImageUploaderProps = {
   setImages: React.Dispatch<React.SetStateAction<UploadedImage[]>>;
   coverImage: number;
   setCoverImage: React.Dispatch<React.SetStateAction<number>>;
+  disabled: boolean;
+  onUploadChange: (uploading: boolean) => void;
 };
 
 export default function ImageUploader({
@@ -22,12 +24,20 @@ export default function ImageUploader({
   setImages,
   coverImage,
   setCoverImage,
+  disabled,
+  onUploadChange,
 }: ImageUploaderProps) {
+const uploading = React.useRef(false);
+const [uploadInProgress, setUploadInProgress] = React.useState(false);
 async function handleFiles(files: FileList | null) {
-  if (!files) return;
+  if (!files?.length || disabled || uploading.current) return;
 
+  uploading.current = true;
+  setUploadInProgress(true);
+  onUploadChange(true);
   const uploadedImages: UploadedImage[] = [];
 
+  try {
   for (const file of Array.from(files)) {
     try {
       // Compress image before uploading
@@ -69,6 +79,11 @@ async function handleFiles(files: FileList | null) {
   }
 
   setImages((previous) => [...previous, ...uploadedImages]);
+  } finally {
+    uploading.current = false;
+    setUploadInProgress(false);
+    onUploadChange(false);
+  }
 }
 
   function removeImage(indexToRemove: number) {
@@ -142,6 +157,7 @@ async function handleFiles(files: FileList | null) {
           type="file"
           multiple
           accept="image/*"
+          disabled={disabled || uploadInProgress}
           className="hidden"
           onChange={(e) => handleFiles(e.target.files)}
         />
@@ -149,7 +165,7 @@ async function handleFiles(files: FileList | null) {
         <div className="text-5xl">📷</div>
 
         <p className="mt-4 text-lg font-semibold text-[#0B2F24]">
-          Click to Upload Images
+          {uploadInProgress ? "Uploading images..." : "Click to Upload Images"}
         </p>
 
         <p className="mt-2 text-sm text-gray-500">

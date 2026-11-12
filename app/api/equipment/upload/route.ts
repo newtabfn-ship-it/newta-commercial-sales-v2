@@ -1,7 +1,11 @@
 import { NextResponse } from "next/server";
+import { requireEnquiryAdmin } from "@/lib/requireEnquiryAdmin";
 import cloudinary from "@/lib/cloudinary";
 
 export async function POST(request: Request) {
+  const denied = await requireEnquiryAdmin();
+  if (denied) return denied;
+
   try {
     const formData = await request.formData();
 

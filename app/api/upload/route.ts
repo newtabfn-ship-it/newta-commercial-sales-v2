@@ -1,7 +1,11 @@
 import { NextResponse } from "next/server";
+import { requireEnquiryAdmin } from "@/lib/requireEnquiryAdmin";
 import cloudinary from "@/lib/cloudinary";
 
 export async function POST(request: Request) {
+  const denied = await requireEnquiryAdmin();
+  if (denied) return denied;
+
   try {
     const formData = await request.formData();
 
@@ -35,18 +39,10 @@ export async function POST(request: Request) {
       url: result.secure_url,
       publicId: result.public_id,
     });
-  }  catch (error: any) {
-    console.error("UPLOAD ERROR:");
-    console.error(error);
-
+  } catch {
+    console.error("Equipment image upload failed.");
     return NextResponse.json(
-      {
-        error: error?.message || String(error),
-        stack:
-          process.env.NODE_ENV === "development"
-            ? error?.stack
-            : undefined,
-      },
+      { error: "Upload failed." },
       {
         status: 500,
       }

@@ -23,6 +23,7 @@ subcategory: {
   type: String,
   default: "",
 },
+trailerType: String,
 
 title: {
       type: String,

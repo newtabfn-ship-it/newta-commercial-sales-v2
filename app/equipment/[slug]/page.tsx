@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { notFound } from "next/navigation";
 
 import EquipmentGallery from "../../components/EquipmentGallery";
 import EquipmentDescription from "../../components/EquipmentDescription";
@@ -39,31 +39,7 @@ export default async function EquipmentDetails({
 
 const item = await Equipment.findOne({ slug }).lean();
   if (!item) {
-    return (
-      <>
-        <Navbar />
-
-        <div className="max-w-7xl mx-auto px-6 py-10">
-          <h1 className="text-4xl font-bold text-[#0B2F24]">
-            Listing Not Found
-          </h1>
-
-          <p className="mt-4 text-lg text-gray-600">
-            The commercial vehicle, machinery or asset you are looking
-            for may have been sold or removed.
-          </p>
-
-          <Link
-            href="/equipment"
-            className="mt-8 inline-block rounded-xl bg-[#D4AF37] px-6 py-3 font-bold text-[#0B2F24]"
-          >
-            Back to Listings
-          </Link>
-        </div>
-
-        <Footer />
-      </>
-    );
+    notFound();
   }
 
   const structuredData = await generateStructuredData(slug);

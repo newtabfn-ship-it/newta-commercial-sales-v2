@@ -1,3 +1,4 @@
+import { matchesTrailerType } from "@/lib/equipmentPublishing";
 import type { Metadata } from "next";
 import Link from "next/link";
 
@@ -77,30 +78,7 @@ export default async function BackendTipperTrailersForSalePage() {
     .sort({ createdAt: -1 })
     .lean();
 
-  const backendTipperEquipment = trailerEquipment.filter((item: any) => {
-    const searchableText = [
-      item.title,
-      item.description,
-      item.make,
-      item.model,
-      item.type,
-      item.subcategory,
-      item.category,
-    ]
-      .filter(Boolean)
-      .join(" ")
-      .toLowerCase();
-
-    return (
-      searchableText.includes("backend tipper") ||
-      searchableText.includes("back end tipper") ||
-      searchableText.includes("back-end tipper") ||
-      searchableText.includes("rear tipper") ||
-      searchableText.includes("rear tipping") ||
-      searchableText.includes("sloper") ||
-      searchableText.includes("copelyn")
-    );
-  });
+  const backendTipperEquipment = trailerEquipment.filter((item) => matchesTrailerType(item, "backend-tipper"));
 
   const structuredData = {
     "@context": "https://schema.org",

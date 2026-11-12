@@ -1,13 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ImageUploader from "./ImageUploader";
 import { equipmentCategories } from "@/app/data/categories";
+import { isTrailer, trailerTypes, validateEquipmentClassification } from "@/lib/equipmentPublishing";
 
 type EquipmentFormProps = {
   onSuccess: () => void;
   equipmentId: string | null;
   isEditing: boolean;
+  onBusyChange: (busy: boolean) => void;
 };
 
 type UploadedImage = {
@@ -19,6 +21,7 @@ type FormData = {
   referenceNumber: string;
   category: string;
   subcategory: string;
+  trailerType: string;
   title: string;
   manufacturer: string;
   model: string;
@@ -50,6 +53,7 @@ const EMPTY_FORM: FormData = {
   referenceNumber: "",
   category: "",
   subcategory: "",
+  trailerType: "",
   title: "",
   manufacturer: "",
   model: "",
@@ -81,6 +85,7 @@ export default function EquipmentForm({
   onSuccess,
   equipmentId,
   isEditing,
+  onBusyChange,
 }: EquipmentFormProps) {
   const [formData, setFormData] = useState<FormData>(EMPTY_FORM);
  
@@ -88,9 +93,25 @@ export default function EquipmentForm({
   const [images, setImages] = useState<UploadedImage[]>([]);
   const [coverImage, setCoverImage] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const savingRef = useRef(false);
+  const uploadingRef = useRef(false);
+  const [originalClassification, setOriginalClassification] = useState<
+    (Pick<FormData, "category" | "subcategory" | "trailerType"> & { id: string }) | null
+  >(null);
   const selectedCategory = equipmentCategories.find(
   (category) => category.name === formData.category
 );
+  const preservingClassification =
+    isEditing &&
+    originalClassification?.id === equipmentId &&
+    originalClassification?.category === formData.category &&
+    originalClassification?.subcategory === formData.subcategory;
+  const subcategoryOptions = selectedCategory?.subcategories ?? [];
+  const hasLegacySubcategory =
+    preservingClassification &&
+    formData.subcategory !== "" &&
+    !subcategoryOptions.some(({ name }) => name === formData.subcategory);
 
 async function loadEquipment() {
   if (!equipmentId) {
@@ -115,6 +136,7 @@ async function loadEquipment() {
       referenceNumber: equipment.referenceNumber ?? "",
       category: equipment.category ?? "",
       subcategory: equipment.subcategory ?? "",
+      trailerType: equipment.trailerType ?? "",
       title: equipment.title ?? "",
       manufacturer: equipment.manufacturer ?? "",
       model: equipment.model ?? "",
@@ -144,6 +166,12 @@ async function loadEquipment() {
     };
 
     setFormData(newFormData);
+    setOriginalClassification({
+      id: equipmentId,
+      category: newFormData.category,
+      subcategory: newFormData.subcategory,
+      trailerType: newFormData.trailerType,
+    });
     setImages(loadedImages);
 
     const coverIndex = loadedImages.findIndex(
@@ -165,6 +193,7 @@ async function loadEquipment() {
     loadEquipment();
   } else {
     setFormData(EMPTY_FORM);
+    setOriginalClassification(null);
     setImages([]);
     setCoverImage(0);
   }
@@ -186,6 +215,7 @@ async function loadEquipment() {
       type === "checkbox"
         ? (e.target as HTMLInputElement).checked
         : value,
+    ...(name === "subcategory" ? { trailerType: "" } : {}),
   }));
 }
 
@@ -208,20 +238,21 @@ async function handleSubmit(
 ) {
   e.preventDefault();
 
+  if (uploadingRef.current || savingRef.current) return;
+
   if (!formData.referenceNumber.trim()) {
     alert("Please enter a Reference Number.");
     return;
   }
 
-  if (!formData.category.trim()) {
-    alert("Please select an Asset Category.");
+  const classificationError = validateEquipmentClassification(
+    formData,
+    isEditing && originalClassification?.id === equipmentId ? originalClassification : undefined
+  );
+  if (classificationError) {
+    alert(classificationError);
     return;
   }
-
-  if (!formData.subcategory.trim()) {
-  alert("Please select a Subcategory.");
-  return;
-}
 
   if (!formData.title.trim()) {
     alert("Please enter a Title.");
@@ -251,6 +282,9 @@ async function handleSubmit(
   const method =
     isEditing && equipmentId ? "PUT" : "POST";
 
+  savingRef.current = true;
+  setSaving(true);
+  onBusyChange(true);
   try {
     const response = await fetch(url, {
       method,
@@ -268,11 +302,14 @@ async function handleSubmit(
       );
     }
 
-    alert(
-      isEditing
-        ? "Equipment updated successfully!"
-        : "Equipment created successfully!"
-    );
+    const message = isEditing ? "Equipment updated successfully." : "Equipment created successfully.";
+    const publication = result.publication;
+    const publicUrl = publication?.publicUrl
+      ? new URL(publication.publicUrl, window.location.origin).href
+      : null;
+    const expectedPages = publication?.expectedPages?.join("\n");
+    alert([message, publicUrl && `Public listing: ${publicUrl}`,
+      expectedPages && `Expected catalogue pages:\n${expectedPages}`].filter(Boolean).join("\n\n"));
 
     onSuccess();
   } catch (error) {
@@ -283,6 +320,10 @@ async function handleSubmit(
         ? error.message
         : "Unable to save equipment."
     );
+  } finally {
+    savingRef.current = false;
+    setSaving(false);
+    onBusyChange(false);
   }
 }
 
@@ -342,12 +383,17 @@ if (loading) {
         ...previous,
         category: e.target.value,
         subcategory: "",
+        trailerType: "",
       }));
     }}
     required
     className="rounded-lg border p-3"
   >
     <option value="">Select Main Category</option>
+
+    {preservingClassification && !selectedCategory && formData.category && (
+      <option value={formData.category}>{formData.category} (existing)</option>
+    )}
 
     {equipmentCategories.map((category) => (
       <option key={category.slug} value={category.name}>
@@ -360,18 +406,44 @@ if (loading) {
     name="subcategory"
     value={formData.subcategory}
     onChange={handleChange}
-    required
-    disabled={!selectedCategory}
+    required={!preservingClassification && subcategoryOptions.length > 0}
+    disabled={subcategoryOptions.length === 0 && !hasLegacySubcategory}
     className="rounded-lg border p-3 disabled:bg-gray-100 disabled:text-gray-400"
   >
-    <option value="">Select Subcategory</option>
+    <option value="">
+      {subcategoryOptions.length > 0 ? "Select Subcategory" : "No subcategory"}
+    </option>
 
-    {selectedCategory?.subcategories.map((subcategory) => (
+    {hasLegacySubcategory && (
+      <option value={formData.subcategory}>{formData.subcategory} (existing)</option>
+    )}
+
+    {subcategoryOptions.map((subcategory) => (
       <option key={subcategory.slug} value={subcategory.name}>
         {subcategory.name}
       </option>
     ))}
   </select>
+  {isTrailer(formData) && (
+    <label className="block text-sm font-semibold">
+      Trailer type
+      <select
+        name="trailerType"
+        value={formData.trailerType}
+        onChange={handleChange}
+        required={!preservingClassification}
+        className="mt-1 w-full rounded-lg border p-3"
+      >
+        <option value="">Select trailer type</option>
+        {preservingClassification && formData.trailerType && !Object.hasOwn(trailerTypes, formData.trailerType) && (
+          <option value={formData.trailerType}>{formData.trailerType} (existing)</option>
+        )}
+        {Object.entries(trailerTypes).map(([value, label]) => (
+          <option key={value} value={value}>{label}</option>
+        ))}
+      </select>
+    </label>
+  )}
 </div>
 
     <input
@@ -609,6 +681,11 @@ if (loading) {
       setImages={setImages}
       coverImage={coverImage}
       setCoverImage={setCoverImage}
+      disabled={saving}
+      onUploadChange={(uploading) => {
+        uploadingRef.current = uploading;
+        onBusyChange(uploading || savingRef.current);
+      }}
     />
 
   </form>

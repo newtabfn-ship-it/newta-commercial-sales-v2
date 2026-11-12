@@ -4,6 +4,8 @@ import Equipment from "@/models/Equipment";
 
 const BASE_URL = "https://newtacommercialsales.com";
 
+export const dynamic = "force-dynamic";
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   await connectDB();
 
