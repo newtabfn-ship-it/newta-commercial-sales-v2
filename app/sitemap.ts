@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import connectDB from "@/lib/mongodb";
 import Equipment from "@/models/Equipment";
+import DirectSaleAsset from "@/models/DirectSaleAsset";
 
 const BASE_URL = "https://newtacommercialsales.com";
 
@@ -353,9 +354,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 },
   ];
 
+  const directAssets = await DirectSaleAsset.find({
+    status: "Published",
+    $or: [{ closesAt: null }, { closesAt: { $gt: new Date() } }],
+  }).select("slug updatedAt").lean().catch(() => {
+    console.warn("Direct Sales URLs are temporarily unavailable for the sitemap.");
+    return [];
+  });
+
   return [
     ...corePages,
     ...categoryPages,
     ...equipmentPages,
+    { url: `${BASE_URL}/direct-sales` },
+    ...directAssets.map((asset) => ({
+      url: `${BASE_URL}/direct-sales/${asset.slug}`,
+      lastModified: asset.updatedAt,
+    })),
   ];
 }

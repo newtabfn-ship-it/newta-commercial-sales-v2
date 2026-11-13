@@ -58,7 +58,7 @@ export default function Navbar() {
             </Link>
 
           {/* Desktop Navigation */}
-<div className="hidden lg:flex items-center gap-12 text-white font-semibold tracking-wide">
+<div className="hidden lg:flex items-center gap-5 xl:gap-8 text-white font-semibold tracking-wide">
 
   <Link href="/" className="transition hover:text-[#D4AF37]">
     Home
@@ -84,6 +84,10 @@ export default function Navbar() {
 
   <Link href="/contact" className="transition hover:text-[#D4AF37]">
     Contact
+  </Link>
+
+  <Link href="/direct-sales" className="whitespace-nowrap transition hover:text-[#D4AF37]">
+    Direct Sales
   </Link>
 
 </div>
@@ -167,6 +171,14 @@ export default function Navbar() {
     className="border-b border-white/10 py-4 text-white hover:text-[#D4AF37]"
   >
     🔨 Auctions
+  </Link>
+
+  <Link
+    href="/direct-sales"
+    onClick={() => setMobileOpen(false)}
+    className="border-b border-white/10 py-4 text-white hover:text-[#D4AF37]"
+  >
+    Direct Sales
   </Link>
 
   <Link

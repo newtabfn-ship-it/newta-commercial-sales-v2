@@ -13,11 +13,13 @@ type GalleryImage = {
 type EquipmentGalleryProps = {
   images: GalleryImage[];
   title: string;
+  availabilityLabel?: string;
 };
 
 export default function EquipmentGallery({
   images,
   title,
+  availabilityLabel = "🟢 Available",
 }: EquipmentGalleryProps) {
   const [selected, setSelected] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
@@ -117,7 +119,7 @@ const fullscreenFilmstripRef = useRef<HTMLDivElement>(null);
 />
 <div className="absolute left-6 top-6">
   <span className="rounded-lg bg-green-700 px-4 py-2 text-sm font-bold uppercase tracking-wider text-white shadow-lg">
-    🟢 Available
+    {availabilityLabel}
   </span>
 </div>
 

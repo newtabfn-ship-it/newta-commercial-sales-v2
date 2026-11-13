@@ -17,6 +17,7 @@ type ImageUploaderProps = {
   setCoverImage: React.Dispatch<React.SetStateAction<number>>;
   disabled: boolean;
   onUploadChange: (uploading: boolean) => void;
+  uploadUrl?: string;
 };
 
 export default function ImageUploader({
@@ -26,6 +27,7 @@ export default function ImageUploader({
   setCoverImage,
   disabled,
   onUploadChange,
+  uploadUrl = "/api/upload",
 }: ImageUploaderProps) {
 const uploading = React.useRef(false);
 const [uploadInProgress, setUploadInProgress] = React.useState(false);
@@ -51,7 +53,7 @@ async function handleFiles(files: FileList | null) {
       const formData = new FormData();
       formData.append("file", compressedFile);
 
-      const response = await fetch("/api/upload", {
+      const response = await fetch(uploadUrl, {
         method: "POST",
         body: formData,
       });

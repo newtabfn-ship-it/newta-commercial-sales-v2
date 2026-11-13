@@ -18,7 +18,7 @@ export default function AdminSidebar() {
 
       </div>
 
-      <nav className="flex-1 space-y-2 p-6">
+      <nav className="flex-1 space-y-2 overflow-y-auto p-6">
 
         <Link
           href="/admin/dashboard"
@@ -41,6 +41,12 @@ export default function AdminSidebar() {
           📩 Enquiries
         </Link>
 
+        <Link href="/admin/direct-sales" className="block rounded-lg px-4 py-3 transition hover:bg-[#D4AF37] hover:text-[#0B2F24]">
+          Direct Sales Assets
+        </Link>
+        <Link href="/admin/direct-sales/offers" className="block rounded-lg px-4 py-3 transition hover:bg-[#D4AF37] hover:text-[#0B2F24]">
+          Direct Sales Offers
+        </Link>
         <Link
           href="/admin/settings"
           className="block rounded-lg px-4 py-3 transition hover:bg-[#D4AF37] hover:text-[#0B2F24]"
