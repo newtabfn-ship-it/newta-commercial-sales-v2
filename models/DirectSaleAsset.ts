@@ -19,7 +19,7 @@ const schema = new Schema({
     publicId: { type: String, required: true },
     cover: { type: Boolean, default: false },
   }],
-}, { timestamps: true });
+}, { timestamps: true, autoCreate: false, autoIndex: false });
 
 schema.index({ status: 1, category: 1, createdAt: -1 });
 export type DirectSaleAssetRecord = InferSchemaType<typeof schema>;

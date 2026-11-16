@@ -3,6 +3,7 @@ import { requireEnquiryAdmin } from "@/lib/requireEnquiryAdmin";
 import { assetInput, isDuplicateKey, privateJson, readJson } from "@/lib/directSalesApi";
 import { createEquipmentSlug } from "@/lib/slugify";
 import DirectSaleAsset from "@/models/DirectSaleAsset";
+import { directSalesSaveModels } from "@/lib/directSalesSaveDb";
 
 export async function GET() {
   const denied = await requireEnquiryAdmin();
@@ -17,21 +18,40 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const denied = await requireEnquiryAdmin();
+  const authStarted = Date.now();
+  const denied = await requireEnquiryAdmin(async (id) => {
+    try {
+      const { users } = await directSalesSaveModels();
+      return await users.findById(id).select("role active").lean<{ role?: unknown; active?: unknown }>();
+    } catch (error) {
+      console.error("Direct Sales asset save authorization failed", { elapsedMs: Date.now() - authStarted });
+      throw error;
+    }
+  });
   if (denied) return denied;
   const input = assetInput(await readJson(request, 64000));
   if (!input) return privateJson({ error: "Check the asset details, price, closing time and photos." }, 400);
   const slug = createEquipmentSlug(input.title, input.referenceNumber).replace(/^-+|-+$/g, "");
   if (!slug) return privateJson({ error: "Enter a title or reference suitable for a public URL." }, 400);
+  let phase = "connect";
+  let started = Date.now();
   try {
-    await connectDB();
-    await DirectSaleAsset.init();
+    const { assets } = await directSalesSaveModels();
+    phase = "insert";
+    started = Date.now();
     const closedAt = input.status === "Closed" || input.status === "Sold" ? new Date() : null;
-    const asset = await DirectSaleAsset.create({ ...input, slug, closedAt });
+    const asset = await assets.create({ ...input, slug, closedAt });
     return privateJson({ asset }, 201);
   } catch (error) {
-    return isDuplicateKey(error)
-      ? privateJson({ error: "That asset reference or URL already exists." }, 409)
-      : privateJson({ error: "Could not save the Direct Sales asset." }, 503);
+    if (isDuplicateKey(error)) {
+      return privateJson({ error: "That asset reference or URL already exists. Check Inventory." }, 409);
+    }
+    const code = error && typeof error === "object" && "code" in error ? error.code : undefined;
+    const reason = error instanceof Error && /Timeout|ServerSelection/.test(error.name)
+      ? "timeout" : code === 13 ? "unauthorized" : code === 26 ? "missing-collection" : "database-error";
+    console.error("Direct Sales asset save failed", { phase, elapsedMs: Date.now() - started, reason });
+    return phase === "insert"
+      ? privateJson({ error: "Save could not be confirmed. Check Inventory for this reference before retrying." }, 503)
+      : privateJson({ error: "The asset was not saved. Direct Sales storage could not be verified." }, 503);
   }
 }

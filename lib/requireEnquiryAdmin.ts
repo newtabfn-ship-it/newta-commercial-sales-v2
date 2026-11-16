@@ -5,7 +5,9 @@ import { authOptions } from "@/lib/auth";
 import connectDB from "@/lib/mongodb";
 import User from "@/models/User";
 
-export async function requireEnquiryAdmin(): Promise<NextResponse | null> {
+export async function requireEnquiryAdmin(
+  findAdmin?: (id: string) => Promise<{ role?: unknown; active?: unknown } | null>,
+): Promise<NextResponse | null> {
   try {
     const session = await getServerSession(authOptions);
     if (!session) {
@@ -17,8 +19,13 @@ export async function requireEnquiryAdmin(): Promise<NextResponse | null> {
       return NextResponse.json({ error: "Forbidden." }, { status: 403 });
     }
 
-    await connectDB();
-    const admin = await User.findOne({ _id: id }).select("role active").lean<{ role?: unknown; active?: unknown }>();
+    let admin: { role?: unknown; active?: unknown } | null;
+    if (findAdmin) {
+      admin = await findAdmin(id);
+    } else {
+      await connectDB();
+      admin = await User.findOne({ _id: id }).select("role active").lean<{ role?: unknown; active?: unknown }>();
+    }
     if (admin?.role !== "admin" || admin.active !== true) {
       return NextResponse.json({ error: "Forbidden." }, { status: 403 });
     }

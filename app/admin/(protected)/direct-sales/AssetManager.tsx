@@ -75,16 +75,26 @@ export default function AssetManager() {
         body: JSON.stringify({ ...draft, updatedAt: editing?.updatedAt,
           images: images.map((image, index) => ({ ...image, cover: index === cover })) }),
       });
-      const result = await response.json();
-      if (!response.ok) throw new Error(result.error ?? "Could not save the asset.");
+      const result = response.headers.get("content-type")?.includes("application/json")
+        ? await response.json().catch(() => null)
+        : null;
+      if (!result || (response.ok && (typeof result.asset?._id !== "string" ||
+          typeof result.asset.slug !== "string" || !Array.isArray(result.asset.images)))) {
+        setError(`Save could not be confirmed (HTTP ${response.status}). Check Inventory for this reference before retrying.`);
+        return;
+      }
+      if (!response.ok) {
+        setError(typeof result.error === "string" ? result.error : "Save could not be confirmed. Check Inventory before retrying.");
+        return;
+      }
       const asset: Asset = result.asset;
       setAssets((previous) => previous.some(({ _id }) => _id === asset._id)
         ? previous.map((entry) => entry._id === asset._id ? asset : entry)
         : [asset, ...previous]);
       select(asset);
       setNotice("Direct Sales asset saved.");
-    } catch (failure) {
-      setError(failure instanceof Error ? failure.message : "Could not save the asset.");
+    } catch {
+      setError("Save could not be confirmed. Check Inventory for this reference before retrying.");
     } finally {
       saveInProgress.current = false;
       setSaving(false);
