@@ -1,4 +1,5 @@
 import connectDB from "@/lib/mongodb";
+import { directSalesSaveModels } from "@/lib/directSalesSaveDb";
 import { requireEnquiryAdmin } from "@/lib/requireEnquiryAdmin";
 import { assetInput, boundedText, isDuplicateKey, isObjectId, privateJson, readJson } from "@/lib/directSalesApi";
 import DirectSaleAsset from "@/models/DirectSaleAsset";
@@ -31,5 +32,27 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
     return isDuplicateKey(error)
       ? privateJson({ error: "That asset reference already exists." }, 409)
       : privateJson({ error: "Could not save the Direct Sales asset." }, 503);
+  }
+}
+
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  if (request.headers.get("origin") !== new URL(request.url).origin) {
+    return privateJson({ error: "Forbidden." }, 403);
+  }
+  const denied = await requireEnquiryAdmin();
+  if (denied) return denied;
+  const { id } = await params;
+  if (!isObjectId(id)) return privateJson({ error: "Asset not found." }, 404);
+
+  try {
+    const { assets } = await directSalesSaveModels();
+    const result = await assets.deleteOne({ _id: id });
+    if (!result.acknowledged) {
+      return privateJson({ error: "Deletion could not be confirmed. Check Inventory before retrying." }, 503);
+    }
+    if (result.deletedCount === 0) return privateJson({ error: "Asset not found." }, 404);
+    return privateJson({ deletedId: id }, 200);
+  } catch {
+    return privateJson({ error: "Deletion could not be confirmed. Check Inventory before retrying." }, 503);
   }
 }

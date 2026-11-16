@@ -23,12 +23,14 @@ export default function AssetManager() {
   const [cover, setCover] = useState(0);
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const uploadInProgress = useRef(false);
   const saveInProgress = useRef(false);
-  const busy = uploading || saving;
+  const deleteInProgress = useRef(false);
+  const busy = uploading || saving || deleting;
 
   useEffect(() => {
     const controller = new AbortController();
@@ -63,7 +65,7 @@ export default function AssetManager() {
 
   async function save(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (saveInProgress.current || uploadInProgress.current) return;
+    if (saveInProgress.current || uploadInProgress.current || deleteInProgress.current) return;
     saveInProgress.current = true;
     setSaving(true);
     setError("");
@@ -101,6 +103,42 @@ export default function AssetManager() {
     }
   }
 
+  async function deleteAsset(asset: Asset) {
+    if (saveInProgress.current || uploadInProgress.current || deleteInProgress.current) return;
+    if (!window.confirm(`Permanently delete ${asset.referenceNumber} · ${asset.title}? This cannot be undone.`)) return;
+
+    deleteInProgress.current = true;
+    setDeleting(true);
+    setError("");
+    setNotice("");
+    try {
+      const response = await fetch(`/api/admin/direct-sales/assets/${asset._id}`, { method: "DELETE" });
+      const result = await response.json().catch(() => null);
+      if (!response.ok || result?.deletedId !== asset._id) {
+        setError(typeof result?.error === "string" ? result.error :
+          "Deletion could not be confirmed. Check Inventory before retrying.");
+        return;
+      }
+      setAssets((previous) => previous.filter(({ _id }) => _id !== asset._id));
+      if (editing?._id === asset._id) select(null);
+      setNotice(`Deleted ${asset.referenceNumber}.`);
+
+      try {
+        const inventory = await fetch("/api/admin/direct-sales/assets", { cache: "no-store" });
+        const updated = await inventory.json();
+        if (!inventory.ok || !Array.isArray(updated?.assets)) throw new Error();
+        setAssets(updated.assets);
+      } catch {
+        setError("The asset was deleted, but Inventory could not be refreshed. Reload to see the latest list.");
+      }
+    } catch {
+      setError("Deletion could not be confirmed. Check Inventory before retrying.");
+    } finally {
+      deleteInProgress.current = false;
+      setDeleting(false);
+    }
+  }
+
   return <main className="space-y-6">
     <h1 className="text-3xl font-bold text-[#0B2F24]">Direct Sales Assets</h1>
     <Link className="underline" href="/admin/direct-sales/offers">View Direct Sales Offers</Link>
@@ -113,7 +151,11 @@ export default function AssetManager() {
       <ul className="mt-3 divide-y">
         {assets.map((asset) => <li key={asset._id} className="flex flex-wrap items-center justify-between gap-2 py-3">
           <span>{asset.referenceNumber} · {asset.title} · {asset.status}</span>
-          <button type="button" className="underline disabled:opacity-50" disabled={busy} onClick={() => select(asset)}>Edit</button>
+          <div className="flex gap-4">
+            <button type="button" className="underline disabled:opacity-50" disabled={busy} onClick={() => select(asset)}>Edit</button>
+            <button type="button" className="text-red-800 underline disabled:opacity-50" disabled={busy}
+              aria-label={`Delete ${asset.referenceNumber}`} onClick={() => deleteAsset(asset)}>Delete</button>
+          </div>
         </li>)}
       </ul>
     </section>
@@ -137,7 +179,7 @@ export default function AssetManager() {
       </fieldset>
       <fieldset disabled={busy}>
         <ImageUploader images={images} setImages={setImages} coverImage={cover} setCoverImage={setCover}
-          disabled={saving} uploadUrl="/api/admin/direct-sales/upload" onUploadChange={(value) => {
+          disabled={saving || deleting} uploadUrl="/api/admin/direct-sales/upload" onUploadChange={(value) => {
             uploadInProgress.current = value;
             setUploading(value);
           }} />
