@@ -42,7 +42,7 @@ export default async function DirectSalesPage({ searchParams }: {
       <main className="bg-[#FAF8F2]">
         <header className="bg-[#0B2F24] pb-7 pt-48 text-left text-white sm:pt-44">
           <div className="mx-auto max-w-7xl px-6">
-            <p className="text-sm font-bold tracking-wider text-[#D4AF37]">NEWTA COMMERCIAL SALES | DIRECT SALES</p>
+            <p className="text-sm font-bold tracking-wider text-[#D4AF37]">NEWTA COMMERCIAL SALES | DIRECT SALES — EXPRESSIONS OF INTEREST (EOI)</p>
             <h1 className="mt-3 text-3xl font-extrabold leading-tight sm:text-4xl xl:text-5xl">
               SEE THE PRICE. MAKE YOUR OFFER.
             </h1>
