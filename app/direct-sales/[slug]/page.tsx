@@ -44,7 +44,12 @@ export default async function DirectSaleAssetPage({ params }: Props) {
           <h1 className="mt-2 text-3xl font-extrabold text-[#0B2F24] md:text-5xl">{asset.title}</h1>
           <p className="mt-3">Reference: {asset.referenceNumber}</p>
           {asset.location && <p>{asset.location}</p>}
-          {asset.askingPriceCents != null && <p className="mt-3 text-xl font-bold">Asking price: {formatRand(asset.askingPriceCents)}</p>}
+          {asset.askingPriceCents != null
+            ? <p className="mt-3 text-xl font-bold">Asking price: {formatRand(asset.askingPriceCents)}</p>
+            : <p className="mt-3">Advertised price not provided. Contact NEWTA for price information.</p>}
+          {open && <a href="#make-an-offer" className="mt-4 inline-block rounded-lg bg-[#D4AF37] px-6 py-3 font-bold text-[#0B2F24] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0B2F24]">
+            MAKE AN OFFER
+          </a>}
           {asset.closesAt && <p className="mt-3">Offer closing time: <time dateTime={asset.closesAt.toISOString()}>
             {new Intl.DateTimeFormat("en-ZA", { dateStyle: "long", timeStyle: "short", timeZone: "Africa/Johannesburg" }).format(asset.closesAt)} SAST
           </time></p>}
@@ -56,7 +61,7 @@ export default async function DirectSaleAssetPage({ params }: Props) {
               {asset.description && <><h2 className="text-xl font-bold">Description</h2><p className="whitespace-pre-wrap">{asset.description}</p></>}
               {asset.specifications && <><h2 className="text-xl font-bold">Specifications</h2><p className="whitespace-pre-wrap">{asset.specifications}</p></>}
             </section>
-            <section className="rounded-2xl border border-[#D4AF37]/40 bg-white p-6">
+            <section id="make-an-offer" className="scroll-mt-52 rounded-2xl border border-[#D4AF37]/40 bg-white p-6">
               {open ? <OfferForm assetId={String(asset._id)} reference={asset.referenceNumber} /> : <p>This asset is no longer accepting offers.</p>}
             </section>
           </div>
