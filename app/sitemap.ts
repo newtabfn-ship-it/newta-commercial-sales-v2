@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import connectDB from "@/lib/mongodb";
 import Equipment from "@/models/Equipment";
 import DirectSaleAsset from "@/models/DirectSaleAsset";
+import { eligiblePublicPortfolios, portfolioUrl } from "@/lib/directSalesPublicPortfolios";
 
 const BASE_URL = "https://newtacommercialsales.com";
 
@@ -362,11 +363,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return [];
   });
 
+  const portfolios = await eligiblePublicPortfolios().catch(() => []);
+
   return [
     ...corePages,
     ...categoryPages,
     ...equipmentPages,
     { url: `${BASE_URL}/direct-sales` },
+    ...portfolios.map(portfolio => ({ url: portfolioUrl(portfolio.slug), lastModified: portfolio.updatedAt })),
     ...directAssets.map((asset) => ({
       url: `${BASE_URL}/direct-sales/${asset.slug}`,
       lastModified: asset.updatedAt,

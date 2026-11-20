@@ -47,6 +47,12 @@ export default function AdminSidebar() {
         <Link href="/admin/direct-sales/offers" className="block rounded-lg px-4 py-3 transition hover:bg-[#D4AF37] hover:text-[#0B2F24]">
           Direct Sales Offers
         </Link>
+        <Link href="/admin/direct-sales/portfolios" className="block rounded-lg px-4 py-3 transition hover:bg-[#D4AF37] hover:text-[#0B2F24]">
+          Direct Sales Portfolios
+        </Link>
+        <Link href="/admin/direct-sales/clients" className="block rounded-lg px-4 py-3 transition hover:bg-[#D4AF37] hover:text-[#0B2F24]">
+          Direct Sales Clients (Private)
+        </Link>
         <Link
           href="/admin/settings"
           className="block rounded-lg px-4 py-3 transition hover:bg-[#D4AF37] hover:text-[#0B2F24]"

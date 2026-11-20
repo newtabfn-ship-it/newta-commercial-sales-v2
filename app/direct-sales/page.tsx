@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
-import { cloudinaryImage } from "@/lib/cloudinaryImage";
-import { acceptsOffers, directSaleCategories, formatRand } from "@/lib/directSales";
+import { directSaleCategories } from "@/lib/directSales";
+import { eligiblePublicPortfolios, portfolioPath } from "@/lib/directSalesPublicPortfolios";
 import connectDB from "@/lib/mongodb";
 import DirectSaleAsset from "@/models/DirectSaleAsset";
+import AssetCard from "./AssetCard";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
@@ -19,6 +19,7 @@ export default async function DirectSalesPage({ searchParams }: {
   searchParams: Promise<{ category?: string; page?: string }>;
 }) {
   const params = await searchParams;
+  const portfoliosPromise = eligiblePublicPortfolios().catch(() => []);
   const category = directSaleCategories.find(({ slug }) => slug === params.category);
   const page = Math.max(1, Math.min(1000, Math.trunc(Number(params.page) || 1)));
   const pageSize = 24;
@@ -36,6 +37,7 @@ export default async function DirectSalesPage({ searchParams }: {
   })
     .select("slug title location status closesAt askingPriceCents images")
     .sort({ createdAt: -1, _id: -1 }).skip((page - 1) * pageSize).limit(pageSize + 1).lean();
+  const portfolios = await portfoliosPromise;
   return (
     <>
       <Navbar />
@@ -75,25 +77,23 @@ export default async function DirectSalesPage({ searchParams }: {
           </nav>
           {!assets.length && <p>No assets are open for offers in this selection. Please check back soon.</p>}
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {assets.slice(0, pageSize).map((asset) => (
-              <article key={String(asset._id)} className="overflow-hidden rounded-2xl bg-white shadow">
-                <Image src={cloudinaryImage(asset.images.find(({ cover }) => cover)?.url ?? asset.images[0]?.url ?? "/placeholder-equipment.jpg")}
-                  alt={asset.title} width={800} height={600} className="h-52 w-full object-cover" />
-                <div className="space-y-2 p-5">
-                  <p className="text-sm font-semibold text-[#0B2F24]">{acceptsOffers(asset) ? "Offers open" : "Offers closed"}</p>
-                  <h3 className="text-xl font-bold">{asset.title}</h3>
-                  {asset.location && <p>{asset.location}</p>}
-                  {asset.askingPriceCents != null ? <p>Asking price: {formatRand(asset.askingPriceCents)}</p> : <p>Advertised price not provided. Contact NEWTA for price information.</p>}
-                  <Link href={`/direct-sales/${asset.slug}`} className="inline-block rounded-lg bg-[#D4AF37] px-4 py-2 font-bold text-[#0B2F24]">VIEW DETAILS / MAKE AN OFFER</Link>
-                </div>
-              </article>
-            ))}
+            {assets.slice(0, pageSize).map(asset => <AssetCard key={String(asset._id)} asset={asset} />)}
           </div>
           <nav aria-label="Asset pages" className="mt-8 flex gap-5">
             {page > 1 && <Link className="underline" href={pageUrl(page - 1)}>Previous page</Link>}
             {assets.length > pageSize && page < 1000 && <Link className="underline" href={pageUrl(page + 1)}>Next page</Link>}
           </nav>
         </section>
+        {portfolios.length > 0 && <section className="mx-auto max-w-7xl px-6 pb-10" aria-labelledby="sales-portfolios">
+          <h2 id="sales-portfolios" className="text-2xl font-bold text-[#0B2F24]">Sales Portfolios</h2>
+          <p className="mt-2">Browse Sales Portfolios with assets currently open for offers.</p>
+          <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {portfolios.map(portfolio => <article key={portfolio.id} className="rounded-xl border border-[#D4AF37]/50 bg-white p-5">
+              <h3 className="break-words text-xl font-bold text-[#0B2F24]"><Link href={portfolioPath(portfolio.slug)} className="underline">{portfolio.title}</Link></h3>
+              {portfolio.description && <p className="mt-3 break-words">{portfolio.description.slice(0, 180)}{portfolio.description.length > 180 ? "…" : ""}</p>}
+            </article>)}
+          </div>
+        </section>}
       </main>
       <Footer />
     </>

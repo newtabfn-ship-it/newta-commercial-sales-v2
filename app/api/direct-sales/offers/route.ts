@@ -1,21 +1,19 @@
 import { createHash, createHmac } from "node:crypto";
 import { isIP } from "node:net";
 import { NextResponse } from "next/server";
-import connectDB from "@/lib/mongodb";
-import { acceptsOffers, randToCents } from "@/lib/directSales";
+import { randToCents } from "@/lib/directSales";
 import { boundedText, isDuplicateKey, isObjectId, privateJson, readJson } from "@/lib/directSalesApi";
-import DirectSaleAsset from "@/models/DirectSaleAsset";
-import DirectSaleOffer from "@/models/DirectSaleOffer";
-import DirectSaleOfferLimit from "@/models/DirectSaleOfferLimit";
+import { PortfolioApiError } from "@/lib/directSalesPortfolioAdmin";
+import { offerStore, replayOffer, requireOfferStorage, submitPortfolioOffer, type OfferStore } from "@/lib/directSalesOfferStore";
 
 const windowMs = 10 * 60 * 1000;
 
-async function takeSlot(key: string, max: number, bucket: number) {
+async function takeSlot(store: OfferStore, key: string, max: number, bucket: number) {
   try {
-    await DirectSaleOfferLimit.updateOne(
+    await store.limits.updateOne(
       { _id: `${bucket}:${key}`, count: { $lt: max } },
       { $inc: { count: 1 }, $setOnInsert: { expiresAt: new Date((bucket + 2) * windowMs) } },
-      { upsert: true }
+      { upsert: true, maxTimeMS: 5000 }
     );
     return true;
   } catch (error) {
@@ -45,21 +43,14 @@ export async function POST(request: Request) {
   const normalizedAssetId = assetId.toLowerCase();
   const id = createHash("sha256").update(token.toLowerCase()).digest("hex").slice(0, 24);
   const receipt = () => privateJson({ received: true }, 201);
-  async function replay() {
-    const existing = await DirectSaleOffer.findById(id)
-      .select("assetId buyerName phone email message amountCents").lean();
-    if (!existing) return null;
-    return String(existing.assetId) === normalizedAssetId && existing.buyerName === buyerName &&
-      existing.phone === phone && existing.email === email && existing.message === message &&
-      existing.amountCents === amountCents
-      ? receipt()
-      : privateJson({ error: "This submission was already used. Start a new offer." }, 409);
-  }
+  const conflict = () => privateJson({ error: "This submission was already used. Start a new offer." }, 409);
+  const input = { id, assetId: normalizedAssetId, buyerName, phone, email, message, amountCents };
 
   try {
-    await connectDB();
-    const previous = await replay();
-    if (previous) return previous;
+    const store = await offerStore();
+    const previous = await replayOffer(store, input);
+    if (previous) return previous === "received" ? receipt() : conflict();
+    await requireOfferStorage(store);
 
     const bucket = Math.floor(Date.now() / windowMs);
     const ip = process.env.VERCEL === "1" ? request.headers.get("x-vercel-forwarded-for")?.trim() : undefined;
@@ -67,33 +58,26 @@ export async function POST(request: Request) {
     const client = ip && isIP(ip) && secret
       ? createHmac("sha256", secret).update(ip).digest("hex")
       : "unidentified";
-    if (!await takeSlot(client, 8, bucket) || !await takeSlot("all", 150, bucket)) {
+    if (!await takeSlot(store, client, 8, bucket) || !await takeSlot(store, "all", 150, bucket)) {
       return NextResponse.json({ error: "Too many offers. Please try again later." }, {
         status: 429,
         headers: { "Cache-Control": "no-store", "Retry-After": String(Math.max(1, Math.ceil(((bucket + 1) * windowMs - Date.now()) / 1000))) },
       });
     }
 
-    const asset = await DirectSaleAsset.findOne({ _id: normalizedAssetId, status: "Published" })
-      .select("status closesAt title referenceNumber askingPriceCents").lean();
-    if (!asset || !acceptsOffers(asset)) return privateJson({ error: "This asset is no longer accepting offers." }, 409);
     try {
-      await DirectSaleOffer.create({
-        _id: id,
-        assetId: asset._id,
-        assetReference: asset.referenceNumber,
-        assetTitle: asset.title,
-        askingPriceCents: asset.askingPriceCents,
-        amountCents, buyerName, phone, email, message,
-      });
+      const result = await submitPortfolioOffer(store, input);
+      return result === "received" ? receipt() : conflict();
     } catch (error) {
       // A write can succeed even when its acknowledgement is lost.
-      const confirmed = await replay();
-      if (confirmed) return confirmed;
+      const confirmed = await replayOffer(store, input);
+      if (confirmed) return confirmed === "received" ? receipt() : conflict();
       throw error;
     }
-    return receipt();
-  } catch {
+  } catch (error) {
+    if (error instanceof PortfolioApiError && error.status === 409) {
+      return privateJson({ error: "This asset is no longer accepting offers." }, 409);
+    }
     return privateJson({ error: "Could not confirm receipt. Retry the same offer." }, 503);
   }
 }

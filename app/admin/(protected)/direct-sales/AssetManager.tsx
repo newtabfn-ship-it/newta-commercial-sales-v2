@@ -6,13 +6,15 @@ import ImageUploader from "@/app/admin/components/equipment/ImageUploader";
 import { assetStatuses, directSaleCategories, toSastInput } from "@/lib/directSales";
 
 type Photo = { url: string; publicId: string };
+type Portfolio = { id: string; title: string; status: "Draft" | "Published" | "Archived" };
 type Asset = {
   _id: string; slug: string; title: string; referenceNumber: string; category: string;
   description: string; specifications: string; location: string; askingPriceCents: number | null;
   closesAt: string | null; status: string; updatedAt: string; images: (Photo & { cover: boolean })[];
+  portfolioId?: string | null;
 };
 const empty = { title: "", referenceNumber: "", category: "", description: "", specifications: "",
-  location: "", askingPrice: "", closingSast: "", status: "Draft" };
+  location: "", askingPrice: "", closingSast: "", status: "Draft", portfolioId: "" };
 const field = "mt-1 w-full rounded-lg border border-gray-300 bg-white p-2.5";
 
 export default function AssetManager() {
@@ -27,6 +29,11 @@ export default function AssetManager() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
+  const [portfolios, setPortfolios] = useState<Portfolio[]>([]);
+  const [portfoliosLoading, setPortfoliosLoading] = useState(true);
+  const [portfolioError, setPortfolioError] = useState("");
+  const [portfolioRefresh, setPortfolioRefresh] = useState(0);
+  const [portfolioFilter, setPortfolioFilter] = useState("");
   const uploadInProgress = useRef(false);
   const saveInProgress = useRef(false);
   const deleteInProgress = useRef(false);
@@ -45,6 +52,44 @@ export default function AssetManager() {
     return () => controller.abort();
   }, []);
 
+  useEffect(() => {
+    const controller = new AbortController();
+    setPortfoliosLoading(true);
+    setPortfolioError("");
+    async function loadPortfolios() {
+      const choices: Portfolio[] = [];
+      // Read paginated public-field Admin DTOs only, never private clients.
+      for (let page = 1; page <= 9999; page++) {
+        const response = await fetch("/api/admin/direct-sales/portfolios?page=" + page, {
+          signal: controller.signal, cache: "no-store", credentials: "same-origin",
+        });
+        const data = await response.json().catch(() => null);
+        if (!response.ok || !Array.isArray(data?.portfolios)) throw new Error("Could not load Sales Portfolio choices. Existing assignments are preserved.");
+        choices.push(...data.portfolios);
+        if (!data.hasMore) {
+          if (!controller.signal.aborted) setPortfolios([...new Map(choices.map(choice => [choice.id, choice])).values()]);
+          return;
+        }
+      }
+      throw new Error("Sales Portfolio choices exceed the supported page limit.");
+    }
+    loadPortfolios()
+      .catch(failure => { if (!controller.signal.aborted) setPortfolioError(failure.message); })
+      .finally(() => { if (!controller.signal.aborted) setPortfoliosLoading(false); });
+    return () => controller.abort();
+  }, [portfolioRefresh]);
+
+  const portfolioLabel = (id?: string | null) => {
+    if (!id) return "Unassigned";
+    const portfolio = portfolios.find(choice => choice.id === id);
+    return portfolio ? portfolio.title + " — " + (portfolio.status === "Archived" ? "Archived (Sales Portfolio hidden)" : portfolio.status)
+      : "Sales Portfolio ID: " + id + " (details unavailable)";
+  };
+  const unknownPortfolios = [...new Set(assets.map(asset => asset.portfolioId).filter((id): id is string => Boolean(id)))]
+    .filter(id => !portfolios.some(choice => choice.id === id));
+  const visibleAssets = assets.filter(asset => !portfolioFilter || (portfolioFilter === "unassigned"
+    ? !asset.portfolioId : asset.portfolioId === portfolioFilter));
+
   function select(asset: Asset | null) {
     setEditing(asset);
     setDraft(asset ? {
@@ -52,6 +97,7 @@ export default function AssetManager() {
       description: asset.description, specifications: asset.specifications, location: asset.location,
       askingPrice: asset.askingPriceCents == null ? "" : (asset.askingPriceCents / 100).toFixed(2),
       closingSast: asset.closesAt ? toSastInput(asset.closesAt) : "", status: asset.status,
+      portfolioId: asset.portfolioId ?? "",
     } : empty);
     setImages(asset?.images ?? []);
     setCover(Math.max(0, asset?.images.findIndex((image) => image.cover) ?? 0));
@@ -71,10 +117,14 @@ export default function AssetManager() {
     setError("");
     setNotice("");
     try {
+      const { portfolioId, ...assetFields } = draft;
+      // Older/unchanged edits omit the field, including retained Archived links.
+      const assignment = !editing || portfolioId !== (editing.portfolioId ?? "")
+        ? { portfolioId: portfolioId || null } : {};
       const response = await fetch(`/api/admin/direct-sales/assets${editing ? "/" + editing._id : ""}`, {
         method: editing ? "PUT" : "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...draft, updatedAt: editing?.updatedAt,
+        body: JSON.stringify({ ...assetFields, ...assignment, updatedAt: editing?.updatedAt,
           images: images.map((image, index) => ({ ...image, cover: index === cover })) }),
       });
       const result = response.headers.get("content-type")?.includes("application/json")
@@ -147,10 +197,23 @@ export default function AssetManager() {
         <h2 className="text-xl font-bold">Inventory</h2>
         <button type="button" disabled={busy} onClick={() => select(null)} className="rounded bg-[#0B2F24] px-4 py-2 text-white disabled:opacity-50">New asset</button>
       </div>
+      <label className="mt-3 block">Filter inventory by Sales Portfolio
+        <select aria-label="Filter inventory by Sales Portfolio" className={field} value={portfolioFilter} onChange={event => setPortfolioFilter(event.target.value)}>
+          <option value="">All Sales Portfolios and Unassigned</option>
+          <option value="unassigned">Unassigned</option>
+          {portfolios.map(portfolio => <option key={portfolio.id} value={portfolio.id}>{portfolioLabel(portfolio.id)}</option>)}
+          {unknownPortfolios.map(id => <option key={id} value={id}>{portfolioLabel(id)}</option>)}
+        </select>
+      </label>
+      <p className="mt-2 text-sm">Asset status controls its publication. Hiding or archiving a Sales Portfolio does not remove its individual assets from the main Direct Sales catalogue.</p>
+      {portfolioError && <p role="alert" className="text-red-800">{portfolioError}</p>}
+      <button type="button" className="mt-2 underline disabled:opacity-50" disabled={busy || portfoliosLoading}
+        onClick={() => setPortfolioRefresh(value => value + 1)}>{portfoliosLoading ? "Loading Sales Portfolios…" : "Refresh Sales Portfolio choices"}</button>
       {loading ? <p>Loading assets…</p> : !assets.length && <p>No Direct Sales assets yet.</p>}
+      {!loading && assets.length > 0 && visibleAssets.length === 0 && <p>No assets match this Sales Portfolio filter.</p>}
       <ul className="mt-3 divide-y">
-        {assets.map((asset) => <li key={asset._id} className="flex flex-wrap items-center justify-between gap-2 py-3">
-          <span>{asset.referenceNumber} · {asset.title} · {asset.status}</span>
+        {visibleAssets.map((asset) => <li key={asset._id} className="flex flex-wrap items-center justify-between gap-2 py-3">
+          <span>{asset.referenceNumber} · {asset.title} · {asset.status}<span className="block text-sm">Sales Portfolio: {portfolioLabel(asset.portfolioId)}</span></span>
           <div className="flex gap-4">
             <button type="button" className="underline disabled:opacity-50" disabled={busy} onClick={() => select(asset)}>Edit</button>
             <button type="button" className="text-red-800 underline disabled:opacity-50" disabled={busy}
@@ -171,6 +234,13 @@ export default function AssetManager() {
         <label>Status<select className={field} value={draft.status} onChange={(e) => update("status", e.target.value)}>
           {assetStatuses.map((status) => <option key={status}>{status}</option>)}
         </select></label>
+        <label>Sales Portfolio<select aria-label="Asset Sales Portfolio" className={field} value={draft.portfolioId}
+          disabled={portfoliosLoading || Boolean(portfolioError)} onChange={event => update("portfolioId", event.target.value)}>
+          <option value="">Unassigned</option>
+          {portfolios.map(portfolio => <option key={portfolio.id} value={portfolio.id} disabled={portfolio.status === "Archived"}>{portfolioLabel(portfolio.id)}</option>)}
+          {draft.portfolioId && !portfolios.some(choice => choice.id === draft.portfolioId) &&
+            <option value={draft.portfolioId} disabled>{portfolioLabel(draft.portfolioId)}</option>}
+        </select><span className="block text-sm">Archived Sales Portfolios cannot receive assignments. An existing archived assignment can be retained or cleared.</span></label>
         <label>Location<input className={field} value={draft.location} onChange={(e) => update("location", e.target.value)} maxLength={120} /></label>
         <label>Asking price (ZAR, optional)<input className={field} inputMode="decimal" value={draft.askingPrice} onChange={(e) => update("askingPrice", e.target.value)} maxLength={15} /></label>
         <label>Offer closing time (SAST, optional)<input className={field} type="datetime-local" value={draft.closingSast} onChange={(e) => update("closingSast", e.target.value)} /></label>

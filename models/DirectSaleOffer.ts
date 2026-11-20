@@ -3,6 +3,10 @@ import { offerStatuses } from "@/lib/directSales";
 
 const schema = new Schema({
   assetId: { type: Schema.Types.ObjectId, ref: "DirectSaleAsset", required: true },
+  // Missing is unknown historical membership. Explicit null is unassigned.
+  portfolioIdAtSubmission: {
+    type: Schema.Types.ObjectId, ref: "DirectSalePortfolio", default: undefined, immutable: true,
+  },
   assetReference: { type: String, required: true },
   assetTitle: { type: String, required: true },
   askingPriceCents: { type: Number, default: null },

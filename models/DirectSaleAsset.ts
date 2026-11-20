@@ -6,6 +6,7 @@ const schema = new Schema({
   slug: { type: String, required: true, unique: true },
   title: { type: String, required: true },
   category: { type: String, required: true },
+  portfolioId: { type: Schema.Types.ObjectId, ref: "DirectSalePortfolio", default: undefined },
   description: { type: String, default: "" },
   specifications: { type: String, default: "" },
   location: { type: String, default: "" },
@@ -22,6 +23,7 @@ const schema = new Schema({
 }, { timestamps: true, autoCreate: false, autoIndex: false });
 
 schema.index({ status: 1, category: 1, createdAt: -1 });
+schema.index({ portfolioId: 1, status: 1, createdAt: -1, _id: -1 });
 export type DirectSaleAssetRecord = InferSchemaType<typeof schema>;
 const DirectSaleAsset = (models.DirectSaleAsset ?? model("DirectSaleAsset", schema)) as Model<DirectSaleAssetRecord>;
 export default DirectSaleAsset;

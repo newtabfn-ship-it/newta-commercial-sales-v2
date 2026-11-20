@@ -1,9 +1,12 @@
+import { directSalesMutationOriginAllowed } from "@/lib/directSalesApi";
 import connectDB from "@/lib/mongodb";
 import { requireEnquiryAdmin } from "@/lib/requireEnquiryAdmin";
 import { assetInput, isDuplicateKey, privateJson, readJson } from "@/lib/directSalesApi";
 import { createEquipmentSlug } from "@/lib/slugify";
 import DirectSaleAsset from "@/models/DirectSaleAsset";
 import { directSalesSaveModels } from "@/lib/directSalesSaveDb";
+import { saveAssetWithPortfolio } from "@/lib/directSalesAssetPortfolios";
+import { PortfolioApiError } from "@/lib/directSalesPortfolioAdmin";
 
 export async function GET() {
   const denied = await requireEnquiryAdmin();
@@ -29,6 +32,9 @@ export async function POST(request: Request) {
     }
   });
   if (denied) return denied;
+  if (!directSalesMutationOriginAllowed(request)) {
+    return privateJson({ error: "Forbidden." }, 403);
+  }
   const input = assetInput(await readJson(request, 64000));
   if (!input) return privateJson({ error: "Check the asset details, price, closing time and photos." }, 400);
   const slug = createEquipmentSlug(input.title, input.referenceNumber).replace(/^-+|-+$/g, "");
@@ -36,13 +42,12 @@ export async function POST(request: Request) {
   let phase = "connect";
   let started = Date.now();
   try {
-    const { assets } = await directSalesSaveModels();
-    phase = "insert";
+    phase = "transaction";
     started = Date.now();
-    const closedAt = input.status === "Closed" || input.status === "Sold" ? new Date() : null;
-    const asset = await assets.create({ ...input, slug, closedAt });
+    const asset = await saveAssetWithPortfolio(input, { slug });
     return privateJson({ asset }, 201);
   } catch (error) {
+    if (error instanceof PortfolioApiError) return privateJson({ error: error.message }, error.status);
     if (isDuplicateKey(error)) {
       return privateJson({ error: "That asset reference or URL already exists. Check Inventory." }, 409);
     }
@@ -50,7 +55,7 @@ export async function POST(request: Request) {
     const reason = error instanceof Error && /Timeout|ServerSelection/.test(error.name)
       ? "timeout" : code === 13 ? "unauthorized" : code === 26 ? "missing-collection" : "database-error";
     console.error("Direct Sales asset save failed", { phase, elapsedMs: Date.now() - started, reason });
-    return phase === "insert"
+    return phase === "transaction"
       ? privateJson({ error: "Save could not be confirmed. Check Inventory for this reference before retrying." }, 503)
       : privateJson({ error: "The asset was not saved. Direct Sales storage could not be verified." }, 503);
   }

@@ -9,6 +9,7 @@ import { acceptsOffers, formatRand, publicAssetStatuses } from "@/lib/directSale
 import connectDB from "@/lib/mongodb";
 import DirectSaleAsset from "@/models/DirectSaleAsset";
 import OfferForm from "../OfferForm";
+import { publishedPortfolioBacklink } from "@/lib/directSalesPublicPortfolios";
 
 export const dynamic = "force-dynamic";
 type Props = { params: Promise<{ slug: string }> };
@@ -32,6 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function DirectSaleAssetPage({ params }: Props) {
   const asset = await getAsset((await params).slug);
   if (!asset) notFound();
+  const portfolio = await publishedPortfolioBacklink(asset.portfolioId).catch(() => null);
   const open = acceptsOffers(asset);
   const availability = open ? "Offers open" : asset.status === "Sold" ? "Sold" : "Offers closed";
   return (
@@ -40,6 +42,7 @@ export default async function DirectSaleAssetPage({ params }: Props) {
       <main className="bg-[#FAF8F2] px-6 pb-16 pt-40">
         <div className="mx-auto max-w-6xl">
           <Link href="/direct-sales" className="font-semibold text-[#0B2F24] underline">Back to Direct Asset Sales — Expressions of Interest (EOI)</Link>
+          {portfolio && <p className="mt-3"><Link href={portfolio.url} className="font-semibold text-[#0B2F24] underline">Sales Portfolio: {portfolio.title}</Link></p>}
           <p className="mt-6 font-bold text-[#0B2F24]">{availability}</p>
           <h1 className="mt-2 text-3xl font-extrabold text-[#0B2F24] md:text-5xl">{asset.title}</h1>
           <p className="mt-3">Reference: {asset.referenceNumber}</p>

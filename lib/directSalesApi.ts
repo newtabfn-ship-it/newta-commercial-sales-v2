@@ -1,5 +1,12 @@
 import { NextResponse } from "next/server";
 import { directSaleCategories, assetStatuses, parseSastClosing, randToCents } from "@/lib/directSales";
+import { parsePortfolioId } from "@/lib/directSalesPortfolios";
+
+export function directSalesMutationOriginAllowed(request: Request): boolean {
+ const origin = request.headers.get("origin"); if (!origin) return false;
+ let server: URL; try { server = new URL(request.url); } catch { return false; }
+ return origin === server.origin;
+}
 
 export function privateJson(body: unknown, status = 200) {
   return NextResponse.json(body, { status, headers: { "Cache-Control": "private, no-store" } });
@@ -54,6 +61,15 @@ export function boundedText(value: unknown, max: number): string | null {
 
 export function assetInput(body: Record<string, unknown> | null) {
   if (!body) return null;
+  // Omission must not erase a legacy client's existing assignment on edit.
+  let assignment: { portfolioId?: string | null } = {};
+  if (Object.hasOwn(body, "portfolioId")) {
+    try {
+      const portfolioId = parsePortfolioId(body.portfolioId);
+      if (portfolioId === undefined) return null;
+      assignment = { portfolioId };
+    } catch { return null; }
+  }
   const title = boundedText(body.title, 150);
   const referenceNumber = boundedText(body.referenceNumber, 60);
   const category = directSaleCategories.find(({ slug }) => slug === body.category)?.slug;
@@ -89,7 +105,7 @@ export function assetInput(body: Record<string, unknown> | null) {
   }
   if (images.length && images.filter(({ cover }) => cover).length !== 1) return null;
   return { title, referenceNumber, category, status, description: description!, specifications: specifications!,
-    location: location!, closesAt, askingPriceCents, images };
+    location: location!, closesAt, askingPriceCents, images, ...assignment };
 }
 
 export function isDuplicateKey(error: unknown) {
