@@ -56,7 +56,7 @@ const item = await Equipment.findOne({ slug }).lean();
     {
       "@type": "ListItem",
       position: 2,
-      name: "Equipment",
+      name: "Commercial Assets",
       item: "https://newtacommercialsales.com/equipment",
     },
     {

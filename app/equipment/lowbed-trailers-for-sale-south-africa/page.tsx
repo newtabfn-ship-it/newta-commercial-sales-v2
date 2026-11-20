@@ -142,7 +142,7 @@ export default async function LowbedTrailersForSalePage() {
                 href="/equipment"
                 className="hover:text-[#D4AF37]"
               >
-                Equipment
+                Commercial Assets
               </Link>
 
               <span className="mx-2">/</span>

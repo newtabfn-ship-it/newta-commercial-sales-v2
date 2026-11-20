@@ -158,7 +158,7 @@ export default async function BackendTipperTrailersForSalePage() {
                 href="/equipment"
                 className="transition hover:text-[#D4AF37]"
               >
-                Equipment
+                Commercial Assets
               </Link>
 
               <span className="mx-2">/</span>

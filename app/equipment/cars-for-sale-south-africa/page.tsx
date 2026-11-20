@@ -118,7 +118,7 @@ export default async function CarsForSalePage() {
           {
             "@type": "ListItem",
             position: 2,
-            name: "Equipment",
+            name: "Commercial Assets",
             item: "https://newtacommercialsales.com/equipment",
           },
           {
@@ -169,7 +169,7 @@ export default async function CarsForSalePage() {
                 href="/equipment"
                 className="hover:text-[#D4AF37]"
               >
-                Equipment
+                Commercial Assets
               </Link>
 
               <span className="mx-2">/</span>

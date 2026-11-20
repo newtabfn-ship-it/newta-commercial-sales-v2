@@ -3,6 +3,7 @@ import Footer from "../components/Footer";
 
 import connectDB from "@/lib/mongodb";
 import Equipment from "@/models/Equipment";
+import { assetCategoryLabel } from "@/lib/assetTerminology";
 import EnquiryForm from "../components/EnquiryForm";
 
 type Props = {
@@ -37,7 +38,7 @@ export default async function ContactPage({
           </span>
 
           <h1 className="mt-8 text-5xl font-extrabold">
-            Enquire About Equipment
+            {equipment ? `Enquire About ${assetCategoryLabel(equipment.category)}` : "General Enquiry"}
           </h1>
 
           <p className="mt-6 max-w-3xl text-xl text-gray-300">
@@ -54,7 +55,7 @@ export default async function ContactPage({
   <div className="rounded-2xl bg-white p-10 shadow-xl">
 
     <h2 className="mb-8 text-3xl font-bold text-[#0B2F24]">
-      Equipment Enquiry
+      {equipment ? `${assetCategoryLabel(equipment.category)} Enquiry` : "General Enquiry"}
     </h2>
 
     <EnquiryForm
@@ -65,6 +66,7 @@ export default async function ContactPage({
               title: equipment.title,
               referenceNumber: equipment.referenceNumber,
               status: equipment.status,
+              category: equipment.category,
             }
           : null
       }

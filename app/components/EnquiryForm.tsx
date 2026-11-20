@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { assetCategoryLabel } from "@/lib/assetTerminology";
 
 type Equipment = {
   _id: string;
   title: string;
   referenceNumber: string;
   status: string;
+  category?: string;
 };
 
 type Props = {
@@ -166,7 +168,7 @@ export default function EnquiryForm({ equipment }: Props) {
 
       <div>
         <label className="mb-2 block font-semibold">
-          Equipment
+          {equipment ? assetCategoryLabel(equipment.category) : "Asset"}
         </label>
 
         <div className="rounded-xl border bg-[#FAF8F2] p-5">

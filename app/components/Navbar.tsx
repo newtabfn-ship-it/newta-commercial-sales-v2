@@ -65,7 +65,7 @@ export default function Navbar() {
   </Link>
 
   <Link href="/equipment" className="transition hover:text-[#D4AF37]">
-  Equipment
+  Commercial Assets
 </Link>
 
 <Link
@@ -154,7 +154,7 @@ export default function Navbar() {
     onClick={() => setMobileOpen(false)}
     className="border-b border-white/10 py-4 text-white hover:text-[#D4AF37]"
   >
-    🚜 Equipment
+    Commercial Assets
   </Link>
 
   <Link
