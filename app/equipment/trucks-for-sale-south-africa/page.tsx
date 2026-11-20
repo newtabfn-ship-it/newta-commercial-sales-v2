@@ -366,6 +366,7 @@ const equipment = await Equipment.find({
                   status={item.status}
                   price={`${item.currency ?? "ZAR"} ${item.price}`}
                   hours={item.kmHours}
+                  usageUnit={item.usageUnit}
                   location={item.province}
                 />
 

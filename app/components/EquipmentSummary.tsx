@@ -1,3 +1,4 @@
+import { usageLabel } from "@/lib/equipmentMeasurements";
 import Link from "next/link";
 
 type EquipmentSummaryProps = {
@@ -5,6 +6,7 @@ type EquipmentSummaryProps = {
   status: string;
   price: string;
   hours: string;
+  usageUnit?: string;
   location: string;
   year: string;
   manufacturer: string;
@@ -15,6 +17,7 @@ export default function EquipmentSummary({
   status,
   price,
   hours,
+  usageUnit,
   location,
   year,
   manufacturer,
@@ -75,7 +78,7 @@ export default function EquipmentSummary({
 
   <div className="rounded-xl bg-gray-50 p-4 text-center">
     <div className="text-2xl">⏱</div>
-    <p className="mt-2 text-xs uppercase text-gray-500">Hours</p>
+    <p className="mt-2 text-xs uppercase text-gray-500">{usageLabel(usageUnit)}</p>
     <p className="font-bold">{hours}</p>
   </div>
 

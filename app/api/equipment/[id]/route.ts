@@ -50,6 +50,8 @@ export async function PUT(
       category: Object.hasOwn(body, "category") ? body.category : existing.category,
       subcategory: Object.hasOwn(body, "subcategory") ? body.subcategory : existing.subcategory,
       trailerType: Object.hasOwn(body, "trailerType") ? body.trailerType : existing.trailerType,
+      truckWeightClass: Object.hasOwn(body, "truckWeightClass") ? body.truckWeightClass : existing.truckWeightClass,
+      usageUnit: Object.hasOwn(body, "usageUnit") ? body.usageUnit : existing.usageUnit,
     };
     const error = validateEquipmentClassification(classification, existing);
     if (error) return NextResponse.json({ error }, { status: 400 });
@@ -67,6 +69,9 @@ export async function PUT(
           category: existing.category,
           subcategory: existing.subcategory ?? null,
           trailerType: existing.trailerType ?? null,
+          truckWeightClass: existing.truckWeightClass ?? null,
+          usageUnit: existing.usageUnit ?? null,
+          kmHours: existing.kmHours ?? null,
           slug: existing.slug ?? null,
         },
         { $set: body },

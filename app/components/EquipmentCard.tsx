@@ -1,3 +1,4 @@
+import { usageLabel } from "@/lib/equipmentMeasurements";
 import Image from "next/image";
 import Link from "next/link";
 import { cloudinaryImage } from "@/lib/cloudinaryImage";
@@ -10,6 +11,7 @@ type Props = {
   status: string
   price: string;
   hours: string;
+  usageUnit?: string;
   location: string;
 };
 export default function EquipmentCard({
@@ -21,6 +23,7 @@ export default function EquipmentCard({
   status,
   price,
   hours,
+  usageUnit,
   location,
 }: Props) {
   return (
@@ -66,7 +69,7 @@ export default function EquipmentCard({
   </p>
 
   <p className="mt-2 text-gray-600">
-    <span className="font-semibold">Hours:</span> {hours}
+    <span className="font-semibold">{usageLabel(usageUnit)}:</span> {hours}
   </p>
 
   <p className="mt-2 text-gray-600">

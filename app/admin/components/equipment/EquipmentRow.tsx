@@ -1,8 +1,11 @@
+import { usageLabel } from "@/lib/equipmentMeasurements";
+
 type EquipmentRowProps = {
   id: string;
   title: string;
   location: string;
   hours: string;
+  usageUnit?: string;
   status: string;
   onEdit: (id: string) => void;
   onDelete: (id: string) => void;
@@ -14,6 +17,7 @@ export default function EquipmentRow({
   title,
   location,
   hours,
+  usageUnit,
   status,
   onEdit,
   onDelete,
@@ -37,7 +41,7 @@ export default function EquipmentRow({
         </h2>
 
         <p className="mt-2 text-gray-500">
-          {location} • {hours} Hours
+          {location} • {usageLabel(usageUnit)}: {hours}
         </p>
       </div>
 

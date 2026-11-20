@@ -1,8 +1,10 @@
+import { usageLabel } from "@/lib/equipmentMeasurements";
 type EquipmentSpecificationsProps = {
   manufacturer: string;
   model: string;
   year: string;
   hours: string;
+  usageUnit?: string;
   engine: string;
   power: string;
   operatingWeight: string;
@@ -17,6 +19,7 @@ export default function EquipmentSpecifications({
   model,
   year,
   hours,
+  usageUnit,
   engine,
   power,
   operatingWeight,
@@ -29,7 +32,7 @@ export default function EquipmentSpecifications({
     ["Manufacturer", manufacturer],
     ["Model", model],
     ["Year", year],
-    ["Hours", hours],
+    [usageLabel(usageUnit), hours],
     ["Engine", engine],
     ["Power", power],
     ["Operating Weight", operatingWeight],

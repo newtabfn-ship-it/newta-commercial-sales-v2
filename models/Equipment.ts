@@ -1,4 +1,5 @@
 import mongoose, { Schema, models, model } from "mongoose";
+import { truckWeightClasses, usageUnits } from "@/lib/equipmentMeasurements";
 
 const EquipmentSchema = new Schema(
   {
@@ -24,6 +25,7 @@ subcategory: {
   default: "",
 },
 trailerType: String,
+truckWeightClass: { type: String, enum: ["", ...truckWeightClasses] },
 
 title: {
       type: String,
@@ -39,6 +41,7 @@ title: {
     serialNumber: String,
 
     kmHours: String,
+    usageUnit: { type: String, enum: ["", ...usageUnits] },
 
     tyresTracks: String,
 

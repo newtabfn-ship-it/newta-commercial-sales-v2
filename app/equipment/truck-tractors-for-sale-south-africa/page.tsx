@@ -316,6 +316,7 @@ export default async function TruckTractorsForSalePage() {
                   status={item.status}
                   price={`${item.currency ?? "ZAR"} ${item.price}`}
                   hours={item.kmHours}
+                  usageUnit={item.usageUnit}
                   location={item.province}
                 />
 

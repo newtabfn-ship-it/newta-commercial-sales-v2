@@ -335,6 +335,7 @@ export default async function WaterTankTrucksPage() {
                   status={item.status}
                   price={`${item.currency ?? "ZAR"} ${item.price}`}
                   hours={item.kmHours}
+                  usageUnit={item.usageUnit}
                   location={item.province}
                 />
 

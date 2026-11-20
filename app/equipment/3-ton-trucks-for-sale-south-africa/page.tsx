@@ -7,7 +7,7 @@ import Equipment from "@/models/Equipment";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import EquipmentCard from "../../components/EquipmentCard";
-import { equipmentCategories } from "@/app/data/categories";
+import { truckWeightFilter } from "@/lib/equipmentMeasurements";
 
 const pageUrl =
   "https://newtacommercialsales.com/equipment/3-ton-trucks-for-sale-south-africa";
@@ -50,19 +50,7 @@ export const metadata: Metadata = {
 export default async function ThreeTonTrucksForSaleSouthAfrica() {
   await connectDB();
 
-  const commercialVehicles = equipmentCategories.find(
-    (category) => category.slug === "commercial-vehicles"
-  );
-
-  const threeTonTrucks = commercialVehicles?.subcategories.find(
-    (subcategory) => subcategory.slug === "3-ton-trucks"
-  );
-
-  const equipment = await Equipment.find({
-    category: "Commercial Vehicles",
-    subcategory: threeTonTrucks?.name,
-    status: "Available",
-  })
+  const equipment = await Equipment.find(truckWeightFilter("3 Ton Trucks"))
     .sort({ createdAt: -1 })
     .lean();
 
@@ -255,6 +243,7 @@ export default async function ThreeTonTrucksForSaleSouthAfrica() {
                   status={item.status}
                   price={`${item.currency ?? "ZAR"} ${item.price}`}
                   hours={item.kmHours}
+                  usageUnit={item.usageUnit}
                   location={item.province}
                 />
 

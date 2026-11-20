@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import ImageUploader from "./ImageUploader";
 import { equipmentCategories } from "@/app/data/categories";
+import { isTruckEquipment, truckWeightClasses } from "@/lib/equipmentMeasurements";
 import { isTrailer, trailerTypes, validateEquipmentClassification } from "@/lib/equipmentPublishing";
 
 type EquipmentFormProps = {
@@ -32,6 +33,8 @@ type FormData = {
   status: string;
 
   kmHours: string;
+  usageUnit: string;
+  truckWeightClass: string;
   tyresTracks: string;
   province: string;
   condition: string;
@@ -64,6 +67,8 @@ const EMPTY_FORM: FormData = {
   status: "Available",
 
   kmHours: "",
+  usageUnit: "",
+  truckWeightClass: "",
   tyresTracks: "",
   province: "",
   condition: "Good",
@@ -145,6 +150,8 @@ async function loadEquipment() {
       price: equipment.price ?? "",
       status: equipment.status ?? "Available",
       kmHours: equipment.kmHours ?? "",
+      usageUnit: equipment.usageUnit ?? "",
+      truckWeightClass: equipment.truckWeightClass ?? "",
       tyresTracks: equipment.tyresTracks ?? "",
       province: equipment.province ?? "",
       condition: equipment.condition ?? "Good",
@@ -424,6 +431,22 @@ if (loading) {
       </option>
     ))}
   </select>
+  {(isTruckEquipment(formData) || formData.truckWeightClass) && (
+    <label className="block text-sm font-semibold">
+      Confirmed truck weight class (optional)
+      <select name="truckWeightClass" value={formData.truckWeightClass} onChange={handleChange}
+        className="mt-1 w-full rounded-lg border p-3">
+        <option value="">Unconfirmed / not specified</option>
+        {truckWeightClasses.map((value) => (
+          <option key={value} value={value} disabled={!isTruckEquipment(formData)}>{value}</option>
+        ))}
+      </select>
+      <span className="mt-1 block text-xs font-normal text-gray-600">
+        Confirm against vehicle documentation. Do not use crane lifting capacity or infer from the title.
+        Leave unconfirmed if payload or weight-class meaning is unclear.
+      </span>
+    </label>
+  )}
   {isTrailer(formData) && (
     <label className="block text-sm font-semibold">
       Trailer type
@@ -532,6 +555,15 @@ if (loading) {
           placeholder="KM / Hours"
           className="rounded-lg border p-3"
         />
+        <label className="block text-sm font-semibold">
+          Confirmed reading unit (optional)
+          <select name="usageUnit" value={formData.usageUnit} onChange={handleChange}
+            className="mt-1 w-full rounded-lg border p-3">
+            <option value="">Unknown — KM / Hours</option>
+            <option value="km">Mileage (km)</option>
+            <option value="hours">Operating hours</option>
+          </select>
+        </label>
 
         <input
           type="text"

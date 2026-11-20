@@ -9,6 +9,7 @@ import Footer from "../../components/Footer";
 
 import connectDB from "@/lib/mongodb";
 import Equipment from "@/models/Equipment";
+import { usageLabel } from "@/lib/equipmentMeasurements";
 
 import { generateEquipmentMetadata } from "./metadata";
 import { generateStructuredData } from "./structuredData";
@@ -129,7 +130,7 @@ const item = await Equipment.findOne({ slug }).lean();
 
   <div className="rounded-xl bg-white/10 px-5 py-4 backdrop-blur-md">
     <p className="text-xs uppercase tracking-wider text-gray-300">
-      Hours
+      {usageLabel(item.usageUnit)}
     </p>
     <p className="mt-1 text-xl font-bold">
       {item.kmHours}
@@ -191,6 +192,7 @@ const item = await Equipment.findOne({ slug }).lean();
               model={item.model}
               year={item.year}
               hours={item.kmHours}
+              usageUnit={item.usageUnit}
               engine={item.specifications?.engine}
               power=""
               operatingWeight=""
@@ -210,6 +212,7 @@ const item = await Equipment.findOne({ slug }).lean();
               status={item.status}
               price={`${item.currency} ${item.price}`}
               hours={item.kmHours}
+              usageUnit={item.usageUnit}
               year={item.year}
               manufacturer={item.manufacturer}
               location={item.province}

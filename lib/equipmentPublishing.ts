@@ -1,4 +1,5 @@
 import { equipmentCategories } from "@/app/data/categories";
+import { isTruckEquipment, truckWeightClasses, validateEquipmentMeasurements } from "@/lib/equipmentMeasurements";
 
 export const trailerTypes = {
   "side-tipper": "Side Tipper",
@@ -13,7 +14,7 @@ export const trailerTypes = {
 };
 
 type TrailerType = keyof typeof trailerTypes;
-type Classification = { category?: unknown; subcategory?: unknown; trailerType?: unknown };
+type Classification = { category?: unknown; subcategory?: unknown; trailerType?: unknown; truckWeightClass?: unknown; usageUnit?: unknown };
 
 const trailerPatterns: Record<Exclude<TrailerType, "other">, RegExp> = {
   "side-tipper": /\bside[\s-]*tipper\b/i,
@@ -44,6 +45,9 @@ export function matchesTrailerType(
 }
 
 export function validateEquipmentClassification(next: Classification, previous?: Classification) {
+  const measurementError = validateEquipmentMeasurements(next);
+  if (measurementError) return measurementError;
+
   const unchanged = previous &&
     next.category === previous.category &&
     (next.subcategory ?? "") === (previous.subcategory ?? "") &&
@@ -64,7 +68,7 @@ export function validateEquipmentClassification(next: Classification, previous?:
 }
 
 const editableFields = [
-  "referenceNumber", "title", "category", "subcategory", "trailerType", "manufacturer",
+  "referenceNumber", "title", "category", "subcategory", "trailerType", "truckWeightClass", "usageUnit", "manufacturer",
   "model", "year", "serialNumber", "kmHours", "tyresTracks", "province", "price",
   "currency", "vatIncluded", "status", "condition", "description", "specifications",
   "images", "featured", "showOnHomePage",
@@ -87,6 +91,9 @@ export function equipmentPublication(item: Parameters<typeof matchesTrailerType>
   if (subcategory?.seoSlug) pages.add(`/equipment/${subcategory.seoSlug}`);
   if (subcategory?.group === "trucks" || subcategory?.group === "truck-sizes") {
     pages.add("/equipment/trucks-for-sale-south-africa");
+  }
+  if (isTruckEquipment(item) && truckWeightClasses.some((value) => value === item.truckWeightClass)) {
+    pages.add(`/equipment/${String(item.truckWeightClass).split(" ")[0]}-ton-trucks-for-sale-south-africa`);
   }
   if (category?.slug === "plant-machinery" && subcategory?.slug === "crushing-screening") {
     pages.add("/equipment/mining-equipment-for-sale-south-africa");

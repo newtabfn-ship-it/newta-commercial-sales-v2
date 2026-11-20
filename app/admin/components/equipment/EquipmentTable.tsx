@@ -7,6 +7,7 @@ type Equipment = {
   title: string;
   province: string;
   kmHours: string;
+  usageUnit?: string;
   status: string;
 };
 
@@ -32,6 +33,7 @@ export default function EquipmentTable({
           title={item.title}
           location={item.province || "-"}
           hours={item.kmHours || "-"}
+          usageUnit={item.usageUnit}
           status={item.status}
           onEdit={onEdit}
           onDelete={onDelete}
