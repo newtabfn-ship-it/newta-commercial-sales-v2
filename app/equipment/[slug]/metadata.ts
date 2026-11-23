@@ -50,7 +50,7 @@ export async function generateEquipmentMetadata(
   const isAvailable = item.status === "Available";
 
   return {
-    title,
+    title: { absolute: title },
 
     description,
 
