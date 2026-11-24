@@ -3,6 +3,14 @@ import Equipment from "@/models/Equipment";
 
 const SITE_URL = "https://newtacommercialsales.com";
 
+// Markup only: retain the stored/displayed reference and omit unusable identifiers.
+export function normalizeEquipmentSku(reference: unknown): string | undefined {
+  if (typeof reference !== "string") return undefined;
+  const sku = reference.replace(new RegExp("^\\p{White_Space}+|\\p{White_Space}+$", "gu"), "")
+    .replace(new RegExp("\\p{White_Space}+", "gu"), "-");
+  return /^[A-Za-z0-9][A-Za-z0-9._-]*$/.test(sku) ? sku : undefined;
+}
+
 export async function generateStructuredData(slug: string) {
   await connectDB();
 
@@ -43,7 +51,7 @@ export async function generateStructuredData(slug: string) {
 
     url: canonicalUrl,
 
-    sku: item.referenceNumber,
+    sku: normalizeEquipmentSku(item.referenceNumber),
 
     category:
       item.category ||
