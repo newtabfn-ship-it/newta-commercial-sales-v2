@@ -1,6 +1,10 @@
 import { equipmentCategories } from "@/app/data/categories";
 
 export const directSaleCategories = equipmentCategories.map(({ slug, name }) => ({ slug, name }));
+export const directSalePhotoLimit = 50;
+export const directSalePhotoLimitMessage = "A Direct Sales asset can have at most 50 photographs. No additional photographs were added.";
+// Bounded allowance for 50 URL/public-ID pairs and maximum text, including JSON escapes.
+export const directSaleAssetBodyLimit = 512000;
 export const assetStatuses = ["Draft", "Published", "Closed", "Sold"] as const;
 export const offerStatuses = ["New", "Contacted", "Under Negotiation", "Accepted", "Declined", "Closed"] as const;
 export const offerTerms = "Offers are private, non-binding and subject to confirmation by NEWTA. The highest offer is not necessarily accepted. Submitting an offer does not reserve or purchase the asset.";

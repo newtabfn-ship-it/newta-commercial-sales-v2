@@ -1,3 +1,4 @@
+import { directSalePhotoLimit, directSalePhotoLimitMessage, directSaleAssetBodyLimit } from "@/lib/directSales";
 import { directSalesMutationOriginAllowed } from "@/lib/directSalesApi";
 import connectDB from "@/lib/mongodb";
 import { requireEnquiryAdmin } from "@/lib/requireEnquiryAdmin";
@@ -35,7 +36,11 @@ export async function POST(request: Request) {
   if (!directSalesMutationOriginAllowed(request)) {
     return privateJson({ error: "Forbidden." }, 403);
   }
-  const input = assetInput(await readJson(request, 64000));
+  const body = await readJson(request, directSaleAssetBodyLimit);
+  if (Array.isArray(body?.images) && body.images.length > directSalePhotoLimit) {
+    return privateJson({ error: directSalePhotoLimitMessage }, 400);
+  }
+  const input = assetInput(body);
   if (!input) return privateJson({ error: "Check the asset details, price, closing time and photos." }, 400);
   const slug = createEquipmentSlug(input.title, input.referenceNumber).replace(/^-+|-+$/g, "");
   if (!slug) return privateJson({ error: "Enter a title or reference suitable for a public URL." }, 400);

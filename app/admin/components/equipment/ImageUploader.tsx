@@ -18,6 +18,8 @@ type ImageUploaderProps = {
   disabled: boolean;
   onUploadChange: (uploading: boolean) => void;
   uploadUrl?: string;
+  maxImages?: number;
+  limitMessage?: string;
 };
 
 export default function ImageUploader({
@@ -28,12 +30,21 @@ export default function ImageUploader({
   disabled,
   onUploadChange,
   uploadUrl = "/api/upload",
+  maxImages,
+  limitMessage,
 }: ImageUploaderProps) {
 const uploading = React.useRef(false);
 const [uploadInProgress, setUploadInProgress] = React.useState(false);
+const [limitError, setLimitError] = React.useState("");
+const photoLimitMessage = limitMessage ?? `A maximum of ${maxImages} photographs is allowed. No additional photographs were added.`;
 async function handleFiles(files: FileList | null) {
   if (!files?.length || disabled || uploading.current) return;
 
+  setLimitError("");
+  if (maxImages !== undefined && images.length + files.length > maxImages) {
+    setLimitError(photoLimitMessage);
+    return;
+  }
   uploading.current = true;
   setUploadInProgress(true);
   onUploadChange(true);
@@ -136,6 +147,9 @@ async function handleFiles(files: FileList | null) {
       <h3 className="mb-4 text-xl font-bold text-[#0B2F24]">
         Images
       </h3>
+
+      {maxImages !== undefined && <p className="mb-2 text-sm" aria-live="polite">{images.length}/{maxImages} photographs</p>}
+      {limitError && <p role="alert" className="mb-2 text-red-800">{limitError}</p>}
 
       <label
         className="

@@ -1,3 +1,4 @@
+import { directSalePhotoLimit, directSalePhotoLimitMessage, directSaleAssetBodyLimit } from "@/lib/directSales";
 import { directSalesMutationOriginAllowed } from "@/lib/directSalesApi";
 import { directSalesSaveModels } from "@/lib/directSalesSaveDb";
 import { requireEnquiryAdmin } from "@/lib/requireEnquiryAdmin";
@@ -16,7 +17,10 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
   }
   const { id } = await params;
   if (!isObjectId(id)) return privateJson({ error: "Asset not found." }, 404);
-  const body = await readJson(request, 64000);
+  const body = await readJson(request, directSaleAssetBodyLimit);
+  if (Array.isArray(body?.images) && body.images.length > directSalePhotoLimit) {
+    return privateJson({ error: directSalePhotoLimitMessage }, 400);
+  }
   const input = assetInput(body);
   const version = boundedText(body?.updatedAt, 40);
   if (!input || !version || !Number.isFinite(Date.parse(version))) {

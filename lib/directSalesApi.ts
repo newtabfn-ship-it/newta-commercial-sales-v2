@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { directSaleCategories, assetStatuses, parseSastClosing, randToCents } from "@/lib/directSales";
+import { directSaleCategories, directSalePhotoLimit, assetStatuses, parseSastClosing, randToCents } from "@/lib/directSales";
 import { parsePortfolioId } from "@/lib/directSalesPortfolios";
 
 export function directSalesMutationOriginAllowed(request: Request): boolean {
@@ -84,7 +84,7 @@ export function assetInput(body: Record<string, unknown> | null) {
   const closesAt = closing ? parseSastClosing(closing) : null;
   const askingPriceCents = price ? randToCents(price) : null;
   if ((closing && !closesAt) || (price && askingPriceCents === null)) return null;
-  if (!Array.isArray(body.images) || body.images.length > 20) return null;
+  if (!Array.isArray(body.images) || body.images.length > directSalePhotoLimit) return null;
   const images: { url: string; publicId: string; cover: boolean }[] = [];
   for (const image of body.images) {
     if (!image || typeof image !== "object") return null;

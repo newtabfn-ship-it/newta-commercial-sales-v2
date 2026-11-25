@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import ImageUploader from "@/app/admin/components/equipment/ImageUploader";
-import { assetStatuses, directSaleCategories, toSastInput } from "@/lib/directSales";
+import { assetStatuses, directSaleCategories, directSalePhotoLimit, directSalePhotoLimitMessage, toSastInput } from "@/lib/directSales";
 
 type Photo = { url: string; publicId: string };
 type Portfolio = { id: string; title: string; status: "Draft" | "Published" | "Archived" };
@@ -249,6 +249,7 @@ export default function AssetManager() {
       </fieldset>
       <fieldset disabled={busy}>
         <ImageUploader images={images} setImages={setImages} coverImage={cover} setCoverImage={setCover}
+          maxImages={directSalePhotoLimit} limitMessage={directSalePhotoLimitMessage}
           disabled={saving || deleting} uploadUrl="/api/admin/direct-sales/upload" onUploadChange={(value) => {
             uploadInProgress.current = value;
             setUploading(value);
