@@ -1,6 +1,11 @@
 import { equipmentCategories } from "@/app/data/categories";
 
-export const directSaleCategories = equipmentCategories.map(({ slug, name }) => ({ slug, name }));
+export const directSaleCategories = equipmentCategories.map(({ slug, name, subcategories }) => ({ slug, name, subcategories }));
+export function directSaleSubcategoryAllowed(category: string, subcategory: string): boolean {
+  return subcategory === "" || Boolean(directSaleCategories.find(value => value.slug === category)
+    ?.subcategories.some(value => value.slug === subcategory));
+}
+
 export const directSalePhotoLimit = 50;
 export const directSalePhotoLimitMessage = "A Direct Sales asset can have at most 50 photographs. No additional photographs were added.";
 // Bounded allowance for 50 URL/public-ID pairs and maximum text, including JSON escapes.

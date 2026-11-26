@@ -6,6 +6,7 @@ const schema = new Schema({
   slug: { type: String, required: true, unique: true },
   title: { type: String, required: true },
   category: { type: String, required: true },
+  subcategory: { type: String, default: undefined },
   portfolioId: { type: Schema.Types.ObjectId, ref: "DirectSalePortfolio", default: undefined },
   description: { type: String, default: "" },
   specifications: { type: String, default: "" },

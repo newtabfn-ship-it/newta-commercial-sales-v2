@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { directSaleCategories, directSalePhotoLimit, assetStatuses, parseSastClosing, randToCents } from "@/lib/directSales";
+import { directSaleCategories, directSaleSubcategoryAllowed, directSalePhotoLimit, assetStatuses, parseSastClosing, randToCents } from "@/lib/directSales";
 import { parsePortfolioId } from "@/lib/directSalesPortfolios";
 
 export function directSalesMutationOriginAllowed(request: Request): boolean {
@@ -73,6 +73,12 @@ export function assetInput(body: Record<string, unknown> | null) {
   const title = boundedText(body.title, 150);
   const referenceNumber = boundedText(body.referenceNumber, 60);
   const category = directSaleCategories.find(({ slug }) => slug === body.category)?.slug;
+  let classification: { subcategory?: string } = {};
+  if (Object.hasOwn(body, "subcategory")) {
+    const subcategory = boundedText(body.subcategory, 100);
+    if (subcategory === null || !category || !directSaleSubcategoryAllowed(category, subcategory)) return null;
+    classification = { subcategory };
+  }
   const status = assetStatuses.find((value) => value === body.status);
   const description = boundedText(body.description ?? "", 6000);
   const specifications = boundedText(body.specifications ?? "", 6000);
@@ -105,7 +111,7 @@ export function assetInput(body: Record<string, unknown> | null) {
   }
   if (images.length && images.filter(({ cover }) => cover).length !== 1) return null;
   return { title, referenceNumber, category, status, description: description!, specifications: specifications!,
-    location: location!, closesAt, askingPriceCents, images, ...assignment };
+    location: location!, closesAt, askingPriceCents, images, ...assignment, ...classification };
 }
 
 export function isDuplicateKey(error: unknown) {

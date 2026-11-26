@@ -16,16 +16,18 @@ export const metadata: Metadata = {
 };
 
 export default async function DirectSalesPage({ searchParams }: {
-  searchParams: Promise<{ category?: string; page?: string }>;
+  searchParams: Promise<{ category?: string; subcategory?: string; page?: string }>;
 }) {
   const params = await searchParams;
   const portfoliosPromise = eligiblePublicPortfolios().catch(() => []);
   const category = directSaleCategories.find(({ slug }) => slug === params.category);
+  const subcategory = category?.subcategories.find(value => value.slug === params.subcategory);
   const page = Math.max(1, Math.min(1000, Math.trunc(Number(params.page) || 1)));
   const pageSize = 24;
   const pageUrl = (number: number) => {
     const query = new URLSearchParams();
     if (category) query.set("category", category.slug);
+    if (subcategory) query.set("subcategory", subcategory.slug);
     if (number > 1) query.set("page", String(number));
     return query.size ? `/direct-sales?${query}` : "/direct-sales";
   };
@@ -34,6 +36,7 @@ export default async function DirectSalesPage({ searchParams }: {
     status: "Published",
     $or: [{ closesAt: null }, { closesAt: { $gt: new Date() } }],
     ...(category ? { category: category.slug } : {}),
+    ...(subcategory ? { subcategory: subcategory.slug } : {}),
   })
     .select("slug title location status closesAt askingPriceCents images")
     .sort({ createdAt: -1, _id: -1 }).skip((page - 1) * pageSize).limit(pageSize + 1).lean();
@@ -75,6 +78,15 @@ export default async function DirectSalesPage({ searchParams }: {
               </Link>
             ))}
           </nav>
+          {category && category.subcategories.length > 0 && <nav aria-label="Direct Sales subcategories" className="my-6 flex flex-wrap gap-2">
+            {[{ slug: "", name: "All subcategories" }, ...category.subcategories].map(({ slug, name }) => (
+              <Link key={slug} href={`/direct-sales?${new URLSearchParams({ category: category.slug, ...(slug ? { subcategory: slug } : {}) })}`}
+                aria-current={(subcategory?.slug ?? "") === slug ? "page" : undefined}
+                className="rounded-lg border border-[#0B2F24] px-4 py-2 text-[#0B2F24] aria-[current=page]:bg-[#0B2F24] aria-[current=page]:text-white">
+                {name}
+              </Link>
+            ))}
+          </nav>}
           {!assets.length && <p>No assets are open for offers in this selection. Please check back soon.</p>}
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {assets.slice(0, pageSize).map(asset => <AssetCard key={String(asset._id)} asset={asset} />)}

@@ -3,17 +3,17 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import ImageUploader from "@/app/admin/components/equipment/ImageUploader";
-import { assetStatuses, directSaleCategories, directSalePhotoLimit, directSalePhotoLimitMessage, toSastInput } from "@/lib/directSales";
+import { assetStatuses, directSaleCategories, directSaleSubcategoryAllowed, directSalePhotoLimit, directSalePhotoLimitMessage, toSastInput } from "@/lib/directSales";
 
 type Photo = { url: string; publicId: string };
 type Portfolio = { id: string; title: string; status: "Draft" | "Published" | "Archived" };
 type Asset = {
-  _id: string; slug: string; title: string; referenceNumber: string; category: string;
+  _id: string; slug: string; title: string; referenceNumber: string; category: string; subcategory?: string;
   description: string; specifications: string; location: string; askingPriceCents: number | null;
   closesAt: string | null; status: string; updatedAt: string; images: (Photo & { cover: boolean })[];
   portfolioId?: string | null;
 };
-const empty = { title: "", referenceNumber: "", category: "", description: "", specifications: "",
+const empty = { title: "", referenceNumber: "", category: "", subcategory: "", description: "", specifications: "",
   location: "", askingPrice: "", closingSast: "", status: "Draft", portfolioId: "" };
 const field = "mt-1 w-full rounded-lg border border-gray-300 bg-white p-2.5";
 
@@ -93,7 +93,7 @@ export default function AssetManager() {
   function select(asset: Asset | null) {
     setEditing(asset);
     setDraft(asset ? {
-      title: asset.title, referenceNumber: asset.referenceNumber, category: asset.category,
+      title: asset.title, referenceNumber: asset.referenceNumber, category: asset.category, subcategory: asset.subcategory ?? "",
       description: asset.description, specifications: asset.specifications, location: asset.location,
       askingPrice: asset.askingPriceCents == null ? "" : (asset.askingPriceCents / 100).toFixed(2),
       closingSast: asset.closesAt ? toSastInput(asset.closesAt) : "", status: asset.status,
@@ -106,7 +106,9 @@ export default function AssetManager() {
   }
 
   function update(name: keyof typeof empty, value: string) {
-    setDraft((previous) => ({ ...previous, [name]: value }));
+    setDraft((previous) => ({ ...previous, [name]: value,
+      ...(name === "category" && !directSaleSubcategoryAllowed(value, previous.subcategory) ? { subcategory: "" } : {}),
+    }));
   }
 
   async function save(event: React.FormEvent<HTMLFormElement>) {
@@ -117,14 +119,16 @@ export default function AssetManager() {
     setError("");
     setNotice("");
     try {
-      const { portfolioId, ...assetFields } = draft;
+      const { portfolioId, subcategory, ...assetFields } = draft;
+      const classification = !editing || subcategory !== (editing.subcategory ?? "")
+        ? { subcategory } : {};
       // Older/unchanged edits omit the field, including retained Archived links.
       const assignment = !editing || portfolioId !== (editing.portfolioId ?? "")
         ? { portfolioId: portfolioId || null } : {};
       const response = await fetch(`/api/admin/direct-sales/assets${editing ? "/" + editing._id : ""}`, {
         method: editing ? "PUT" : "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...assetFields, ...assignment, updatedAt: editing?.updatedAt,
+        body: JSON.stringify({ ...assetFields, ...assignment, ...classification, updatedAt: editing?.updatedAt,
           images: images.map((image, index) => ({ ...image, cover: index === cover })) }),
       });
       const result = response.headers.get("content-type")?.includes("application/json")
@@ -230,6 +234,15 @@ export default function AssetManager() {
         <label>Category<select className={field} value={draft.category} onChange={(e) => update("category", e.target.value)} required>
           <option value="">Select category</option>
           {directSaleCategories.map(({ slug, name }) => <option key={slug} value={slug}>{name}</option>)}
+        </select></label>
+        <label>Subcategory (optional)<select className={field} value={draft.subcategory}
+          disabled={!directSaleCategories.find(category => category.slug === draft.category)?.subcategories.length}
+          onChange={event => update("subcategory", event.target.value)}>
+          <option value="">No subcategory</option>
+          {draft.subcategory && !directSaleSubcategoryAllowed(draft.category, draft.subcategory) &&
+            <option value={draft.subcategory} disabled>{draft.subcategory} (existing)</option>}
+          {directSaleCategories.find(category => category.slug === draft.category)?.subcategories.map(subcategory =>
+            <option key={subcategory.slug} value={subcategory.slug}>{subcategory.name}</option>)}
         </select></label>
         <label>Status<select className={field} value={draft.status} onChange={(e) => update("status", e.target.value)}>
           {assetStatuses.map((status) => <option key={status}>{status}</option>)}

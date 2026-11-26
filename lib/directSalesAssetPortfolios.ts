@@ -1,3 +1,4 @@
+import { directSaleSubcategoryAllowed } from "@/lib/directSales";
 import { mongo } from "mongoose";
 import type { assetInput } from "@/lib/directSalesApi";
 import { PortfolioApiError } from "@/lib/directSalesPortfolioAdmin";
@@ -25,6 +26,12 @@ export async function saveAssetWithPortfolio(input: AssetInput, target: { slug: 
         const exists = await assets.findById(id).session(session).maxTimeMS(5000).select("_id").lean();
         throw new PortfolioApiError(exists ? 409 : 404, exists
           ? "The asset changed. Reload before editing again." : "Asset not found.");
+      }
+      // An older client may omit subcategory: retain it, but never silently move
+      // an incompatible selection into another parent category.
+      if (!Object.hasOwn(input, "subcategory") && input.category !== existing.category &&
+          existing.subcategory && !directSaleSubcategoryAllowed(input.category, existing.subcategory)) {
+        throw new PortfolioApiError(400, "Select or clear the subcategory when changing the asset category.");
       }
       previous = existing.portfolioId == null ? existing.portfolioId : String(existing.portfolioId);
       closedAt = existing.closedAt ?? null;
