@@ -180,6 +180,11 @@ slug: "agricultural-equipment",
 seoSlug: "agricultural-equipment-for-sale-south-africa",
 },
 {
+name: "Engineering & Workshop Machinery",
+slug: "engineering-workshop-machinery",
+seoSlug: "engineering-workshop-machinery-for-sale-south-africa",
+},
+{
 name: "Compressors",
 slug: "compressors",
 seoSlug: "compressors-for-sale-south-africa",

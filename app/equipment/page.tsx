@@ -55,6 +55,7 @@ const equipmentCategoryGroups = [
     heading: "Machinery & Assets",
     links: [
       { href: "/equipment/construction-equipment-for-sale-south-africa", label: "Construction Equipment for Sale" },
+      { href: "/equipment/engineering-workshop-machinery-for-sale-south-africa", label: "Engineering & Workshop Machinery" },
       { href: "/equipment/mining-equipment-for-sale-south-africa", label: "Mining Equipment for Sale" },
       { href: "/equipment/other-assets-for-sale-south-africa", label: "Industrial Machinery & Business Assets" },
     ],

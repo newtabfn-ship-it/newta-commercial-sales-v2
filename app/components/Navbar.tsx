@@ -3,6 +3,9 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { equipmentCategories } from "@/app/data/categories";
+
+const plantMachinery = equipmentCategories.find(category => category.slug === "plant-machinery")!;
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -58,7 +61,7 @@ export default function Navbar() {
             </Link>
 
           {/* Desktop Navigation */}
-<div className="hidden lg:flex items-center gap-5 xl:gap-8 text-white font-semibold tracking-wide">
+<div className="hidden xl:flex items-center gap-4 text-sm text-white font-semibold tracking-wide">
 
   <Link href="/" className="transition hover:text-[#D4AF37]">
     Home
@@ -67,6 +70,18 @@ export default function Navbar() {
   <Link href="/equipment" className="transition hover:text-[#D4AF37]">
   Commercial Assets
 </Link>
+
+<details className="relative">
+  <summary className="cursor-pointer whitespace-nowrap transition hover:text-[#D4AF37]">Plant &amp; Machinery</summary>
+  <div className="absolute right-0 top-full z-50 mt-2 w-80 rounded-xl border border-[#D4AF37]/30 bg-green-950 p-3 shadow-xl">
+    <Link href={`/equipment/${plantMachinery.seoSlug}`} className="block rounded px-3 py-2 hover:bg-white/10"
+      onClick={event => event.currentTarget.closest("details")?.removeAttribute("open")}>All Plant &amp; Machinery</Link>
+    {plantMachinery.subcategories.map(subcategory => <Link key={subcategory.slug}
+      href={`/equipment/${subcategory.seoSlug ?? subcategory.slug}`}
+      onClick={event => event.currentTarget.closest("details")?.removeAttribute("open")}
+      className="block rounded px-3 py-2 hover:bg-white/10">{subcategory.name}</Link>)}
+  </div>
+</details>
 
 <Link
   href="/equipment/trucks-for-sale-south-africa"
@@ -95,7 +110,7 @@ export default function Navbar() {
 {/* Mobile Menu Button */}
 <button
   onClick={() => setMobileOpen(true)}
-  className="lg:hidden text-white text-4xl"
+  className="xl:hidden text-white text-4xl"
   aria-label="Open menu"
 >
   ☰
@@ -117,7 +132,7 @@ export default function Navbar() {
     />
 
     {/* Drawer */}
-    <div className="fixed right-0 top-0 z-50 h-full w-80 max-w-[85vw] bg-[#0B2F24] shadow-2xl">
+    <div className="fixed right-0 top-0 z-50 h-full w-80 max-w-[85vw] overflow-y-auto bg-[#0B2F24] shadow-2xl">
 
       {/* Header */}
       <div className="flex items-center justify-between border-b border-[#D4AF37]/30 p-6">
@@ -156,6 +171,17 @@ export default function Navbar() {
   >
     Commercial Assets
   </Link>
+
+  <details className="border-b border-white/10 py-4 text-white">
+    <summary className="cursor-pointer hover:text-[#D4AF37]">Plant &amp; Machinery</summary>
+    <div className="mt-2 space-y-1 pl-3 text-base">
+      <Link href={`/equipment/${plantMachinery.seoSlug}`} onClick={() => setMobileOpen(false)}
+        className="block py-2 hover:text-[#D4AF37]">All Plant &amp; Machinery</Link>
+      {plantMachinery.subcategories.map(subcategory => <Link key={subcategory.slug}
+        href={`/equipment/${subcategory.seoSlug ?? subcategory.slug}`} onClick={() => setMobileOpen(false)}
+        className="block py-2 hover:text-[#D4AF37]">{subcategory.name}</Link>)}
+    </div>
+  </details>
 
   <Link
   href="/equipment/trucks-for-sale-south-africa"
